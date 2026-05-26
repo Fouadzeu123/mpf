@@ -10,10 +10,10 @@ import {
     UserPlus,
     Wine,
 } from 'lucide-vue-next';
-import ThemeToggle from '@/components/ThemeToggle.vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
 import {
     Sidebar,
     SidebarContent,

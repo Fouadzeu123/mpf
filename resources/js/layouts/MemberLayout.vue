@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { LogOut } from 'lucide-vue-next';
+import BottomNavBarMember from '@/components/BottomNavBarMember.vue';
 import ChurchLogo from '@/components/ChurchLogo.vue';
 import ThemeToggle from '@/components/ThemeToggle.vue';
 import ToastFlash from '@/components/ToastFlash.vue';
-import BottomNavBarMember from '@/components/BottomNavBarMember.vue';
 
 defineProps<{ title?: string }>();
 </script>

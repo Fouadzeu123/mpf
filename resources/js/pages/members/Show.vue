@@ -53,8 +53,10 @@ const gpsLoading = ref(false);
 function saveGps() {
     if (!navigator.geolocation) {
         alert('Géolocalisation non supportée');
+
         return;
     }
+
     gpsLoading.value = true;
     navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -64,12 +66,14 @@ function saveGps() {
             const csrf = document.querySelector<HTMLMetaElement>(
                 'meta[name="csrf-token"]',
             )?.content;
+
             if (csrf) {
                 const t = document.createElement('input');
                 t.name = '_token';
                 t.value = csrf;
                 form.appendChild(t);
             }
+
             const coordinates: Array<[string, number]> = [
                 ['latitude', pos.coords.latitude],
                 ['longitude', pos.coords.longitude],

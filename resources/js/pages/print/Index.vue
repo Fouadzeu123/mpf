@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { Printer } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { Button } from '@/components/ui/button';
@@ -11,13 +11,16 @@ const props = defineProps<{
 }>();
 
 const selectedMembers = ref<number[]>([]);
-const selectedVisitors = ref<number[]>([]);
 const tab = ref<'members' | 'visitors'>('members');
 
 function toggleMember(id: number) {
     const i = selectedMembers.value.indexOf(id);
-    if (i >= 0) selectedMembers.value.splice(i, 1);
-    else selectedMembers.value.push(id);
+
+    if (i >= 0) {
+selectedMembers.value.splice(i, 1);
+} else {
+selectedMembers.value.push(id);
+}
 }
 
 function selectAllMembers() {
@@ -25,12 +28,16 @@ function selectAllMembers() {
 }
 
 function printMembers() {
-    if (!selectedMembers.value.length) return;
+    if (!selectedMembers.value.length) {
+return;
+}
+
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = '/impression/membres';
     form.target = '_blank';
     const csrf = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
+
     if (csrf) {
         const input = document.createElement('input');
         input.type = 'hidden';
@@ -38,6 +45,7 @@ function printMembers() {
         input.value = csrf;
         form.appendChild(input);
     }
+
     selectedMembers.value.forEach((id) => {
         const input = document.createElement('input');
         input.type = 'hidden';

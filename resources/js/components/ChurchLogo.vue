@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { usePage } from '@inertiajs/vue3';
 import { Church } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
-import { usePage } from '@inertiajs/vue3';
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         size?: 'sm' | 'md' | 'lg' | 'xl';
         showName?: boolean;

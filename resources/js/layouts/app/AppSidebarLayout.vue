@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ToastFlash from '@/components/ToastFlash.vue';
 import AppContent from '@/components/AppContent.vue';
 import AppShell from '@/components/AppShell.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import AppSidebarHeader from '@/components/AppSidebarHeader.vue';
 import BottomNavBar from '@/components/BottomNavBar.vue';
+import ToastFlash from '@/components/ToastFlash.vue';
 import type { BreadcrumbItem } from '@/types';
 
 type Props = {

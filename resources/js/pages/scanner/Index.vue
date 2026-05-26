@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { Html5Qrcode } from 'html5-qrcode';
-import { Maximize2, Volume2, Phone, MapPin, Building2, User, Calendar, Link as LinkIcon } from 'lucide-vue-next';
+import { Maximize2, Phone, MapPin, Building2, User, Calendar, Link as LinkIcon } from 'lucide-vue-next';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -49,8 +49,12 @@ const scannedMember = computed<ScanMember | null>(() => {
 });
 
 async function startScanner() {
-    if (scanner) return;
+    if (scanner) {
+return;
+}
+
     scanner = new Html5Qrcode(readerId);
+
     try {
         await scanner.start(
             { facingMode: 'environment' },
@@ -59,7 +63,8 @@ async function startScanner() {
             () => {},
         );
         scanning.value = true;
-    } catch (e) {
+    } catch {
+         
         error.value = 'Caméra inaccessible. Autorisez l\'accès.';
     }
 }
@@ -70,6 +75,7 @@ async function stopScanner() {
         scanner.clear();
         scanner = null;
     }
+
     scanning.value = false;
 }
 
@@ -111,6 +117,7 @@ async function onScan(code: string) {
 
     const data = await res.json();
     result.value = data;
+
     if (data.success) {
         playBeep();
         await stopScanner();

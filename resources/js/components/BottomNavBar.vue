@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import {
-    Church,
     CreditCard,
     LayoutGrid,
     Printer,

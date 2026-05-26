@@ -6,7 +6,10 @@ const page = usePage();
 
 function showToast() {
     const toast = page.props.toast as { type?: string; message?: string } | null;
-    if (!toast?.message) return;
+
+    if (!toast?.message) {
+return;
+}
 
     const el = document.createElement('div');
     el.className = `fixed top-4 right-4 z-[100] max-w-sm rounded-lg px-4 py-3 text-sm shadow-lg transition ${

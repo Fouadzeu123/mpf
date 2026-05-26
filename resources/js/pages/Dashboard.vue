@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import { computed } from 'vue';
 import {
     CreditCard,
     IdCard,
@@ -11,6 +10,7 @@ import {
     UserPlus,
     Wine,
 } from 'lucide-vue-next';
+import { computed } from 'vue';
 import StatCard from '@/components/church/StatCard.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';

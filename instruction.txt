@@ -1,0 +1,528 @@
+```text id="masterpromptv1"
+Crée une application web moderne, professionnelle, responsive et évolutive de gestion des membres d’église avec Laravel 12 + Vue 3 + Inertia.js + Tailwind CSS + MySQL.
+
+L’application doit être propre, rapide, sécurisée, optimisée mobile et desktop, avec une architecture professionnelle.
+
+# STACK TECHNIQUE
+
+- Laravel 12
+- Vue 3
+- Inertia.js
+- Tailwind CSS
+- Vite
+- MySQL
+- QR Code Generator
+- QR Code Scanner
+- PDF Generation
+- Google Maps Integration
+- GPS Localization
+- WhatsApp Integration
+- Notch Pay API
+- Responsive Design
+
+# OBJECTIF DE L’APPLICATION
+
+L’application sert à :
+- enregistrer les membres de l’église,
+- gérer les visiteurs,
+- générer des cartes membres avec QR code,
+- scanner les QR codes,
+- enregistrer les présences,
+- gérer la préparation de la Sainte Cène,
+- envoyer automatiquement des versets bibliques aléatoires sur WhatsApp,
+- permettre les paiements Mobile Money via Notch Pay,
+- permettre aux membres de consulter leurs versets dans leur espace membre,
+- enregistrer les domiciles GPS des membres,
+- afficher l’itinéraire vers un membre,
+- imprimer plusieurs cartes sur format A4 comme des cartes de visite professionnelles.
+
+# DESIGN UI/UX
+
+Créer une interface :
+- moderne,
+- élégante,
+- spirituelle,
+- premium,
+- minimaliste,
+- professionnelle.
+
+Couleurs :
+- bleu nuit,
+- blanc,
+- doré léger,
+- gris clair.
+
+Utiliser :
+- cartes modernes,
+- dashboard premium,
+- transitions fluides,
+- animations légères,
+- notifications toast,
+- badges élégants,
+- modals modernes,
+- loaders propres.
+
+L’application doit être parfaitement responsive :
+- téléphone,
+- tablette,
+- ordinateur.
+
+# AUTHENTIFICATION
+
+Créer :
+- connexion sécurisée,
+- middleware rôles,
+- mot de passe hashé.
+
+Rôles :
+- Admin
+- Secrétaire
+- Protocole
+- Ancienne d’église
+
+# CONNEXION MEMBRE
+
+Chaque membre possède un espace membre.
+
+Créer un système simple :
+- identifiant = numéro membre,
+- mot de passe simple.
+
+Exemple :
+mpf-1234
+
+IMPORTANT :
+- mot de passe non sensible à la casse,
+- connexion simple pour utilisateurs peu techniques.
+
+# STRUCTURE MYSQL
+
+# users
+- id
+- name
+- email
+- password
+- role
+- created_at
+
+# members
+- id
+- member_code
+- first_name
+- last_name
+- photo
+- age
+- gender
+- phone
+- address_description
+- department
+- status
+- qr_code
+- latitude
+- longitude
+- password
+- created_at
+
+# visitors
+- id
+- first_name
+- last_name
+- phone
+- address_description
+- qr_code
+- visit_date
+- created_at
+
+# attendances
+- id
+- member_id
+- service_type
+- scanned_at
+
+# communion_preparations
+- id
+- member_id
+- verse_reference
+- verse_text
+- whatsapp_sent
+- payment_status
+- payment_reference
+- created_at
+
+# activity_logs
+- id
+- user_id
+- action
+- created_at
+
+# member_verse_history
+- id
+- member_id
+- verse_reference
+- verse_text
+- created_at
+
+# FONCTIONNALITÉS PRINCIPALES
+
+# 1. Dashboard Admin
+
+Afficher :
+- nombre total membres,
+- visiteurs,
+- présences du jour,
+- préparations Sainte Cène,
+- paiements récents,
+- activités récentes.
+
+Créer :
+- graphiques modernes,
+- statistiques dynamiques,
+- cartes dashboard élégantes.
+
+# 2. Gestion des membres
+
+Fonctionnalités :
+- ajouter membre,
+- modifier membre,
+- supprimer membre,
+- rechercher membre,
+- filtrer membre,
+- voir fiche membre.
+
+Le secrétaire est responsable de l’enregistrement des membres.
+
+Chaque membre doit avoir :
+- QR code unique,
+- carte membre,
+- espace membre.
+
+# 3. Localisation GPS des membres
+
+IMPORTANT :
+
+L’admin doit pouvoir :
+- se rendre chez un membre,
+- enregistrer sa localisation GPS directement depuis le téléphone.
+
+Créer un bouton :
+“Enregistrer localisation”.
+
+Le système doit :
+- récupérer latitude et longitude,
+- enregistrer automatiquement la position.
+
+Dans la fiche membre :
+- afficher carte Google Maps,
+- afficher bouton :
+“Voir itinéraire”.
+
+Quand on clique :
+- ouvrir Google Maps,
+- afficher trajet vers le domicile du membre.
+
+# 4. QR CODE
+
+Utiliser une librairie Laravel QR code.
+
+Le QR code doit contenir :
+- member_code unique.
+
+Exemple :
+MEM-000125
+
+Le QR code doit être :
+- bien visible,
+- haute qualité,
+- facilement scannable.
+
+# 5. Carte membre
+
+Créer une carte élégante contenant :
+- photo membre,
+- QR code bien dimensionné,
+- nom et prénom,
+- âge,
+- sexe,
+- département,
+- numéro membre,
+- logo église.
+
+Ajouter les programmes de l’église en petit texte discret :
+
+Dim : Culte 8h45
+Mer : Enseignement
+Dern. Ven : Malades
+2e Dim : Sainte Cène
+Dern. Dim : Grenier Pasteur
+
+IMPORTANT :
+Le texte doit être petit, propre et non surchargé.
+
+Créer :
+- version imprimable,
+- téléchargement PDF.
+
+# 6. Impression A4 professionnelle
+
+Créer un système permettant :
+- d’imprimer plusieurs cartes sur une seule page A4,
+- comme des cartes de visite professionnelles.
+
+Fonctionnalités :
+- sélection multiple membres,
+- aperçu avant impression,
+- téléchargement PDF,
+- impression directe.
+
+IMPORTANT :
+Prendre en compte :
+- marges externes,
+- espacements réguliers,
+- safe zones,
+- lignes discrètes de découpe,
+- alignement parfait,
+- QR codes jamais coupés.
+
+Éviter :
+- mauvaises coupes,
+- débordements,
+- textes collés aux bords.
+
+Créer :
+- calcul intelligent des espacements,
+- grille automatique,
+- layout impression professionnel.
+
+Les visiteurs doivent aussi avoir une fiche temporaire avec QR code imprimable.
+
+# 7. Scanner QR Code
+
+Créer une page scanner utilisant la caméra téléphone.
+
+Utiliser :
+- html5-qrcode
+ou
+- ZXing.
+
+Plusieurs utilisateurs peuvent scanner :
+- Admin,
+- Secrétaire,
+- Protocole à l’entrée,
+- Ancienne d’église.
+
+Créer 3 modes de scan :
+
+# Mode Profil
+Afficher :
+- photo,
+- informations membre,
+- département,
+- statut.
+
+# Mode Présence
+Quand on scanne :
+- enregistrer automatiquement présence,
+- empêcher doubles scans,
+- afficher :
+“Présence enregistrée”.
+
+# Mode Préparation Sainte Cène
+
+Quand ce mode est activé :
+
+- enregistrer préparation,
+- générer verset biblique aléatoire,
+- envoyer automatiquement le verset sur WhatsApp.
+
+Afficher :
+“Carte préparée”.
+
+Tous les membres sont autorisés à la Sainte Cène.
+
+# 8. Préparation Sainte Cène à distance
+
+IMPORTANT :
+
+Si un membre ne peut pas venir :
+
+il peut effectuer sa préparation à distance.
+
+Créer un bouton dans l’espace membre :
+“Faire ma préparation”.
+
+Après paiement :
+- préparation enregistrée,
+- verset généré,
+- WhatsApp envoyé.
+
+# 9. Paiement Mobile Money
+
+Intégrer :
+Notch Pay API.
+
+Méthodes :
+- Orange Money,
+- MTN Mobile Money.
+
+Créer :
+- page paiement,
+- validation paiement,
+- historique transactions.
+
+# 10. Génération des versets bibliques
+
+IMPORTANT :
+Les versets ne doivent PAS être choisis par thème.
+
+Créer un système intelligent aléatoire :
+
+- choisir un livre biblique aléatoire,
+- choisir un chapitre valide,
+- choisir un verset valide.
+
+Créer une structure biblique contenant :
+- livres,
+- nombre chapitres,
+- nombre versets.
+
+Ensuite :
+- appeler automatiquement une API biblique,
+- récupérer texte du verset.
+
+Utiliser :
+- Bible API
+ou
+- API.Bible.
+
+# 11. WhatsApp automatique
+
+Après préparation :
+
+envoyer automatiquement un message WhatsApp si le numéro existe.
+
+Message :
+
+Bonjour [Nom],
+
+Votre préparation pour la Sainte Cène a été enregistrée.
+
+🙏 Voici votre verset du jour :
+
+[Reference]
+[Texte du verset]
+
+Que Dieu vous bénisse.
+
+Prévoir compatibilité :
+- WhatsApp Business API,
+- Twilio WhatsApp.
+
+# 12. Espace membre
+
+Chaque membre peut :
+- voir ses versets reçus,
+- historique préparations,
+- voir sa carte digitale,
+- faire préparation à distance,
+- voir ses informations.
+
+# 13. Gestion visiteurs
+
+Créer :
+- ajout rapide visiteur,
+- fiche temporaire,
+- QR code visiteur,
+- impression A4 visiteur,
+- historique visites.
+
+Créer bouton :
+“Transformer en membre”.
+
+# 14. Historique et logs
+
+Créer :
+- historique scans,
+- historique présences,
+- historique préparations,
+- historique paiements,
+- logs administrateurs.
+
+# 15. Notifications
+
+Créer :
+- notifications toast,
+- alertes modernes,
+- messages succès/erreur,
+- animations validation.
+
+# 16. Sécurité
+
+Créer :
+- middleware rôles,
+- validation backend,
+- protection CSRF,
+- QR codes uniques,
+- logs activité,
+- permissions utilisateurs.
+
+# 17. Architecture Laravel
+
+Utiliser :
+- Controllers propres,
+- Services,
+- Repository Pattern,
+- Form Requests,
+- API Resources,
+- Policies,
+- Events & Listeners.
+
+# 18. Frontend Vue
+
+Créer :
+- composants réutilisables,
+- dashboard moderne,
+- tables dynamiques,
+- recherche instantanée,
+- dark mode optionnel,
+- responsive complet.
+
+# 19. Bonus UX
+
+Ajouter :
+- mode plein écran scanner,
+- son lors du scan,
+- animation succès scan,
+- avatars par défaut,
+- pagination moderne,
+- aperçu avant impression,
+- transitions fluides.
+
+# 20. Génération automatique du projet
+
+Créer automatiquement :
+- migrations,
+- modèles,
+- seeders,
+- contrôleurs,
+- routes,
+- vues Inertia,
+- composants Vue,
+- services QR,
+- services WhatsApp,
+- services Notch Pay,
+- logique scanner,
+- structure biblique,
+- génération versets,
+- génération PDF A4,
+- calcul intelligent des marges,
+- dashboard complet,
+- architecture professionnelle.
+
+Le code doit être :
+- propre,
+- optimisé,
+- maintenable,
+- scalable,
+- production-ready,
+- structuré professionnellement.
+```

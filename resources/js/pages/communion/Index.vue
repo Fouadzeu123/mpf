@@ -29,14 +29,27 @@ defineProps<{
                     class="rounded-xl border bg-card p-4"
                 >
                     <div class="flex justify-between">
-                        <strong>{{ p.member.first_name }} {{ p.member.last_name }}</strong>
-                        <span class="text-xs text-muted-foreground">{{ p.created_at }}</span>
+                        <strong
+                            >{{ p.member.first_name }}
+                            {{ p.member.last_name }}</strong
+                        >
+                        <span class="text-xs text-muted-foreground">{{
+                            p.created_at
+                        }}</span>
                     </div>
-                    <p class="mt-2 text-sm font-medium">{{ p.verse_reference }}</p>
-                    <p class="text-sm text-muted-foreground">{{ p.verse_text }}</p>
+                    <p class="mt-2 text-sm font-medium">
+                        {{ p.verse_reference }}
+                    </p>
+                    <p class="text-sm text-muted-foreground">
+                        {{ p.verse_text }}
+                    </p>
                     <div class="mt-2 flex gap-2 text-xs">
-                        <span v-if="p.whatsapp_sent" class="text-emerald-600">WhatsApp ✓</span>
-                        <span v-if="p.remote" class="text-amber-600">À distance</span>
+                        <span v-if="p.whatsapp_sent" class="text-emerald-600"
+                            >WhatsApp ✓</span
+                        >
+                        <span v-if="p.remote" class="text-amber-600"
+                            >À distance</span
+                        >
                     </div>
                 </div>
             </div>

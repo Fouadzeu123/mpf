@@ -43,11 +43,19 @@ defineProps<{
                             :key="v.id"
                             class="border-t"
                         >
-                            <td class="px-4 py-3">{{ v.first_name }} {{ v.last_name }}</td>
-                            <td class="px-4 py-3 font-mono text-xs">{{ v.qr_code }}</td>
+                            <td class="px-4 py-3">
+                                {{ v.first_name }} {{ v.last_name }}
+                            </td>
+                            <td class="px-4 py-3 font-mono text-xs">
+                                {{ v.qr_code }}
+                            </td>
                             <td class="px-4 py-3">{{ v.visit_date }}</td>
                             <td class="px-4 py-3">
-                                <Link :href="`/visitors/${v.id}`" class="text-primary underline">Voir</Link>
+                                <Link
+                                    :href="`/visitors/${v.id}`"
+                                    class="text-primary underline"
+                                    >Voir</Link
+                                >
                             </td>
                         </tr>
                     </tbody>

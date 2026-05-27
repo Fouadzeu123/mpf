@@ -19,8 +19,12 @@ const logoutItem: NavItem = {
 </script>
 
 <template>
-    <nav class="fixed bottom-0 left-0 right-0 border-t border-border bg-background">
-        <div class="mx-auto flex max-w-lg h-16 items-center justify-around px-2">
+    <nav
+        class="fixed right-0 bottom-0 left-0 border-t border-border bg-background"
+    >
+        <div
+            class="mx-auto flex h-16 max-w-lg items-center justify-around px-2"
+        >
             <Link
                 v-for="item in navItems"
                 :key="item.href"
@@ -33,16 +37,18 @@ const logoutItem: NavItem = {
                 ]"
             >
                 <component :is="item.icon" class="h-5 w-5" />
-                <span class="text-[10px] text-center">{{ item.title }}</span>
+                <span class="text-center text-[10px]">{{ item.title }}</span>
             </Link>
             <Link
                 :href="logoutItem.href"
                 method="post"
                 as="button"
-                class="flex flex-col items-center justify-center gap-1 px-2 py-1 text-xs font-medium transition-colors text-muted-foreground hover:text-foreground"
+                class="flex flex-col items-center justify-center gap-1 px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
                 <component :is="logoutItem.icon" class="h-5 w-5" />
-                <span class="text-[10px] text-center">{{ logoutItem.title }}</span>
+                <span class="text-center text-[10px]">{{
+                    logoutItem.title
+                }}</span>
             </Link>
         </div>
     </nav>

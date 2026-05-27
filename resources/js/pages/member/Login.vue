@@ -21,22 +21,23 @@ function submit() {
     <div
         class="relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-4"
     >
-        <div class="absolute right-4 top-4">
+        <div class="absolute top-4 right-4">
             <ThemeToggle />
         </div>
 
         <div
             class="w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white shadow-2xl dark:bg-slate-950"
         >
-            <div
-                class="px-6 py-8 text-center"
-            >
+            <div class="px-6 py-8 text-center">
                 <ChurchLogo size="lg" variant="auth" class="mx-auto" />
-                <h1 class="mt-5 text-2xl font-black text-slate-950 dark:text-white">
+                <h1
+                    class="mt-5 text-2xl font-black text-slate-950 dark:text-white"
+                >
                     Espace membre
                 </h1>
                 <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                    Connectez-vous avec votre numéro membre et votre mot de passe.
+                    Connectez-vous avec votre numéro membre et votre mot de
+                    passe.
                 </p>
             </div>
 
@@ -51,7 +52,7 @@ function submit() {
                     <input
                         v-model="form.member_code"
                         type="text"
-                        class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 dark:border-slate-800 dark:bg-slate-900"
+                        class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 uppercase focus-visible:ring-2 focus-visible:ring-amber-500/40 focus-visible:outline-none dark:border-slate-800 dark:bg-slate-900"
                         placeholder="MEM-000001"
                     />
                     <InputError :message="form.errors.member_code" />
@@ -66,12 +67,14 @@ function submit() {
                     <input
                         v-model="form.password"
                         type="password"
-                        class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/40 dark:border-slate-800 dark:bg-slate-900"
+                        class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus-visible:ring-2 focus-visible:ring-amber-500/40 focus-visible:outline-none dark:border-slate-800 dark:bg-slate-900"
                         placeholder="mpf-000001"
                     />
                     <InputError :message="form.errors.password" />
                 </div>
-                <label class="flex items-center gap-2 text-sm text-muted-foreground">
+                <label
+                    class="flex items-center gap-2 text-sm text-muted-foreground"
+                >
                     <input v-model="form.remember" type="checkbox" />
                     Se souvenir de moi
                 </label>
@@ -84,8 +87,12 @@ function submit() {
                     Connexion
                 </button>
             </form>
-            <p class="border-t border-slate-100 px-6 py-4 text-center text-xs text-slate-500 dark:border-slate-800">
-                <a href="/login" class="font-semibold text-amber-700 underline dark:text-amber-400"
+            <p
+                class="border-t border-slate-100 px-6 py-4 text-center text-xs text-slate-500 dark:border-slate-800"
+            >
+                <a
+                    href="/login"
+                    class="font-semibold text-amber-700 underline dark:text-amber-400"
                     >Accès personnel église</a
                 >
             </p>

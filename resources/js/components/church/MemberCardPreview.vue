@@ -36,11 +36,15 @@ defineProps<{
                 <p class="truncate text-sm font-bold">
                     Ministère Prophétique de la Foi
                 </p>
-                <p class="text-[10px] font-semibold uppercase tracking-wider text-amber-300">
+                <p
+                    class="text-[10px] font-semibold tracking-wider text-amber-300 uppercase"
+                >
                     Carte d'identification
                 </p>
             </div>
-            <span class="rounded-full bg-amber-400 px-3 py-1 text-[10px] font-bold text-slate-950">
+            <span
+                class="rounded-full bg-amber-400 px-3 py-1 text-[10px] font-bold text-slate-950"
+            >
                 MEMBRE
             </span>
         </div>
@@ -61,24 +65,48 @@ defineProps<{
                 </div>
             </div>
             <div class="min-w-0 flex-1">
-                <h3 class="truncate text-base font-black uppercase text-slate-950 dark:text-white">
+                <h3
+                    class="truncate text-base font-black text-slate-950 uppercase dark:text-white"
+                >
                     {{ member.last_name }}
                 </h3>
                 <p class="text-sm font-bold text-amber-800 dark:text-amber-300">
                     {{ member.first_name }}
                 </p>
-                <p class="mt-2 border-b border-amber-200 pb-1 text-[11px] text-slate-700 dark:text-slate-300">
-                    <span class="font-bold uppercase text-amber-800 dark:text-amber-300">Sexe</span> :
+                <p
+                    class="mt-2 border-b border-amber-200 pb-1 text-[11px] text-slate-700 dark:text-slate-300"
+                >
+                    <span
+                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
+                        >Sexe</span
+                    >
+                    :
                     {{ member.gender || '-' }}
-                    <span class="font-bold uppercase text-amber-800 dark:text-amber-300">Age</span> :
+                    <span
+                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
+                        >Age</span
+                    >
+                    :
                     {{ member.age ? `${member.age} ans` : '-' }}
                 </p>
-                <p class="border-b border-amber-200 py-1 text-[11px] text-slate-700 dark:text-slate-300">
-                    <span class="font-bold uppercase text-amber-800 dark:text-amber-300">Adresse</span> :
+                <p
+                    class="border-b border-amber-200 py-1 text-[11px] text-slate-700 dark:text-slate-300"
+                >
+                    <span
+                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
+                        >Adresse</span
+                    >
+                    :
                     {{ member.address_description || '-' }}
                 </p>
-                <p class="border-b border-amber-200 py-1 text-[11px] text-slate-700 dark:text-slate-300">
-                    <span class="font-bold uppercase text-amber-800 dark:text-amber-300">Département</span> :
+                <p
+                    class="border-b border-amber-200 py-1 text-[11px] text-slate-700 dark:text-slate-300"
+                >
+                    <span
+                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
+                        >Département</span
+                    >
+                    :
                     {{ member.department || '-' }}
                 </p>
             </div>
@@ -94,14 +122,15 @@ defineProps<{
                     class="h-20 w-20 rounded-lg bg-white p-1 ring-1 ring-amber-200"
                     alt="QR"
                 />
-                <QrCode
-                    v-else
-                    class="mx-auto h-20 w-20 text-slate-300"
-                />
-                <p class="mt-1 text-[10px] font-bold uppercase text-amber-800 dark:text-amber-300">
+                <QrCode v-else class="mx-auto h-20 w-20 text-slate-300" />
+                <p
+                    class="mt-1 text-[10px] font-bold text-amber-800 uppercase dark:text-amber-300"
+                >
                     Scanner
                 </p>
-                <p class="mt-1 rounded-full bg-amber-700 px-2 py-1 font-mono text-[10px] font-bold text-white">
+                <p
+                    class="mt-1 rounded-full bg-amber-700 px-2 py-1 font-mono text-[10px] font-bold text-white"
+                >
                     {{ member.member_code }}
                 </p>
             </div>

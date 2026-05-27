@@ -16,7 +16,9 @@ defineProps<{
         <div class="flex items-start justify-between">
             <div>
                 <p class="text-sm text-muted-foreground">{{ title }}</p>
-                <p class="mt-1 text-3xl font-bold text-foreground">{{ value }}</p>
+                <p class="mt-1 text-3xl font-bold text-foreground">
+                    {{ value }}
+                </p>
             </div>
             <div
                 v-if="icon"

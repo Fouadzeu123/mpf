@@ -77,10 +77,7 @@ const textClasses = {
             >
                 {{ churchName }}
             </span>
-            <p
-                v-if="variant === 'auth'"
-                class="text-xs text-muted-foreground"
-            >
+            <p v-if="variant === 'auth'" class="text-xs text-muted-foreground">
                 Gestion des membres
             </p>
         </div>

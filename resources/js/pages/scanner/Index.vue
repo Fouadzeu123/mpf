@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { Html5Qrcode } from 'html5-qrcode';
-import { Maximize2, Phone, MapPin, Building2, User, Calendar, Link as LinkIcon } from 'lucide-vue-next';
+import {
+    Maximize2,
+    Phone,
+    MapPin,
+    Building2,
+    User,
+    Calendar,
+    Link as LinkIcon,
+} from 'lucide-vue-next';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -50,8 +58,8 @@ const scannedMember = computed<ScanMember | null>(() => {
 
 async function startScanner() {
     if (scanner) {
-return;
-}
+        return;
+    }
 
     scanner = new Html5Qrcode(readerId);
 
@@ -64,8 +72,7 @@ return;
         );
         scanning.value = true;
     } catch {
-         
-        error.value = 'Caméra inaccessible. Autorisez l\'accès.';
+        error.value = "Caméra inaccessible. Autorisez l'accès.";
     }
 }
 
@@ -157,21 +164,17 @@ onUnmounted(() => stopScanner());
             <div class="flex flex-wrap gap-2">
                 <select
                     v-model="currentMode"
-                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 dark:border-slate-700 dark:bg-slate-900"
+                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
                     @change="updateUrl"
                 >
-                    <option
-                        v-for="m in modes"
-                        :key="m.value"
-                        :value="m.value"
-                    >
+                    <option v-for="m in modes" :key="m.value" :value="m.value">
                         {{ m.label }}
                     </option>
                 </select>
                 <select
                     v-if="currentMode === 'attendance'"
                     v-model="currentService"
-                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 dark:border-slate-700 dark:bg-slate-900"
+                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
                     @change="updateUrl"
                 >
                     <option
@@ -182,10 +185,7 @@ onUnmounted(() => stopScanner());
                         {{ s.label }}
                     </option>
                 </select>
-                <Button
-                    v-if="!scanning"
-                    size="sm"
-                    @click="startScanner"
+                <Button v-if="!scanning" size="sm" @click="startScanner"
                     >Relancer caméra</Button
                 >
             </div>
@@ -195,9 +195,9 @@ onUnmounted(() => stopScanner());
                 class="mx-auto max-w-md overflow-hidden rounded-xl border"
             />
 
-            <p v-if="error" class="text-center text-sm text-destructive">{{
-                error
-            }}</p>
+            <p v-if="error" class="text-center text-sm text-destructive">
+                {{ error }}
+            </p>
 
             <div
                 v-if="result"
@@ -216,19 +216,35 @@ onUnmounted(() => stopScanner());
                             <img
                                 v-if="scannedMember?.photo_url"
                                 :src="scannedMember.photo_url"
-                                class="h-32 w-32 rounded-full ring-4 ring-amber-500 object-cover"
+                                class="h-32 w-32 rounded-full object-cover ring-4 ring-amber-500"
                                 alt=""
                             />
-                            <p class="text-2xl font-bold">{{ scannedMember?.full_name }}</p>
-                            <div class="flex flex-wrap justify-center gap-2 text-sm">
-                                <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-2 py-0.5">
+                            <p class="text-2xl font-bold">
+                                {{ scannedMember?.full_name }}
+                            </p>
+                            <div
+                                class="flex flex-wrap justify-center gap-2 text-sm"
+                            >
+                                <span
+                                    class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 dark:bg-slate-800"
+                                >
                                     <LinkIcon class="h-4 w-4" />
                                     {{ scannedMember?.id }}
                                 </span>
-                                <span v-if="scannedMember?.status"
+                                <span
+                                    v-if="scannedMember?.status"
                                     class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold"
-                                    :class="scannedMember?.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-600'">
-                                    {{ scannedMember?.status === 'active' ? 'Actif' : 'Inactif' }}
+                                    :class="
+                                        scannedMember?.status === 'active'
+                                            ? 'bg-emerald-100 text-emerald-700'
+                                            : 'bg-slate-100 text-slate-600'
+                                    "
+                                >
+                                    {{
+                                        scannedMember?.status === 'active'
+                                            ? 'Actif'
+                                            : 'Inactif'
+                                    }}
                                 </span>
                                 <span class="inline-flex items-center gap-1">
                                     <Phone class="h-4 w-4" />
@@ -251,7 +267,10 @@ onUnmounted(() => stopScanner());
                                     {{ scannedMember?.address_description }}
                                 </span>
                             </div>
-                            <Link :href="`/members/${scannedMember?.id}`" class="mt-2 inline-flex items-center gap-1 text-amber-600 hover:underline">
+                            <Link
+                                :href="`/members/${scannedMember?.id}`"
+                                class="mt-2 inline-flex items-center gap-1 text-amber-600 hover:underline"
+                            >
                                 <LinkIcon class="h-4 w-4" /> Voir profil complet
                             </Link>
                         </div>
@@ -265,13 +284,24 @@ onUnmounted(() => stopScanner());
                                 class="h-20 w-20 rounded-full object-cover"
                                 alt=""
                             />
-                            <p class="font-bold">{{ scannedMember?.full_name }}</p>
-                            <p class="text-sm text-muted-foreground">{{ scannedMember?.department }}</p>
-                            <p class="text-sm text-muted-foreground">{{ scannedMember?.member_code }}</p>
+                            <p class="font-bold">
+                                {{ scannedMember?.full_name }}
+                            </p>
+                            <p class="text-sm text-muted-foreground">
+                                {{ scannedMember?.department }}
+                            </p>
+                            <p class="text-sm text-muted-foreground">
+                                {{ scannedMember?.member_code }}
+                            </p>
                         </div>
                     </template>
                 </template>
-                <Button class="mt-4" @click="result = null; startScanner()"
+                <Button
+                    class="mt-4"
+                    @click="
+                        result = null;
+                        startScanner();
+                    "
                     >Scanner à nouveau</Button
                 >
             </div>

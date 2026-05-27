@@ -79,20 +79,18 @@ function saveGps() {
                 ['longitude', pos.coords.longitude],
             ];
 
-            coordinates.forEach(
-                ([n, v]) => {
-                    const i = document.createElement('input');
-                    i.name = n;
-                    i.value = String(v);
-                    form.appendChild(i);
-                },
-            );
+            coordinates.forEach(([n, v]) => {
+                const i = document.createElement('input');
+                i.name = n;
+                i.value = String(v);
+                form.appendChild(i);
+            });
             document.body.appendChild(form);
             form.submit();
         },
         () => {
             gpsLoading.value = false;
-            alert('Impossible d\'obtenir la position');
+            alert("Impossible d'obtenir la position");
         },
         { enableHighAccuracy: true },
     );
@@ -131,7 +129,11 @@ function printProfile() {
                                 <Printer class="mr-1 h-4 w-4" /> PDF A4
                             </Button>
                         </a>
-                        <Button variant="outline" size="sm" @click="printProfile">
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            @click="printProfile"
+                        >
                             <FileText class="mr-1 h-4 w-4" /> Fiche A4
                         </Button>
                     </div>
@@ -140,18 +142,43 @@ function printProfile() {
                 <div class="rounded-xl border bg-card p-4">
                     <h2 class="font-semibold">Coordonnées</h2>
                     <div class="mt-3 space-y-3 text-sm">
-                        <p><span class="font-medium">Téléphone :</span> {{ member.phone || 'Non renseigné' }}</p>
-                        <p><span class="font-medium">Département :</span> {{ member.department || 'Non renseigné' }}</p>
-                        <p><span class="font-medium">Sexe :</span> {{ member.gender || 'Non renseigné' }}</p>
-                        <p><span class="font-medium">Âge :</span> {{ member.age ? `${member.age} ans` : 'Non renseigné' }}</p>
-                        <p><span class="font-medium">Adresse :</span> {{ member.address_description || 'Adresse non renseignée' }}</p>
+                        <p>
+                            <span class="font-medium">Téléphone :</span>
+                            {{ member.phone || 'Non renseigné' }}
+                        </p>
+                        <p>
+                            <span class="font-medium">Département :</span>
+                            {{ member.department || 'Non renseigné' }}
+                        </p>
+                        <p>
+                            <span class="font-medium">Sexe :</span>
+                            {{ member.gender || 'Non renseigné' }}
+                        </p>
+                        <p>
+                            <span class="font-medium">Âge :</span>
+                            {{
+                                member.age
+                                    ? `${member.age} ans`
+                                    : 'Non renseigné'
+                            }}
+                        </p>
+                        <p>
+                            <span class="font-medium">Adresse :</span>
+                            {{
+                                member.address_description ||
+                                'Adresse non renseignée'
+                            }}
+                        </p>
                     </div>
                 </div>
 
                 <div class="rounded-xl border bg-card p-4">
-                    <h2 class="font-semibold">Présences au culte du dimanche</h2>
+                    <h2 class="font-semibold">
+                        Présences au culte du dimanche
+                    </h2>
                     <p class="mt-2 text-sm text-muted-foreground">
-                        {{ currentMonthLabel }} : {{ sundayAttendancesCount }} présence(s)
+                        {{ currentMonthLabel }} :
+                        {{ sundayAttendancesCount }} présence(s)
                     </p>
                     <div class="mt-3 space-y-2">
                         <div
@@ -160,9 +187,15 @@ function printProfile() {
                             class="rounded-lg border px-3 py-2 text-sm"
                         >
                             <p class="font-medium">{{ attendance.date }}</p>
-                            <p class="text-muted-foreground">{{ attendance.time }} - {{ attendance.service_type }}</p>
+                            <p class="text-muted-foreground">
+                                {{ attendance.time }} -
+                                {{ attendance.service_type }}
+                            </p>
                         </div>
-                        <p v-if="!sundayAttendances.length" class="text-sm text-muted-foreground">
+                        <p
+                            v-if="!sundayAttendances.length"
+                            class="text-sm text-muted-foreground"
+                        >
                             Aucune présence au culte du dimanche pour ce mois.
                         </p>
                     </div>
@@ -173,16 +206,50 @@ function printProfile() {
                     <div class="mt-3 space-y-2">
                         <div
                             v-for="preparation in communionPreparations"
-                            :key="preparation.date + preparation.time + preparation.payment_reference"
+                            :key="
+                                preparation.date +
+                                preparation.time +
+                                preparation.payment_reference
+                            "
                             class="rounded-lg border px-3 py-2 text-sm"
                         >
-                            <p class="font-medium">{{ preparation.date }} à {{ preparation.time }}</p>
-                            <p class="text-muted-foreground">Verset : {{ preparation.verse_reference || 'Non renseigné' }}</p>
-                            <p class="text-muted-foreground">Paiement : {{ preparation.payment_status || 'Non renseigné' }}</p>
-                            <p class="text-muted-foreground">Référence : {{ preparation.payment_reference || 'Non renseignée' }}</p>
-                            <p class="text-muted-foreground">Mode : {{ preparation.remote ? 'À distance' : 'Sur place' }}</p>
+                            <p class="font-medium">
+                                {{ preparation.date }} à {{ preparation.time }}
+                            </p>
+                            <p class="text-muted-foreground">
+                                Verset :
+                                {{
+                                    preparation.verse_reference ||
+                                    'Non renseigné'
+                                }}
+                            </p>
+                            <p class="text-muted-foreground">
+                                Paiement :
+                                {{
+                                    preparation.payment_status ||
+                                    'Non renseigné'
+                                }}
+                            </p>
+                            <p class="text-muted-foreground">
+                                Référence :
+                                {{
+                                    preparation.payment_reference ||
+                                    'Non renseignée'
+                                }}
+                            </p>
+                            <p class="text-muted-foreground">
+                                Mode :
+                                {{
+                                    preparation.remote
+                                        ? 'À distance'
+                                        : 'Sur place'
+                                }}
+                            </p>
                         </div>
-                        <p v-if="!communionPreparations.length" class="text-sm text-muted-foreground">
+                        <p
+                            v-if="!communionPreparations.length"
+                            class="text-sm text-muted-foreground"
+                        >
                             Aucune préparation enregistrée.
                         </p>
                     </div>
@@ -197,7 +264,7 @@ function printProfile() {
                         v-if="member.latitude && member.longitude"
                         class="space-y-2"
                     >
-                        <p class="text-sm font-mono text-muted-foreground">
+                        <p class="font-mono text-sm text-muted-foreground">
                             {{ member.latitude }}, {{ member.longitude }}
                         </p>
                         <iframe
@@ -225,7 +292,9 @@ function printProfile() {
             </div>
 
             <div>
-                <h2 class="mb-3 text-center text-sm font-medium text-muted-foreground">
+                <h2
+                    class="mb-3 text-center text-sm font-medium text-muted-foreground"
+                >
                     Aperçu carte membre
                 </h2>
                 <MemberCardPreview
@@ -237,16 +306,30 @@ function printProfile() {
         </div>
 
         <section class="print-profile hidden bg-white p-10 text-slate-900">
-            <div class="mx-auto min-h-[277mm] w-[190mm] border border-slate-200 p-8">
-                <div class="flex items-center justify-between border-b-4 border-amber-500 pb-5">
+            <div
+                class="mx-auto min-h-[277mm] w-[190mm] border border-slate-200 p-8"
+            >
+                <div
+                    class="flex items-center justify-between border-b-4 border-amber-500 pb-5"
+                >
                     <div class="flex items-center gap-4">
-                        <img src="/favicon.svg" alt="Logo" class="h-20 w-20 object-contain" />
+                        <img
+                            src="/favicon.svg"
+                            alt="Logo"
+                            class="h-20 w-20 object-contain"
+                        />
                         <div>
-                            <h1 class="text-2xl font-black uppercase">Fiche complète membre</h1>
-                            <p class="text-sm font-semibold text-slate-600">Ministère Prophétique de la Foi</p>
+                            <h1 class="text-2xl font-black uppercase">
+                                Fiche complète membre
+                            </h1>
+                            <p class="text-sm font-semibold text-slate-600">
+                                Ministère Prophétique de la Foi
+                            </p>
                         </div>
                     </div>
-                    <div class="rounded-full bg-slate-950 px-5 py-2 text-sm font-bold text-white">
+                    <div
+                        class="rounded-full bg-slate-950 px-5 py-2 text-sm font-bold text-white"
+                    >
                         {{ member.member_code }}
                     </div>
                 </div>
@@ -268,49 +351,112 @@ function printProfile() {
                     </div>
 
                     <div>
-                        <h2 class="text-3xl font-black uppercase">{{ member.last_name }}</h2>
-                        <p class="text-2xl font-bold text-amber-700">{{ member.first_name }}</p>
+                        <h2 class="text-3xl font-black uppercase">
+                            {{ member.last_name }}
+                        </h2>
+                        <p class="text-2xl font-bold text-amber-700">
+                            {{ member.first_name }}
+                        </p>
 
                         <div class="mt-6 space-y-3 text-sm">
                             <div class="rounded-xl border p-4">
-                                <p class="text-xs font-bold uppercase text-slate-500">Numéro membre</p>
-                                <p class="mt-1 font-mono text-lg font-bold">{{ member.member_code }}</p>
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Numéro membre
+                                </p>
+                                <p class="mt-1 font-mono text-lg font-bold">
+                                    {{ member.member_code }}
+                                </p>
                             </div>
                             <div class="rounded-xl border p-4">
-                                <p class="text-xs font-bold uppercase text-slate-500">Téléphone</p>
-                                <p class="mt-1 text-lg font-bold">{{ member.phone || 'Non renseigné' }}</p>
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Téléphone
+                                </p>
+                                <p class="mt-1 text-lg font-bold">
+                                    {{ member.phone || 'Non renseigné' }}
+                                </p>
                             </div>
                             <div class="rounded-xl border p-4">
-                                <p class="text-xs font-bold uppercase text-slate-500">Sexe</p>
-                                <p class="mt-1 text-lg font-bold">{{ member.gender || 'Non renseigné' }}</p>
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Sexe
+                                </p>
+                                <p class="mt-1 text-lg font-bold">
+                                    {{ member.gender || 'Non renseigné' }}
+                                </p>
                             </div>
                             <div class="rounded-xl border p-4">
-                                <p class="text-xs font-bold uppercase text-slate-500">Âge</p>
-                                <p class="mt-1 text-lg font-bold">{{ member.age ? `${member.age} ans` : 'Non renseigné' }}</p>
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Âge
+                                </p>
+                                <p class="mt-1 text-lg font-bold">
+                                    {{
+                                        member.age
+                                            ? `${member.age} ans`
+                                            : 'Non renseigné'
+                                    }}
+                                </p>
                             </div>
                             <div class="rounded-xl border p-4">
-                                <p class="text-xs font-bold uppercase text-slate-500">Département</p>
-                                <p class="mt-1 text-lg font-bold">{{ member.department || 'Non renseigné' }}</p>
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Département
+                                </p>
+                                <p class="mt-1 text-lg font-bold">
+                                    {{ member.department || 'Non renseigné' }}
+                                </p>
                             </div>
                             <div class="rounded-xl border p-4">
-                                <p class="text-xs font-bold uppercase text-slate-500">Statut GPS</p>
-                                <p class="mt-1 text-lg font-bold">{{ member.latitude && member.longitude ? 'Localisé' : 'Non localisé' }}</p>
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Statut GPS
+                                </p>
+                                <p class="mt-1 text-lg font-bold">
+                                    {{
+                                        member.latitude && member.longitude
+                                            ? 'Localisé'
+                                            : 'Non localisé'
+                                    }}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-8 rounded-xl border p-5">
-                    <p class="text-xs font-bold uppercase text-slate-500">Adresse complète</p>
-                    <p class="mt-2 text-lg font-semibold">{{ member.address_description || 'Adresse non renseignée' }}</p>
+                    <p class="text-xs font-bold text-slate-500 uppercase">
+                        Adresse complète
+                    </p>
+                    <p class="mt-2 text-lg font-semibold">
+                        {{
+                            member.address_description ||
+                            'Adresse non renseignée'
+                        }}
+                    </p>
                 </div>
 
                 <div class="mt-6 rounded-xl border p-5">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-bold uppercase text-slate-500">Localisation exacte</p>
+                            <p
+                                class="text-xs font-bold text-slate-500 uppercase"
+                            >
+                                Localisation exacte
+                            </p>
                             <p class="mt-2 font-mono text-base">
-                                {{ member.latitude && member.longitude ? `${member.latitude}, ${member.longitude}` : 'Coordonnées GPS non renseignées' }}
+                                {{
+                                    member.latitude && member.longitude
+                                        ? `${member.latitude}, ${member.longitude}`
+                                        : 'Coordonnées GPS non renseignées'
+                                }}
                             </p>
                         </div>
                         <a
@@ -322,15 +468,22 @@ function printProfile() {
                         </a>
                     </div>
                     <iframe
-                        v-if="googleMapsKey && member.latitude && member.longitude"
+                        v-if="
+                            googleMapsKey && member.latitude && member.longitude
+                        "
                         class="mt-5 h-72 w-full rounded-xl border"
                         :src="`https://www.google.com/maps/embed/v1/place?key=${googleMapsKey}&q=${member.latitude},${member.longitude}`"
                     />
                 </div>
 
                 <div class="mt-6 rounded-xl border p-5">
-                    <p class="text-xs font-bold uppercase text-slate-500">Présences au culte du dimanche</p>
-                    <p class="mt-2 text-lg font-bold">{{ currentMonthLabel }} : {{ sundayAttendancesCount }} présence(s)</p>
+                    <p class="text-xs font-bold text-slate-500 uppercase">
+                        Présences au culte du dimanche
+                    </p>
+                    <p class="mt-2 text-lg font-bold">
+                        {{ currentMonthLabel }} :
+                        {{ sundayAttendancesCount }} présence(s)
+                    </p>
                     <div class="mt-4 space-y-2">
                         <div
                             v-for="attendance in sundayAttendances"
@@ -338,29 +491,72 @@ function printProfile() {
                             class="rounded-lg border p-3 text-sm"
                         >
                             <p class="font-bold">{{ attendance.date }}</p>
-                            <p>{{ attendance.time }} - {{ attendance.service_type }}</p>
+                            <p>
+                                {{ attendance.time }} -
+                                {{ attendance.service_type }}
+                            </p>
                         </div>
-                        <p v-if="!sundayAttendances.length" class="text-sm text-slate-600">
+                        <p
+                            v-if="!sundayAttendances.length"
+                            class="text-sm text-slate-600"
+                        >
                             Aucune présence au culte du dimanche pour ce mois.
                         </p>
                     </div>
                 </div>
 
                 <div class="mt-6 rounded-xl border p-5">
-                    <p class="text-xs font-bold uppercase text-slate-500">Préparations de carte Sainte Cène</p>
+                    <p class="text-xs font-bold text-slate-500 uppercase">
+                        Préparations de carte Sainte Cène
+                    </p>
                     <div class="mt-4 space-y-2">
                         <div
                             v-for="preparation in communionPreparations"
-                            :key="'print-prep-' + preparation.date + preparation.time + preparation.payment_reference"
+                            :key="
+                                'print-prep-' +
+                                preparation.date +
+                                preparation.time +
+                                preparation.payment_reference
+                            "
                             class="rounded-lg border p-3 text-sm"
                         >
-                            <p class="font-bold">{{ preparation.date }} à {{ preparation.time }}</p>
-                            <p>Verset : {{ preparation.verse_reference || 'Non renseigné' }}</p>
-                            <p>Paiement : {{ preparation.payment_status || 'Non renseigné' }}</p>
-                            <p>Référence : {{ preparation.payment_reference || 'Non renseignée' }}</p>
-                            <p>Mode : {{ preparation.remote ? 'À distance' : 'Sur place' }}</p>
+                            <p class="font-bold">
+                                {{ preparation.date }} à {{ preparation.time }}
+                            </p>
+                            <p>
+                                Verset :
+                                {{
+                                    preparation.verse_reference ||
+                                    'Non renseigné'
+                                }}
+                            </p>
+                            <p>
+                                Paiement :
+                                {{
+                                    preparation.payment_status ||
+                                    'Non renseigné'
+                                }}
+                            </p>
+                            <p>
+                                Référence :
+                                {{
+                                    preparation.payment_reference ||
+                                    'Non renseignée'
+                                }}
+                            </p>
+                            <p>
+                                Mode :
+                                {{
+                                    preparation.remote
+                                        ? 'À distance'
+                                        : 'Sur place'
+                                }}
+                            </p>
                         </div>
-                        <p v-if="!communionPreparations.length" class="text-sm text-slate-600">
+                        <p
+                            v-if="!communionPreparations.length"
+                            class="text-sm text-slate-600"
+                        >
                             Aucune préparation enregistrée.
                         </p>
                     </div>

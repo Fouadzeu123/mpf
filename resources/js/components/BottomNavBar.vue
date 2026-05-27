@@ -20,13 +20,48 @@ const { isCurrentUrl } = useCurrentUrl();
 
 const allNavItems: Array<NavItem & { roles?: string[] }> = [
     { title: 'Tableau de bord', href: dashboard(), icon: LayoutGrid },
-    { title: 'Membres', href: '/members', icon: Users, roles: ['admin', 'secretaire', 'ancienne'] },
-    { title: 'Visiteurs', href: '/visitors', icon: UserPlus, roles: ['admin', 'secretaire'] },
-    { title: 'Scanner QR', href: '/scanner', icon: QrCode, roles: ['admin', 'protocole', 'ancienne', 'secretaire'] },
-    { title: 'Présences', href: '/presences', icon: UserCheck, roles: ['admin'] },
-    { title: 'Sainte Cène', href: '/sainte-cene', icon: Wine, roles: ['admin'] },
-    { title: 'Impression A4', href: '/impression', icon: Printer, roles: ['admin', 'secretaire'] },
-    { title: 'Paiements', href: '/paiements', icon: CreditCard, roles: ['admin'] },
+    {
+        title: 'Membres',
+        href: '/members',
+        icon: Users,
+        roles: ['admin', 'secretaire', 'ancienne'],
+    },
+    {
+        title: 'Visiteurs',
+        href: '/visitors',
+        icon: UserPlus,
+        roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Scanner QR',
+        href: '/scanner',
+        icon: QrCode,
+        roles: ['admin', 'protocole', 'ancienne', 'secretaire'],
+    },
+    {
+        title: 'Présences',
+        href: '/presences',
+        icon: UserCheck,
+        roles: ['admin'],
+    },
+    {
+        title: 'Sainte Cène',
+        href: '/sainte-cene',
+        icon: Wine,
+        roles: ['admin'],
+    },
+    {
+        title: 'Impression A4',
+        href: '/impression',
+        icon: Printer,
+        roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Paiements',
+        href: '/paiements',
+        icon: CreditCard,
+        roles: ['admin'],
+    },
 ];
 
 const navItems: NavItem[] = allNavItems.filter((item) => {
@@ -38,7 +73,9 @@ const displayedItems = navItems.slice(0, 5);
 </script>
 
 <template>
-    <nav class="fixed bottom-0 left-0 right-0 border-t border-border bg-background md:hidden">
+    <nav
+        class="fixed right-0 bottom-0 left-0 border-t border-border bg-background md:hidden"
+    >
         <div class="flex h-16 items-center justify-around px-2">
             <Link
                 v-for="item in displayedItems"
@@ -52,7 +89,7 @@ const displayedItems = navItems.slice(0, 5);
                 ]"
             >
                 <component :is="item.icon" class="h-5 w-5" />
-                <span class="text-[10px] text-center">{{ item.title }}</span>
+                <span class="text-center text-[10px]">{{ item.title }}</span>
             </Link>
         </div>
     </nav>

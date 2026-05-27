@@ -27,16 +27,18 @@ const search = ref(props.filters.search ?? '');
 const department = ref(props.filters.department ?? '');
 const status = ref(props.filters.status ?? '');
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Membres', href: '/members' },
-];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Membres', href: '/members' }];
 
 function applyFilters() {
-    router.get('/members', {
-        search: search.value || undefined,
-        department: department.value || undefined,
-        status: status.value || undefined,
-    }, { preserveState: true });
+    router.get(
+        '/members',
+        {
+            search: search.value || undefined,
+            department: department.value || undefined,
+            status: status.value || undefined,
+        },
+        { preserveState: true },
+    );
 }
 </script>
 
@@ -47,20 +49,22 @@ function applyFilters() {
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <h1 class="text-2xl font-bold">Membres</h1>
                 <Link href="/members/create">
-                    <Button><Plus class="mr-2 h-4 w-4" /> Nouveau membre</Button>
+                    <Button
+                        ><Plus class="mr-2 h-4 w-4" /> Nouveau membre</Button
+                    >
                 </Link>
             </div>
 
             <div class="flex flex-wrap gap-2">
-                <div class="relative flex-1 min-w-[200px]">
+                <div class="relative min-w-[200px] flex-1">
                     <Search
-                        class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                        class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
                     />
                     <input
                         v-model="search"
                         type="search"
                         placeholder="Rechercher..."
-                        class="w-full rounded-lg border pl-9 pr-3 py-2 text-sm"
+                        class="w-full rounded-lg border py-2 pr-3 pl-9 text-sm"
                         @keyup.enter="applyFilters"
                     />
                 </div>
@@ -83,7 +87,9 @@ function applyFilters() {
                     <option value="active">Actif</option>
                     <option value="inactive">Inactif</option>
                 </select>
-                <Button variant="secondary" @click="applyFilters">Filtrer</Button>
+                <Button variant="secondary" @click="applyFilters"
+                    >Filtrer</Button
+                >
             </div>
 
             <div class="overflow-hidden rounded-xl border bg-card">
@@ -103,10 +109,12 @@ function applyFilters() {
                             :key="m.id"
                             class="border-t hover:bg-muted/30"
                         >
-                            <td class="px-4 py-3 font-mono text-xs">{{
-                                m.member_code
-                            }}</td>
-                            <td class="px-4 py-3">{{ m.first_name }} {{ m.last_name }}</td>
+                            <td class="px-4 py-3 font-mono text-xs">
+                                {{ m.member_code }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ m.first_name }} {{ m.last_name }}
+                            </td>
                             <td class="px-4 py-3">{{ m.department ?? '—' }}</td>
                             <td class="px-4 py-3">{{ m.phone ?? '—' }}</td>
                             <td class="px-4 py-3 text-right">

@@ -21,7 +21,9 @@ defineProps<{
     <Head title="Paiements" />
     <AppLayout :breadcrumbs="[{ title: 'Paiements', href: '/paiements' }]">
         <div class="p-4">
-            <h1 class="mb-4 text-2xl font-bold">Historique paiements (Notch Pay)</h1>
+            <h1 class="mb-4 text-2xl font-bold">
+                Historique paiements (Notch Pay)
+            </h1>
             <div class="overflow-hidden rounded-xl border">
                 <table class="w-full text-sm">
                     <thead class="bg-muted/50">
@@ -33,9 +35,18 @@ defineProps<{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="t in transactions.data" :key="t.id" class="border-t">
-                            <td class="px-4 py-3 font-mono text-xs">{{ t.reference }}</td>
-                            <td class="px-4 py-3">{{ t.member.first_name }} {{ t.member.last_name }}</td>
+                        <tr
+                            v-for="t in transactions.data"
+                            :key="t.id"
+                            class="border-t"
+                        >
+                            <td class="px-4 py-3 font-mono text-xs">
+                                {{ t.reference }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ t.member.first_name }}
+                                {{ t.member.last_name }}
+                            </td>
                             <td class="px-4 py-3">{{ t.amount }} FCFA</td>
                             <td class="px-4 py-3">{{ t.status }}</td>
                         </tr>

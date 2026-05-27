@@ -46,11 +46,41 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const quickActions = [
-    { title: 'Ajouter membre', href: '/members/create', icon: UserPlus, tone: 'bg-slate-950 text-white', roles: ['admin', 'secretaire'] },
-    { title: 'Scanner QR', href: '/scanner', icon: QrCode, tone: 'bg-amber-500 text-slate-950', roles: ['admin', 'protocole', 'ancienne', 'secretaire'] },
-    { title: 'PDF cartes A4', href: '/impression', icon: IdCard, tone: 'bg-white text-slate-950', roles: ['admin', 'secretaire'] },
-    { title: 'Profils membres', href: '/members', icon: Users, tone: 'bg-white text-slate-950', roles: ['admin', 'secretaire', 'ancienne'] },
-    { title: 'Présences', href: '/presences', icon: MapPinned, tone: 'bg-slate-100 text-slate-950', roles: ['admin'] },
+    {
+        title: 'Ajouter membre',
+        href: '/members/create',
+        icon: UserPlus,
+        tone: 'bg-slate-950 text-white',
+        roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Scanner QR',
+        href: '/scanner',
+        icon: QrCode,
+        tone: 'bg-amber-500 text-slate-950',
+        roles: ['admin', 'protocole', 'ancienne', 'secretaire'],
+    },
+    {
+        title: 'PDF cartes A4',
+        href: '/impression',
+        icon: IdCard,
+        tone: 'bg-white text-slate-950',
+        roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Profils membres',
+        href: '/members',
+        icon: Users,
+        tone: 'bg-white text-slate-950',
+        roles: ['admin', 'secretaire', 'ancienne'],
+    },
+    {
+        title: 'Présences',
+        href: '/presences',
+        icon: MapPinned,
+        tone: 'bg-slate-100 text-slate-950',
+        roles: ['admin'],
+    },
 ];
 
 const visibleQuickActions = computed(() => {
@@ -59,10 +89,30 @@ const visibleQuickActions = computed(() => {
 
 const visibleStats = computed(() => {
     return [
-        { title: 'Membres', value: props.stats.members, icon: Users, roles: ['admin', 'secretaire', 'ancienne'] },
-        { title: 'Visiteurs', value: props.stats.visitors, icon: UserPlus, roles: ['admin', 'secretaire'] },
-        { title: 'Présences aujourd\'hui', value: props.stats.attendances_today, icon: UserCheck, roles: ['admin'] },
-        { title: 'Sainte Cène aujourd\'hui', value: props.stats.communion_today, icon: Wine, roles: ['admin'] },
+        {
+            title: 'Membres',
+            value: props.stats.members,
+            icon: Users,
+            roles: ['admin', 'secretaire', 'ancienne'],
+        },
+        {
+            title: 'Visiteurs',
+            value: props.stats.visitors,
+            icon: UserPlus,
+            roles: ['admin', 'secretaire'],
+        },
+        {
+            title: "Présences aujourd'hui",
+            value: props.stats.attendances_today,
+            icon: UserCheck,
+            roles: ['admin'],
+        },
+        {
+            title: "Sainte Cène aujourd'hui",
+            value: props.stats.communion_today,
+            icon: Wine,
+            roles: ['admin'],
+        },
     ].filter((stat) => stat.roles.includes(props.role));
 });
 </script>
@@ -71,16 +121,23 @@ const visibleStats = computed(() => {
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex flex-1 flex-col gap-6 bg-slate-50 p-4 dark:bg-slate-950">
-            <div class="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 text-white shadow-xl">
-                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-amber-300">
+        <div
+            class="flex flex-1 flex-col gap-6 bg-slate-50 p-4 dark:bg-slate-950"
+        >
+            <div
+                class="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 text-white shadow-xl"
+            >
+                <p
+                    class="text-sm font-semibold tracking-[0.25em] text-amber-300 uppercase"
+                >
                     Administration
                 </p>
                 <h1 class="mt-2 text-3xl font-black tracking-tight">
                     Tableau de bord
                 </h1>
                 <p class="mt-2 max-w-2xl text-sm text-slate-300">
-                    Accès rapide aux membres, présences, cartes et opérations de l'église.
+                    Accès rapide aux membres, présences, cartes et opérations de
+                    l'église.
                 </p>
             </div>
 
@@ -95,7 +152,11 @@ const visibleStats = computed(() => {
                     <component :is="action.icon" class="h-7 w-7" />
                     <p class="mt-5 text-lg font-black">{{ action.title }}</p>
                     <p class="mt-1 text-xs opacity-70">
-                        {{ action.href === '/impression' ? 'Sélectionner et télécharger' : 'Ouvrir' }}
+                        {{
+                            action.href === '/impression'
+                                ? 'Sélectionner et télécharger'
+                                : 'Ouvrir'
+                        }}
                     </p>
                 </a>
             </div>
@@ -111,12 +172,8 @@ const visibleStats = computed(() => {
             </div>
 
             <div v-if="role === 'admin'" class="grid gap-6 lg:grid-cols-2">
-                <div
-                    class="rounded-xl border bg-card p-5 shadow-sm"
-                >
-                    <h2
-                        class="mb-4 flex items-center gap-2 font-semibold"
-                    >
+                <div class="rounded-xl border bg-card p-5 shadow-sm">
+                    <h2 class="mb-4 flex items-center gap-2 font-semibold">
                         <CreditCard class="h-4 w-4" />
                         Paiements récents
                     </h2>
@@ -140,9 +197,7 @@ const visibleStats = computed(() => {
                     </ul>
                 </div>
 
-                <div
-                    class="rounded-xl border bg-card p-5 shadow-sm"
-                >
+                <div class="rounded-xl border bg-card p-5 shadow-sm">
                     <h2 class="mb-4 font-semibold">Activités récentes</h2>
                     <ul class="space-y-2 text-sm">
                         <li
@@ -151,10 +206,7 @@ const visibleStats = computed(() => {
                             class="border-b py-2 last:border-0"
                         >
                             <span class="font-medium">{{ a.action }}</span>
-                            <span
-                                v-if="a.user"
-                                class="text-muted-foreground"
-                            >
+                            <span v-if="a.user" class="text-muted-foreground">
                                 — {{ a.user }}</span
                             >
                             <span class="block text-xs text-muted-foreground">{{

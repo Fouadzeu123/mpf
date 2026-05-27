@@ -9,12 +9,8 @@ defineProps<{
 </script>
 
 <template>
-    <div
-        class="relative flex min-h-svh flex-col bg-background lg:flex-row"
-    >
-        <div
-            class="absolute right-4 top-4 z-20 lg:left-auto lg:right-6"
-        >
+    <div class="relative flex min-h-svh flex-col bg-background lg:flex-row">
+        <div class="absolute top-4 right-4 z-20 lg:right-6 lg:left-auto">
             <ThemeToggle />
         </div>
 
@@ -22,19 +18,23 @@ defineProps<{
             class="relative flex flex-1 flex-col justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-12 text-white lg:max-w-[48%] lg:px-14"
         >
             <div
-                class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl"
+                class="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl"
             />
             <div
                 class="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-amber-400/10 blur-2xl"
             />
 
-            <div class="relative z-10 mx-auto max-w-md text-center lg:text-left">
+            <div
+                class="relative z-10 mx-auto max-w-md text-center lg:text-left"
+            >
                 <ChurchLogo size="xl" variant="auth" class="lg:items-start" />
                 <p class="mt-8 text-lg leading-relaxed text-slate-300">
                     Bienvenue dans l'espace de gestion spirituelle et
                     organisationnelle de votre communauté.
                 </p>
-                <ul class="mt-8 hidden space-y-3 text-sm text-slate-400 lg:block">
+                <ul
+                    class="mt-8 hidden space-y-3 text-sm text-slate-400 lg:block"
+                >
                     <li class="flex items-center gap-2">
                         <span class="h-1 w-1 rounded-full bg-amber-400" />
                         Membres & cartes QR

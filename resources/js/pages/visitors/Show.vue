@@ -25,7 +25,9 @@ function convert() {
     <Head title="Visiteur" />
     <AppLayout :breadcrumbs="[{ title: 'Visiteurs', href: '/visitors' }]">
         <div class="p-4">
-            <h1 class="text-2xl font-bold">{{ visitor.first_name }} {{ visitor.last_name }}</h1>
+            <h1 class="text-2xl font-bold">
+                {{ visitor.first_name }} {{ visitor.last_name }}
+            </h1>
             <p class="font-mono text-sm">{{ visitor.qr_code }}</p>
             <p class="mt-2 text-sm">Visite : {{ visitor.visit_date }}</p>
             <Button class="mt-6" @click="convert">Transformer en membre</Button>

@@ -14,14 +14,42 @@ const form = useForm({
 
 <template>
     <Head title="Nouveau visiteur" />
-    <AppLayout :breadcrumbs="[{ title: 'Visiteurs', href: '/visitors' }, { title: 'Nouveau', href: '#' }]">
-        <form class="mx-auto max-w-md space-y-4 p-4" @submit.prevent="form.post('/visitors')">
+    <AppLayout
+        :breadcrumbs="[
+            { title: 'Visiteurs', href: '/visitors' },
+            { title: 'Nouveau', href: '#' },
+        ]"
+    >
+        <form
+            class="mx-auto max-w-md space-y-4 p-4"
+            @submit.prevent="form.post('/visitors')"
+        >
             <h1 class="text-2xl font-bold">Nouveau visiteur</h1>
-            <input v-model="form.first_name" required placeholder="Prénom" class="w-full rounded-lg border px-3 py-2" />
-            <input v-model="form.last_name" required placeholder="Nom" class="w-full rounded-lg border px-3 py-2" />
-            <input v-model="form.phone" placeholder="Téléphone" class="w-full rounded-lg border px-3 py-2" />
-            <input v-model="form.visit_date" type="date" class="w-full rounded-lg border px-3 py-2" />
-            <Button type="submit" :disabled="form.processing">Enregistrer</Button>
+            <input
+                v-model="form.first_name"
+                required
+                placeholder="Prénom"
+                class="w-full rounded-lg border px-3 py-2"
+            />
+            <input
+                v-model="form.last_name"
+                required
+                placeholder="Nom"
+                class="w-full rounded-lg border px-3 py-2"
+            />
+            <input
+                v-model="form.phone"
+                placeholder="Téléphone"
+                class="w-full rounded-lg border px-3 py-2"
+            />
+            <input
+                v-model="form.visit_date"
+                type="date"
+                class="w-full rounded-lg border px-3 py-2"
+            />
+            <Button type="submit" :disabled="form.processing"
+                >Enregistrer</Button
+            >
         </form>
     </AppLayout>
 </template>

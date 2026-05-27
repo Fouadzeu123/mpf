@@ -31,13 +31,48 @@ const role = page.props.auth.user?.role as string | undefined;
 
 const allNavItems: Array<NavItem & { roles?: string[] }> = [
     { title: 'Tableau de bord', href: dashboard(), icon: LayoutGrid },
-    { title: 'Membres', href: '/members', icon: Users, roles: ['admin', 'secretaire', 'ancienne'] },
-    { title: 'Visiteurs', href: '/visitors', icon: UserPlus, roles: ['admin', 'secretaire'] },
-    { title: 'Scanner QR', href: '/scanner', icon: QrCode, roles: ['admin', 'protocole', 'ancienne', 'secretaire'] },
-    { title: 'Présences', href: '/presences', icon: UserCheck, roles: ['admin'] },
-    { title: 'Sainte Cène', href: '/sainte-cene', icon: Wine, roles: ['admin'] },
-    { title: 'Impression A4', href: '/impression', icon: Printer, roles: ['admin', 'secretaire'] },
-    { title: 'Paiements', href: '/paiements', icon: CreditCard, roles: ['admin'] },
+    {
+        title: 'Membres',
+        href: '/members',
+        icon: Users,
+        roles: ['admin', 'secretaire', 'ancienne'],
+    },
+    {
+        title: 'Visiteurs',
+        href: '/visitors',
+        icon: UserPlus,
+        roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Scanner QR',
+        href: '/scanner',
+        icon: QrCode,
+        roles: ['admin', 'protocole', 'ancienne', 'secretaire'],
+    },
+    {
+        title: 'Présences',
+        href: '/presences',
+        icon: UserCheck,
+        roles: ['admin'],
+    },
+    {
+        title: 'Sainte Cène',
+        href: '/sainte-cene',
+        icon: Wine,
+        roles: ['admin'],
+    },
+    {
+        title: 'Impression A4',
+        href: '/impression',
+        icon: Printer,
+        roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Paiements',
+        href: '/paiements',
+        icon: CreditCard,
+        roles: ['admin'],
+    },
 ];
 
 const mainNavItems: NavItem[] = allNavItems.filter((item) => {

@@ -36,7 +36,9 @@ defineProps<{
             <div
                 class="rounded-[2rem] border border-amber-500/20 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 text-white shadow-xl"
             >
-                <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-300">
+                <p
+                    class="text-xs font-semibold tracking-[0.25em] text-amber-300 uppercase"
+                >
                     Espace personnel
                 </p>
                 <h1 class="mt-2 text-2xl font-black">

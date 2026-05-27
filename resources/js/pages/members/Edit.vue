@@ -51,22 +51,37 @@ function submit() {
             <div class="grid gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-medium">Prénom</label>
-                    <input v-model="form.first_name" required class="mt-1 w-full rounded-lg border px-3 py-2" />
+                    <input
+                        v-model="form.first_name"
+                        required
+                        class="mt-1 w-full rounded-lg border px-3 py-2"
+                    />
                     <InputError :message="form.errors.first_name" />
                 </div>
                 <div>
                     <label class="text-sm font-medium">Nom</label>
-                    <input v-model="form.last_name" required class="mt-1 w-full rounded-lg border px-3 py-2" />
+                    <input
+                        v-model="form.last_name"
+                        required
+                        class="mt-1 w-full rounded-lg border px-3 py-2"
+                    />
                 </div>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-medium">Âge</label>
-                    <input v-model="form.age" type="number" class="mt-1 w-full rounded-lg border px-3 py-2" />
+                    <input
+                        v-model="form.age"
+                        type="number"
+                        class="mt-1 w-full rounded-lg border px-3 py-2"
+                    />
                 </div>
                 <div>
                     <label class="text-sm font-medium">Sexe</label>
-                    <select v-model="form.gender" class="mt-1 w-full rounded-lg border px-3 py-2">
+                    <select
+                        v-model="form.gender"
+                        class="mt-1 w-full rounded-lg border px-3 py-2"
+                    >
                         <option value="">—</option>
                         <option value="M">M</option>
                         <option value="F">F</option>
@@ -75,25 +90,49 @@ function submit() {
             </div>
             <div>
                 <label class="text-sm font-medium">Téléphone</label>
-                <input v-model="form.phone" class="mt-1 w-full rounded-lg border px-3 py-2" />
+                <input
+                    v-model="form.phone"
+                    class="mt-1 w-full rounded-lg border px-3 py-2"
+                />
             </div>
             <div>
                 <label class="text-sm font-medium">Adresse</label>
-                <textarea v-model="form.address_description" rows="2" class="mt-1 w-full rounded-lg border px-3 py-2" />
+                <textarea
+                    v-model="form.address_description"
+                    rows="2"
+                    class="mt-1 w-full rounded-lg border px-3 py-2"
+                />
             </div>
             <div>
                 <label class="text-sm font-medium">Département</label>
-                <input v-model="form.department" class="mt-1 w-full rounded-lg border px-3 py-2" />
+                <input
+                    v-model="form.department"
+                    class="mt-1 w-full rounded-lg border px-3 py-2"
+                />
             </div>
             <div>
                 <label class="text-sm font-medium">Nouveau mot de passe</label>
-                <input v-model="form.password" class="mt-1 w-full rounded-lg border px-3 py-2" />
+                <input
+                    v-model="form.password"
+                    class="mt-1 w-full rounded-lg border px-3 py-2"
+                />
             </div>
             <div>
                 <label class="text-sm font-medium">Photo</label>
-                <input type="file" accept="image/*" class="mt-1" @change="form.photo = ($event.target as HTMLInputElement).files?.[0] ?? null" />
+                <input
+                    type="file"
+                    accept="image/*"
+                    class="mt-1"
+                    @change="
+                        form.photo =
+                            ($event.target as HTMLInputElement).files?.[0] ??
+                            null
+                    "
+                />
             </div>
-            <Button type="submit" :disabled="form.processing">Mettre à jour</Button>
+            <Button type="submit" :disabled="form.processing"
+                >Mettre à jour</Button
+            >
         </form>
     </AppLayout>
 </template>

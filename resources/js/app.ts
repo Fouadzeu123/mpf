@@ -4,6 +4,7 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import '../css/app.css';
 import { initializeTheme } from '@/composables/useAppearance';
+import { initCapacitor } from '@/utils/capacitor';
 
 const appName =
     import.meta.env.VITE_APP_NAME || 'Ministère Prophétique de la Foi';
@@ -27,3 +28,6 @@ createInertiaApp({
 
 // This will set light / dark mode on page load...
 initializeTheme();
+
+// Initialize Capacitor native event listeners (like back button handler)
+initCapacitor();

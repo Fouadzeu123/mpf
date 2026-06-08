@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, CreditCard, Wine } from 'lucide-vue-next';
+import { BookOpen, CreditCard, Wine, Smartphone, Download } from 'lucide-vue-next';
 import MemberCardPreview from '@/components/church/MemberCardPreview.vue';
 import MemberLayout from '@/layouts/MemberLayout.vue';
 
@@ -83,6 +83,27 @@ defineProps<{
                         Faire ma préparation
                     </Link>
                 </template>
+            </div>
+
+            <!-- Mobile App Download Widget -->
+            <div class="rounded-2xl border bg-card p-5 shadow-sm">
+                <h2
+                    class="flex items-center gap-2 font-semibold text-foreground"
+                >
+                    <Smartphone class="h-5 w-5 text-blue-500" />
+                    Application mobile
+                </h2>
+                <p class="mt-2 text-sm text-muted-foreground">
+                    Installez l'application mobile pour un accès rapide à votre carte membre et une navigation ultra-rapide.
+                </p>
+                <a
+                    href="/mpf.apk"
+                    download
+                    class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition hover:bg-primary/90 active:scale-[0.98]"
+                >
+                    <Download class="h-4 w-4" />
+                    Télécharger l'APK Android
+                </a>
             </div>
 
             <div class="rounded-2xl border bg-card p-5 shadow-sm">

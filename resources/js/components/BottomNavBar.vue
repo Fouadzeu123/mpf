@@ -5,6 +5,7 @@ import {
     LayoutGrid,
     Printer,
     QrCode,
+    Tv,
     UserCheck,
     Users,
     UserPlus,
@@ -20,6 +21,11 @@ const { isCurrentUrl } = useCurrentUrl();
 
 const allNavItems: Array<NavItem & { roles?: string[] }> = [
     { title: 'Tableau de bord', href: dashboard(), icon: LayoutGrid },
+    {
+        title: 'Flux Vidéo',
+        href: '/flux',
+        icon: Tv,
+    },
     {
         title: 'Membres',
         href: '/members',
@@ -62,6 +68,12 @@ const allNavItems: Array<NavItem & { roles?: string[] }> = [
         icon: CreditCard,
         roles: ['admin'],
     },
+    {
+        title: 'Gérer Vidéos',
+        href: '/admin-videos',
+        icon: Tv,
+        roles: ['admin'],
+    },
 ];
 
 const navItems: NavItem[] = allNavItems.filter((item) => {
@@ -74,22 +86,35 @@ const displayedItems = navItems.slice(0, 5);
 
 <template>
     <nav
-        class="fixed right-0 bottom-0 left-0 border-t border-border bg-background md:hidden"
+        class="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200/80 bg-card/90 px-4 py-2 shadow-lg backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/90 md:hidden"
     >
-        <div class="flex h-16 items-center justify-around px-2">
+        <div class="flex items-center justify-around">
             <Link
                 v-for="item in displayedItems"
-                :key="item.href"
+                :key="item.title"
                 :href="item.href"
-                class="flex flex-col items-center justify-center gap-1 px-2 py-1 text-xs font-medium transition-colors"
+                class="relative flex flex-col items-center justify-center gap-1 px-3 py-1.5 text-xs font-semibold transition-all duration-300"
                 :class="[
                     isCurrentUrl(item.href)
-                        ? 'text-primary'
+                        ? 'text-primary scale-105'
                         : 'text-muted-foreground hover:text-foreground',
                 ]"
             >
-                <component :is="item.icon" class="h-5 w-5" />
-                <span class="text-center text-[10px]">{{ item.title }}</span>
+                <div
+                    class="flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300"
+                    :class="[
+                        isCurrentUrl(item.href)
+                            ? 'bg-primary/10 text-primary shadow-sm shadow-primary/5 dark:bg-primary/20'
+                            : 'text-muted-foreground hover:text-foreground',
+                    ]"
+                >
+                    <component :is="item.icon" class="h-5 w-5" />
+                </div>
+                <span class="text-center text-[9px] tracking-tight">{{ item.title }}</span>
+                <span
+                    v-if="isCurrentUrl(item.href)"
+                    class="absolute -bottom-1 h-1 w-1 rounded-full bg-primary"
+                />
             </Link>
         </div>
     </nav>

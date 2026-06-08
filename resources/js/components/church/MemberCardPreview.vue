@@ -21,124 +21,109 @@ defineProps<{
 
 <template>
     <div
-        class="mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-amber-300 bg-amber-50 p-3 shadow-xl dark:border-amber-500/40 dark:bg-slate-950"
+        class="mx-auto w-full max-w-md overflow-hidden rounded-2xl border-2 border-blue-900 bg-white p-3.5 shadow-lg dark:border-blue-700 dark:bg-slate-950"
         :class="compact ? 'max-w-xs' : ''"
     >
+        <!-- Card Header: Solid deep blue, high printable contrast -->
         <div
-            class="flex items-center gap-3 rounded-xl bg-slate-950 px-4 py-3 text-white"
+            class="flex items-center gap-3 rounded-xl bg-blue-950 px-4 py-3 text-white dark:bg-blue-900"
         >
             <img
                 src="/favicon.svg"
                 alt="Logo"
-                class="h-14 w-14 object-contain"
+                class="h-12 w-12 object-contain bg-white rounded-lg p-0.5"
             />
             <div class="min-w-0 flex-1">
-                <p class="truncate text-sm font-bold">
+                <p class="truncate text-xs font-black uppercase tracking-tight">
                     Ministère Prophétique de la Foi
                 </p>
                 <p
-                    class="text-[10px] font-semibold tracking-wider text-amber-300 uppercase"
+                    class="text-[9px] font-bold tracking-widest text-blue-300 uppercase"
                 >
                     Carte d'identification
                 </p>
             </div>
             <span
-                class="rounded-full bg-amber-400 px-3 py-1 text-[10px] font-bold text-slate-950"
+                class="rounded bg-blue-600 px-2 py-0.5 text-[9px] font-black text-white"
             >
                 MEMBRE
             </span>
         </div>
 
-        <div class="flex gap-3 py-3">
+        <!-- Card Body -->
+        <div class="flex gap-4 py-3">
+            <!-- Photo Slot: Clean solid borders for printing -->
             <div class="shrink-0">
                 <img
                     v-if="member.photo_url"
                     :src="member.photo_url"
-                    class="h-28 w-20 rounded-xl object-cover ring-2 ring-amber-400"
+                    class="h-28 w-20 rounded-lg object-cover border-2 border-blue-900 dark:border-blue-700"
                     alt=""
                 />
                 <div
                     v-else
-                    class="flex h-28 w-20 items-center justify-center rounded-xl bg-amber-100 text-lg font-bold text-amber-900 ring-2 ring-amber-400"
+                    class="flex h-28 w-20 items-center justify-center rounded-lg bg-blue-50 border-2 border-dashed border-blue-300 text-lg font-bold text-blue-900 dark:bg-blue-950 dark:border-blue-700 dark:text-blue-200"
                 >
                     {{ member.first_name[0] }}{{ member.last_name[0] }}
                 </div>
             </div>
-            <div class="min-w-0 flex-1">
+
+            <!-- Member Info: Solid colors, high visibility text for printing -->
+            <div class="min-w-0 flex-1 space-y-1">
                 <h3
-                    class="truncate text-base font-black text-slate-950 uppercase dark:text-white"
+                    class="truncate text-base font-black text-blue-950 uppercase dark:text-white"
                 >
                     {{ member.last_name }}
                 </h3>
-                <p class="text-sm font-bold text-amber-800 dark:text-amber-300">
+                <p class="text-sm font-bold text-blue-700 dark:text-blue-400">
                     {{ member.first_name }}
                 </p>
-                <p
-                    class="mt-2 border-b border-amber-200 pb-1 text-[11px] text-slate-700 dark:text-slate-300"
-                >
-                    <span
-                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
-                        >Sexe</span
-                    >
-                    :
-                    {{ member.gender || '-' }}
-                    <span
-                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
-                        >Age</span
-                    >
-                    :
-                    {{ member.age ? `${member.age} ans` : '-' }}
-                </p>
-                <p
-                    class="border-b border-amber-200 py-1 text-[11px] text-slate-700 dark:text-slate-300"
-                >
-                    <span
-                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
-                        >Adresse</span
-                    >
-                    :
-                    {{ member.address_description || '-' }}
-                </p>
-                <p
-                    class="border-b border-amber-200 py-1 text-[11px] text-slate-700 dark:text-slate-300"
-                >
-                    <span
-                        class="font-bold text-amber-800 uppercase dark:text-amber-300"
-                        >Département</span
-                    >
-                    :
-                    {{ member.department || '-' }}
-                </p>
+                
+                <div class="mt-2 space-y-0.5 text-[10px] text-slate-800 dark:text-slate-200">
+                    <p class="border-b border-slate-100 dark:border-slate-800 pb-0.5">
+                        <span class="font-bold text-blue-900 dark:text-blue-300">SEXE :</span>
+                        {{ member.gender || '-' }}
+                        <span class="ml-2 font-bold text-blue-900 dark:text-blue-300">ÂGE :</span>
+                        {{ member.age ? `${member.age} ans` : '-' }}
+                    </p>
+                    <p class="border-b border-slate-100 dark:border-slate-800 py-0.5 truncate">
+                        <span class="font-bold text-blue-900 dark:text-blue-300">ADRESSE :</span>
+                        {{ member.address_description || '-' }}
+                    </p>
+                    <p class="border-b border-slate-100 dark:border-slate-800 py-0.5 truncate">
+                        <span class="font-bold text-blue-900 dark:text-blue-300">DEPT :</span>
+                        {{ member.department || '-' }}
+                    </p>
+                </div>
             </div>
-            <div class="shrink-0 text-center">
+
+            <!-- QR Code: High contrast wrapper for perfect readability -->
+            <div class="shrink-0 flex flex-col items-center justify-center">
                 <div
                     v-if="qrSvg"
-                    class="rounded-lg bg-white p-1 ring-1 ring-amber-200 [&_svg]:h-20 [&_svg]:w-20"
+                    class="rounded-lg bg-white p-1 border-2 border-blue-900 dark:border-blue-700 [&_svg]:h-20 [&_svg]:w-20"
                     v-html="qrSvg"
                 />
                 <img
                     v-else-if="qrDataUri"
                     :src="qrDataUri"
-                    class="h-20 w-20 rounded-lg bg-white p-1 ring-1 ring-amber-200"
+                    class="h-20 w-20 rounded-lg bg-white p-1 border-2 border-blue-900 dark:border-blue-700"
                     alt="QR"
                 />
                 <QrCode v-else class="mx-auto h-20 w-20 text-slate-300" />
+                
                 <p
-                    class="mt-1 text-[10px] font-bold text-amber-800 uppercase dark:text-amber-300"
-                >
-                    Scanner
-                </p>
-                <p
-                    class="mt-1 rounded-full bg-amber-700 px-2 py-1 font-mono text-[10px] font-bold text-white"
+                    class="mt-1 rounded bg-blue-950 px-2 py-0.5 font-mono text-[8px] font-bold text-white tracking-wider uppercase"
                 >
                     {{ member.member_code }}
                 </p>
             </div>
         </div>
 
+        <!-- Programs: Crisp layout at bottom -->
         <div
             v-if="programs?.length"
-            class="rounded-xl border border-amber-200 bg-white px-3 py-2 text-[10px] leading-relaxed text-slate-600 dark:bg-slate-900 dark:text-slate-300"
+            class="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-[9px] font-medium leading-normal text-slate-700 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300"
         >
             {{ programs.join(' • ') }}
         </div>

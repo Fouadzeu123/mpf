@@ -257,7 +257,7 @@ function printProfile() {
 
                 <div class="rounded-xl border bg-card p-4">
                     <h2 class="mb-3 flex items-center gap-2 font-semibold">
-                        <MapPin class="h-4 w-4 text-amber-600" />
+                        <MapPin class="h-4 w-4 text-blue-500" />
                         Localisation GPS
                     </h2>
                     <div
@@ -276,7 +276,7 @@ function printProfile() {
                             v-if="routeUrl"
                             :href="routeUrl"
                             target="_blank"
-                            class="inline-flex text-sm font-medium text-amber-700 underline dark:text-amber-400"
+                            class="inline-flex text-sm font-medium text-primary underline dark:text-blue-400"
                         >
                             Voir itinéraire
                         </a>
@@ -310,7 +310,7 @@ function printProfile() {
                 class="mx-auto min-h-[277mm] w-[190mm] border border-slate-200 p-8"
             >
                 <div
-                    class="flex items-center justify-between border-b-4 border-amber-500 pb-5"
+                    class="flex items-center justify-between border-b-4 border-blue-500 pb-5"
                 >
                     <div class="flex items-center gap-4">
                         <img
@@ -340,11 +340,11 @@ function printProfile() {
                             v-if="member.photo_url"
                             :src="member.photo_url"
                             alt=""
-                            class="h-48 w-36 rounded-xl object-cover ring-2 ring-amber-400"
+                            class="h-48 w-36 rounded-xl object-cover ring-2 ring-blue-500/70"
                         />
                         <div
                             v-else
-                            class="flex h-48 w-36 items-center justify-center rounded-xl bg-amber-100 text-3xl font-black text-amber-900 ring-2 ring-amber-400"
+                            class="flex h-48 w-36 items-center justify-center rounded-xl bg-blue-100 text-3xl font-black text-blue-900 ring-2 ring-blue-500/70 dark:bg-blue-950 dark:text-blue-200"
                         >
                             {{ member.first_name[0] }}{{ member.last_name[0] }}
                         </div>
@@ -354,7 +354,7 @@ function printProfile() {
                         <h2 class="text-3xl font-black uppercase">
                             {{ member.last_name }}
                         </h2>
-                        <p class="text-2xl font-bold text-amber-700">
+                        <p class="text-2xl font-bold text-primary dark:text-blue-400">
                             {{ member.first_name }}
                         </p>
 
@@ -462,7 +462,7 @@ function printProfile() {
                         <a
                             v-if="routeUrl"
                             :href="routeUrl"
-                            class="rounded-full bg-amber-500 px-5 py-2 text-sm font-bold text-slate-950"
+                            class="rounded-full bg-blue-500 px-5 py-2 text-sm font-bold text-white shadow-sm shadow-blue-500/20"
                         >
                             Voir itinéraire
                         </a>

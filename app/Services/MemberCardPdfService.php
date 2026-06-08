@@ -59,6 +59,7 @@ class MemberCardPdfService
             'last_name' => $m->last_name,
             'age' => $m->age,
             'gender' => $m->gender,
+            'phone' => $m->phone,
             'department' => $m->department,
             'address' => $m->address_description,
             'code' => $m->member_code,
@@ -81,7 +82,15 @@ class MemberCardPdfService
 
     protected function logoDataUri(): string
     {
-        $path = public_path(config('church.logo', 'favicon.svg'));
+        $logo = config('church.logo', 'favicon.svg');
+
+        // If the logo is favicon.svg and the lightweight PNG alternative exists,
+        // use the PNG for PDF rendering to avoid Dompdf hanging/timing out on the 2.3MB SVG.
+        if ($logo === 'favicon.svg' && is_file(public_path('favicon-96x96.png'))) {
+            $logo = 'favicon-96x96.png';
+        }
+
+        $path = public_path($logo);
 
         if (! is_file($path)) {
             return '';
@@ -107,6 +116,64 @@ class MemberCardPdfService
 
         if (! is_file($path)) {
             return '';
+        }
+
+        // Try to dynamically resize large profile pictures if the GD library is available
+        // to prevent Dompdf from throwing memory/time limit exceptions on multi-megabyte uploads.
+        if (extension_loaded('gd')) {
+            try {
+                $info = getimagesize($path);
+                if ($info) {
+                    [$width, $height, $type] = $info;
+                    // If image is wider than 300px, resample it to 300px width
+                    if ($width > 300) {
+                        $newWidth = 300;
+                        $newHeight = (int) (($height / $width) * $newWidth);
+
+                        $src = match ($type) {
+                            IMAGETYPE_JPEG => imagecreatefromjpeg($path),
+                            IMAGETYPE_PNG => imagecreatefrompng($path),
+                            IMAGETYPE_GIF => imagecreatefromgif($path),
+                            IMAGETYPE_WEBP => imagecreatefromwebp($path),
+                            default => null
+                        };
+
+                        if ($src) {
+                            $dst = imagecreatetruecolor($newWidth, $newHeight);
+
+                            // Setup alpha transparency for PNGs
+                            if ($type === IMAGETYPE_PNG) {
+                                imagealphablending($dst, false);
+                                imagesavealpha($dst, true);
+                                $transparent = imagecolorallocatealpha($dst, 255, 255, 255, 127);
+                                imagefilledrectangle($dst, 0, 0, $newWidth, $newHeight, $transparent);
+                            }
+
+                            imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            ob_start();
+                            if ($type === IMAGETYPE_PNG) {
+                                imagepng($dst, null, 6); // Compress PNG
+                                $contents = ob_get_clean();
+                                $mime = 'image/png';
+                            } else {
+                                imagejpeg($dst, null, 75); // Convert to JPEG with 75% quality for small footprint
+                                $contents = ob_get_clean();
+                                $mime = 'image/jpeg';
+                            }
+
+                            imagedestroy($src);
+                            imagedestroy($dst);
+
+                            if ($contents !== false) {
+                                return 'data:'.$mime.';base64,'.base64_encode($contents);
+                            }
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Fall back to original file if GD processing fails
+            }
         }
 
         $contents = file_get_contents($path);

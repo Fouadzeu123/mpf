@@ -419,12 +419,12 @@ edit.head = (args: { member: number | { id: number } } | [member: number | { id:
  * @see app/Http/Controllers/MemberController.php:128
  * @route '/members/{member}'
  */
-const update35f5d09e345244bf7d7c2d1841b5054a = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: update35f5d09e345244bf7d7c2d1841b5054a.url(args, options),
+export const update = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update.url(args, options),
     method: 'put',
 })
 
-update35f5d09e345244bf7d7c2d1841b5054a.definition = {
+update.definition = {
     methods: ["put"],
     url: '/members/{member}',
 } satisfies RouteDefinition<["put"]>
@@ -434,7 +434,7 @@ update35f5d09e345244bf7d7c2d1841b5054a.definition = {
  * @see app/Http/Controllers/MemberController.php:128
  * @route '/members/{member}'
  */
-update35f5d09e345244bf7d7c2d1841b5054a.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+update.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { member: args }
     }
@@ -457,7 +457,7 @@ update35f5d09e345244bf7d7c2d1841b5054a.url = (args: { member: number | { id: num
                 : args.member,
                 }
 
-    return update35f5d09e345244bf7d7c2d1841b5054a.definition.url
+    return update.definition.url
             .replace('{member}', parsedArgs.member.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
@@ -467,8 +467,8 @@ update35f5d09e345244bf7d7c2d1841b5054a.url = (args: { member: number | { id: num
  * @see app/Http/Controllers/MemberController.php:128
  * @route '/members/{member}'
  */
-update35f5d09e345244bf7d7c2d1841b5054a.put = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
-    url: update35f5d09e345244bf7d7c2d1841b5054a.url(args, options),
+update.put = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: update.url(args, options),
     method: 'put',
 })
 
@@ -477,8 +477,8 @@ update35f5d09e345244bf7d7c2d1841b5054a.put = (args: { member: number | { id: num
  * @see app/Http/Controllers/MemberController.php:128
  * @route '/members/{member}'
  */
-    const update35f5d09e345244bf7d7c2d1841b5054aForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update35f5d09e345244bf7d7c2d1841b5054a.url(args, {
+    const updateForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
                         ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -492,8 +492,8 @@ update35f5d09e345244bf7d7c2d1841b5054a.put = (args: { member: number | { id: num
  * @see app/Http/Controllers/MemberController.php:128
  * @route '/members/{member}'
  */
-        update35f5d09e345244bf7d7c2d1841b5054aForm.put = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update35f5d09e345244bf7d7c2d1841b5054a.url(args, {
+        updateForm.put = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
                             ...(options?.query ?? options?.mergeQuery ?? {}),
@@ -502,102 +502,7 @@ update35f5d09e345244bf7d7c2d1841b5054a.put = (args: { member: number | { id: num
             method: 'post',
         })
     
-    update35f5d09e345244bf7d7c2d1841b5054a.form = update35f5d09e345244bf7d7c2d1841b5054aForm
-    /**
-* @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
- * @route '/members/{member}'
- */
-const update35f5d09e345244bf7d7c2d1841b5054a = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
-    url: update35f5d09e345244bf7d7c2d1841b5054a.url(args, options),
-    method: 'patch',
-})
-
-update35f5d09e345244bf7d7c2d1841b5054a.definition = {
-    methods: ["patch"],
-    url: '/members/{member}',
-} satisfies RouteDefinition<["patch"]>
-
-/**
-* @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
- * @route '/members/{member}'
- */
-update35f5d09e345244bf7d7c2d1841b5054a.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
-    if (typeof args === 'string' || typeof args === 'number') {
-        args = { member: args }
-    }
-
-            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-            args = { member: args.id }
-        }
-    
-    if (Array.isArray(args)) {
-        args = {
-                    member: args[0],
-                }
-    }
-
-    args = applyUrlDefaults(args)
-
-    const parsedArgs = {
-                        member: typeof args.member === 'object'
-                ? args.member.id
-                : args.member,
-                }
-
-    return update35f5d09e345244bf7d7c2d1841b5054a.definition.url
-            .replace('{member}', parsedArgs.member.toString())
-            .replace(/\/+$/, '') + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
- * @route '/members/{member}'
- */
-update35f5d09e345244bf7d7c2d1841b5054a.patch = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
-    url: update35f5d09e345244bf7d7c2d1841b5054a.url(args, options),
-    method: 'patch',
-})
-
-    /**
-* @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
- * @route '/members/{member}'
- */
-    const update35f5d09e345244bf7d7c2d1841b5054aForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: update35f5d09e345244bf7d7c2d1841b5054a.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PATCH',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
- * @route '/members/{member}'
- */
-        update35f5d09e345244bf7d7c2d1841b5054aForm.patch = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: update35f5d09e345244bf7d7c2d1841b5054a.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PATCH',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    update35f5d09e345244bf7d7c2d1841b5054a.form = update35f5d09e345244bf7d7c2d1841b5054aForm
-
-export const update = {
-    '/members/{member}': update35f5d09e345244bf7d7c2d1841b5054a,
-    '/members/{member}': update35f5d09e345244bf7d7c2d1841b5054a,
-}
-
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\MemberController::destroy
  * @see app/Http/Controllers/MemberController.php:136

@@ -25,7 +25,7 @@ const form = useForm({});
             <form class="mt-6" @submit.prevent="form.post('/membre/paiement')">
                 <button
                     type="submit"
-                    class="w-full rounded-lg bg-amber-500 py-3 font-semibold text-slate-900"
+                    class="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition hover:opacity-90 shadow-md shadow-primary/20 active:scale-[0.98]"
                     :disabled="form.processing"
                 >
                     Payer et préparer

@@ -44,12 +44,12 @@ const textClasses = {
         :class="variant === 'auth' ? 'flex-col text-center' : ''"
     >
         <div
-            class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-xl ring-1 ring-amber-500/30"
+            class="relative flex shrink-0 items-center justify-center overflow-hidden rounded-xl ring-1 ring-primary/30"
             :class="[
                 sizeClasses[size],
                 variant === 'sidebar'
                     ? 'bg-white/10'
-                    : 'bg-gradient-to-br from-amber-50 to-white dark:from-amber-950/40 dark:to-slate-900',
+                    : 'bg-gradient-to-br from-blue-50 to-white dark:from-blue-950/40 dark:to-slate-900',
             ]"
         >
             <img
@@ -61,7 +61,7 @@ const textClasses = {
             />
             <Church
                 v-else
-                class="h-1/2 w-1/2 text-amber-600"
+                class="h-1/2 w-1/2 text-primary"
                 aria-hidden="true"
             />
         </div>

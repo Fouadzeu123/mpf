@@ -57,7 +57,7 @@ const quickActions = [
         title: 'Scanner QR',
         href: '/scanner',
         icon: QrCode,
-        tone: 'bg-amber-500 text-slate-950',
+        tone: 'bg-blue-600 text-white shadow-md shadow-blue-500/20',
         roles: ['admin', 'protocole', 'ancienne', 'secretaire'],
     },
     {
@@ -125,10 +125,10 @@ const visibleStats = computed(() => {
             class="flex flex-1 flex-col gap-6 bg-slate-50 p-4 dark:bg-slate-950"
         >
             <div
-                class="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 text-white shadow-xl"
+                class="rounded-3xl bg-gradient-to-br from-blue-950 via-indigo-950 to-slate-900 p-6 text-white shadow-xl"
             >
                 <p
-                    class="text-sm font-semibold tracking-[0.25em] text-amber-300 uppercase"
+                    class="text-sm font-semibold tracking-[0.25em] text-blue-300 uppercase"
                 >
                     Administration
                 </p>

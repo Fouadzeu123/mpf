@@ -290,11 +290,90 @@ payment.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     payment.form = paymentForm
+/**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+export const feed = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: feed.url(options),
+    method: 'get',
+})
+
+feed.definition = {
+    methods: ["get","head"],
+    url: '/membre/flux',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+feed.url = (options?: RouteQueryOptions) => {
+    return feed.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+feed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: feed.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+feed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: feed.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+    const feedForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: feed.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+        feedForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: feed.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\FeedController::feed
+ * @see app/Http/Controllers/FeedController.php:15
+ * @route '/membre/flux'
+ */
+        feedForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: feed.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    feed.form = feedForm
 const member = {
     login: Object.assign(login, loginDf2c2a),
 logout: Object.assign(logout, logout),
 portal: Object.assign(portal, portal),
 payment: Object.assign(payment, payment44796b),
+feed: Object.assign(feed, feed),
 }
 
 export default member

@@ -28,10 +28,10 @@
         .card-inner {
             position: relative;
             height: 100%;
-            border: 0.5px solid #d4a017;
+            border: 0.7px solid #1e3a8a;
             border-radius: 2mm;
             padding: 2mm;
-            background: #fffbeb;
+            background: #ffffff;
             overflow: hidden;
         }
         .card-top {
@@ -39,7 +39,7 @@
             width: 100%;
             padding: 1.2mm 1.5mm;
             border-radius: 1.5mm;
-            background: #0f172a;
+            background: #172554;
             color: #ffffff;
             margin-bottom: 1.6mm;
         }
@@ -59,6 +59,9 @@
             height: 12mm;
             max-width: 16mm;
             object-fit: contain;
+            background: #ffffff;
+            border-radius: 1mm;
+            padding: 0.3mm;
         }
         .church-name {
             font-size: 6.7px;
@@ -69,7 +72,7 @@
         }
         .card-title {
             font-size: 4.8px;
-            color: #fde68a;
+            color: #93c5fd;
             text-transform: uppercase;
             letter-spacing: 0.6px;
             margin-top: 0.4mm;
@@ -78,8 +81,8 @@
             display: inline-block;
             font-size: 4.8px;
             font-weight: bold;
-            color: #0f172a;
-            background: #fbbf24;
+            color: #ffffff;
+            background: #2563eb;
             border-radius: 6mm;
             padding: 0.7mm 1.4mm;
         }
@@ -108,15 +111,15 @@
             height: 22mm;
             object-fit: cover;
             border-radius: 1.4mm;
-            border: 0.5px solid #f59e0b;
+            border: 0.7px solid #1e3a8a;
             background: #f8fafc;
         }
         .photo-empty {
             width: 18mm;
             height: 22mm;
-            background: #fef3c7;
+            background: #eff6ff;
             border-radius: 1.4mm;
-            border: 0.5px solid #f59e0b;
+            border: 0.7px dashed #1e3a8a;
         }
         .name {
             font-size: 8.2px;
@@ -128,7 +131,7 @@
         .first-name {
             font-size: 7.4px;
             font-weight: bold;
-            color: #92400e;
+            color: #1d4ed8;
             line-height: 1.2;
             margin-bottom: 0.8mm;
         }
@@ -140,12 +143,12 @@
         .line {
             margin-top: 0.5mm;
             padding-bottom: 0.3mm;
-            border-bottom: 0.2px solid #fde68a;
+            border-bottom: 0.2px solid #cbd5e1;
         }
         .label {
             font-size: 4.6px;
             font-weight: bold;
-            color: #92400e;
+            color: #1e3a8a;
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
@@ -154,7 +157,7 @@
             font-size: 5.6px;
             font-weight: bold;
             color: #ffffff;
-            background: #b45309;
+            background: #172554;
             border-radius: 4mm;
             padding: 0.5mm 1.2mm;
             margin-top: 0.8mm;
@@ -162,7 +165,7 @@
         .qr-col img {
             width: 18.5mm;
             height: 18.5mm;
-            border: 0.3px solid #fde68a;
+            border: 0.5px solid #cbd5e1;
             border-radius: 1mm;
             background: #ffffff;
             padding: 0.8mm;
@@ -170,7 +173,7 @@
         .qr-label {
             font-size: 4.4px;
             font-weight: bold;
-            color: #92400e;
+            color: #1e3a8a;
             margin-top: 0.7mm;
             text-transform: uppercase;
         }
@@ -181,22 +184,117 @@
             margin-top: 1.1mm;
             padding: 0.8mm 1mm;
             border-radius: 1mm;
-            background: #ffffff;
-            border: 0.25px solid #fde68a;
+            background: #f8fafc;
+            border: 0.25px solid #cbd5e1;
             line-height: 1.25;
         }
         .visitor-tag {
             display: inline-block;
             font-size: 5px;
             font-weight: bold;
-            color: #92400e;
-            border: 0.3px solid #b8860b;
+            color: #1d4ed8;
+            border: 0.5px solid #2563eb;
             padding: 0.2mm 1mm;
             border-radius: 0.5mm;
             margin-top: 0.5mm;
         }
         .cut-guide {
             border: 0.25px dashed #e2e8f0;
+        }
+
+        /* Special theme: Anciens (Emerald Green) */
+        .theme-ancien {
+            border-color: #047857 !important;
+        }
+        .theme-ancien .card-top {
+            background: #064e3b !important;
+        }
+        .theme-ancien .member-badge {
+            background: #059669 !important;
+        }
+        .theme-ancien .label {
+            color: #047857 !important;
+        }
+        .theme-ancien .first-name {
+            color: #059669 !important;
+        }
+        .theme-ancien .code {
+            background: #064e3b !important;
+        }
+        .theme-ancien .qr-label {
+            color: #047857 !important;
+        }
+
+        /* Special theme: Dirigeant (Black & Gold Premium) */
+        .theme-dirigeant {
+            border-color: #d97706 !important;
+        }
+        .theme-dirigeant .card-top {
+            background: #090d16 !important;
+            border-bottom: 0.5px solid #d97706 !important;
+        }
+        .theme-dirigeant .member-badge {
+            background: #d97706 !important;
+            color: #ffffff !important;
+        }
+        .theme-dirigeant .label {
+            color: #d97706 !important;
+        }
+        .theme-dirigeant .first-name {
+            color: #d97706 !important;
+        }
+        .theme-dirigeant .code {
+            background: #090d16 !important;
+            border: 0.3px solid #d97706 !important;
+            color: #fbbf24 !important;
+        }
+        .theme-dirigeant .qr-label {
+            color: #d97706 !important;
+        }
+
+        /* Added fields styling */
+        .church-supername {
+            font-size: 5.2px;
+            font-weight: normal;
+            color: #93c5fd;
+            letter-spacing: 0.4px;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 0.2mm;
+        }
+        .theme-dirigeant .church-supername {
+            color: #fbbf24;
+        }
+        .bible-verse {
+            font-size: 4.8px;
+            color: #475569;
+            font-style: italic;
+            text-align: center;
+            margin-top: 1mm;
+            line-height: 1.25;
+        }
+        .theme-ancien .bible-verse {
+            color: #065f46;
+        }
+        .theme-dirigeant .bible-verse {
+            color: #b45309;
+        }
+        .card-footer {
+            margin-top: 1mm;
+            padding-top: 0.6mm;
+            border-top: 0.2px solid #cbd5e1;
+            text-align: center;
+            font-size: 4.5px;
+            font-weight: bold;
+            color: #64748b;
+        }
+        .theme-ancien .card-footer {
+            border-top-color: #a7f3d0;
+            color: #047857;
+        }
+        .theme-dirigeant .card-footer {
+            border-top-color: #fde68a;
+            color: #d97706;
         }
     </style>
 </head>
@@ -215,20 +313,76 @@
                 @for ($c = 0; $c < $cols; $c++)
                     @php
                         $card = $pageCards->values()->get($r * $cols + $c);
+                        
+                        $isAncien = false;
+                        $isDirigeant = false;
+                        $isDeptHidden = false;
+                        $themeClass = '';
+                        
+                        if ($card && ($card['type'] ?? '') === 'member') {
+                            $dept = strtolower(trim($card['department'] ?? ''));
+                            // Remove accents
+                            $dept = str_replace(['é', 'è', 'ê', 'ë'], 'e', $dept);
+                            $dept = str_replace(['à', 'â', 'ä'], 'a', $dept);
+                            $dept = str_replace(['ô', 'ö'], 'o', $dept);
+                            $dept = str_replace(['û', 'ü'], 'u', $dept);
+                            $dept = str_replace(['ç'], 'c', $dept);
+                            
+                            $isAncien = ($dept === 'anciens' || $dept === 'ancien');
+                            $isDirigeant = ($dept === 'pasteur' || $dept === 'dirigeant');
+                            
+                            if ($isAncien) {
+                                $themeClass = 'theme-ancien';
+                            } elseif ($isDirigeant) {
+                                $themeClass = 'theme-dirigeant';
+                            }
+                            
+                            $hiddenDepts = ['anciens', 'evangelisation', 'nettoyage', 'chorale', 'pasteur', 'protocole', 'communication', "culte d'enfant", 'diacres', 'moniteurs'];
+                            
+                            $normalize = function($str) {
+                                if (!$str) return '';
+                                $str = strtolower(trim($str));
+                                $str = str_replace(['é', 'è', 'ê', 'ë'], 'e', $str);
+                                $str = str_replace(['à', 'â', 'ä'], 'a', $str);
+                                $str = str_replace(['ô', 'ö'], 'o', $str);
+                                $str = str_replace(['û', 'ü'], 'u', $str);
+                                $str = str_replace(['ç'], 'c', $str);
+                                return $str;
+                            };
+                            
+                            $normalizedDept = $normalize($card['department'] ?? '');
+                            if ($normalizedDept) {
+                                foreach ($hiddenDepts as $hd) {
+                                    if ($normalize($hd) === $normalizedDept) {
+                                        $isDeptHidden = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     @endphp
                     <div class="cell cut-guide">
                         @if ($card)
-                            <div class="card-inner">
+                            <div class="card-inner {{ $themeClass }}">
                                 <div class="card-top">
                                     @if (!empty($logoDataUri))
                                         <div class="brand-logo"><img src="{{ $logoDataUri }}" class="logo" alt=""></div>
                                     @endif
                                     <div class="brand-text">
+                                        <div class="church-supername">(Eglise du Christ)</div>
                                         <div class="church-name">{{ $churchName }}</div>
                                         <div class="card-title">Carte d'identification</div>
                                     </div>
                                     <div class="brand-badge">
-                                        <span class="member-badge">{{ (($card['type'] ?? '') === 'visitor') ? 'VISITEUR' : 'MEMBRE' }}</span>
+                                        <span class="member-badge">
+                                            @if ($isDirigeant)
+                                                DIRIGEANT
+                                            @elseif (($card['type'] ?? '') === 'visitor')
+                                                VISITEUR
+                                            @else
+                                                MEMBRE
+                                            @endif
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -248,7 +402,10 @@
                                             @if (($card['type'] ?? '') === 'member')
                                                 <div class="line"><span class="label">Sexe</span> : {{ $card['gender'] ?: '-' }} &nbsp; <span class="label">Age</span> : {{ $card['age'] ? $card['age'].' ans' : '-' }}</div>
                                                 <div class="line"><span class="label">Adresse</span> : {{ $card['address'] ?: '-' }}</div>
-                                                <div class="line"><span class="label">Département</span> : {{ $card['department'] ?: '-' }}</div>
+                                                <div class="line"><span class="label">Téléphone</span> : {{ $card['phone'] ?: '-' }}</div>
+                                                @if (!$isDeptHidden && !empty($card['department']))
+                                                    <div class="line"><span class="label">Département</span> : {{ $card['department'] }}</div>
+                                                @endif
                                             @else
                                                 @if (!empty($card['phone']))
                                                     {{ $card['phone'] }}<br>
@@ -263,10 +420,16 @@
                                         <div class="code">{{ $card['code'] }}</div>
                                     </div>
                                 </div>
+                                <div class="bible-verse">
+                                    « Mon peuple est détruit, parce qu'il lui manque la connaissance. » — Osée 4:6
+                                </div>
                                 <div class="programs">
                                     @foreach($programs as $program)
                                         {{ $program }}@if(! $loop->last) • @endif
                                     @endforeach
+                                </div>
+                                <div class="card-footer">
+                                    FB : Ministère Prophétique de la Foi • Tél Église : 675028538
                                 </div>
                             </div>
                         @endif

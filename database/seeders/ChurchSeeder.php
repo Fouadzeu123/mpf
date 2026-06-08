@@ -15,9 +15,19 @@ class ChurchSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@mpf.local'],
+            ['email' => 'ngoulafoyanguemonesime@gmail.com'],
             [
-                'name' => 'Administrateur MPF',
+                'name' => 'Apotre Onesime Ngoula Foyanguem',
+                'password' => Hash::make('password'),
+                'role' => UserRole::Admin,
+                'email_verified_at' => now(),
+            ],
+        );
+
+        User::updateOrCreate(
+            ['email' => 'fouadzeuboris@gmail.com'],
+            [
+                'name' => 'Fouadzeu Boris',
                 'password' => Hash::make('password'),
                 'role' => UserRole::Admin,
                 'email_verified_at' => now(),

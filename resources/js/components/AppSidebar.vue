@@ -5,6 +5,7 @@ import {
     LayoutGrid,
     Printer,
     QrCode,
+    Tv,
     UserCheck,
     Users,
     UserPlus,
@@ -71,6 +72,12 @@ const allNavItems: Array<NavItem & { roles?: string[] }> = [
         title: 'Paiements',
         href: '/paiements',
         icon: CreditCard,
+        roles: ['admin'],
+    },
+    {
+        title: 'Gérer Vidéos',
+        href: '/admin-videos',
+        icon: Tv,
         roles: ['admin'],
     },
 ];

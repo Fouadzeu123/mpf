@@ -29,7 +29,7 @@ class BibleVerseService
         'Lamentations' => 'LAM', 'Ézéchiel' => 'EZK', 'Daniel' => 'DAN',
         'Osée' => 'HOS', 'Joël' => 'JOL', 'Amos' => 'AMO',
         'Abdias' => 'OBA', 'Jonas' => 'JON', 'Michée' => 'MIC',
-        'Nahum' => 'NAH', 'Habacuc' => 'HAB', 'Sophonie' => 'ZEP',
+        'Nahum' => 'NAM', 'Habacuc' => 'HAB', 'Sophonie' => 'ZEP',
         'Aggée' => 'HAG', 'Zacharie' => 'ZEC', 'Malachie' => 'MAL',
 
         // New Testament - 27 books
@@ -105,12 +105,6 @@ class BibleVerseService
      */
     protected function fetchVerseText(string $book, int $chapter, int $verse): ?string
     {
-        $apiKey = config('services.bible.api_key');
-
-        if (! $apiKey) {
-            return null;
-        }
-
         $cacheKey = "bible_verse:{$book}:{$chapter}:{$verse}";
 
         // Try cache first (1 week TTL)
@@ -122,38 +116,47 @@ class BibleVerseService
     }
 
     /**
-     * Fetch verse from Bible API
+     * Fetch verse from open Bible API (HelloAO)
      */
     protected function fetchFromApi(string $book, int $chapter, int $verse): ?string
     {
-        $apiKey = config('services.bible.api_key');
-
-        if (! $apiKey) {
-            return null;
-        }
-
         try {
-            $osis = $this->toOsisId($book, $chapter, $verse);
-            $bibleId = config('services.bible.bible_id');
-            $baseUrl = config('services.bible.base_url');
+            $bookId = $this->getBookId($book);
+            $url = "https://bible.helloao.org/api/fra_lsg/{$bookId}/{$chapter}.json";
 
-            $response = Http::withToken($apiKey)
-                ->timeout(10)
-                ->get("{$baseUrl}/bibles/{$bibleId}/verses/{$osis}", [
-                    'content-type' => 'text',
-                    'include-notes' => false,
-                    'include-titles' => false,
-                ]);
+            $response = Http::withoutVerifying()->timeout(10)->get($url);
 
             if ($response->successful()) {
-                $data = $response->json('data.content');
-                return $data ? strip_tags($data) : null;
+                $data = $response->json();
+                $content = $data['chapter']['content'] ?? [];
+
+                foreach ($content as $item) {
+                    if (isset($item['type']) && $item['type'] === 'verse' && isset($item['number']) && (int) $item['number'] === $verse) {
+                        $verseContent = $item['content'] ?? [];
+                        $textParts = [];
+                        if (is_array($verseContent)) {
+                            foreach ($verseContent as $subItem) {
+                                if (is_string($subItem)) {
+                                    $textParts[] = $subItem;
+                                } elseif (is_array($subItem) && isset($subItem['text'])) {
+                                    $textParts[] = $subItem['text'];
+                                }
+                            }
+                            $text = implode('', $textParts);
+                        } else {
+                            $text = $verseContent;
+                        }
+                        return $text ? trim(strip_tags($text)) : null;
+                    }
+                }
             }
 
-            Log::warning('Bible API returned non-200 status', [
+            Log::warning('Bible API (HelloAO) returned non-200 status or verse not found', [
                 'status' => $response->status(),
-                'osis' => $osis,
+                'url' => $url,
                 'book' => $book,
+                'chapter' => $chapter,
+                'verse' => $verse,
             ]);
         } catch (\Throwable $e) {
             Log::warning('Bible API error: '.$e->getMessage(), [
@@ -167,19 +170,25 @@ class BibleVerseService
     }
 
     /**
-     * Convert book name to OSIS identifier
+     * Convert book name to HelloAO book identifier
+     */
+    protected function getBookId(string $book): string
+    {
+        if (isset(self::OSIS_MAP[$book])) {
+            return self::OSIS_MAP[$book];
+        }
+
+        // Fallback: take first 3 letters and convert to uppercase
+        return strtoupper(Str::substr(Str::ascii($book), 0, 3));
+    }
+
+    /**
+     * Convert book name to OSIS identifier (legacy compatibility)
      */
     protected function toOsisId(string $book, int $chapter, int $verse): string
     {
-        // Check complete map first
-        if (isset(self::OSIS_MAP[$book])) {
-            $osisCode = self::OSIS_MAP[$book];
-        } else {
-            // Fallback: take first 3 letters and convert to uppercase
-            $osisCode = strtoupper(Str::substr(Str::ascii($book), 0, 3));
-        }
-
-        return "{$osisCode}.{$chapter}.{$verse}";
+        $bookId = $this->getBookId($book);
+        return "{$bookId}.{$chapter}.{$verse}";
     }
 
     /**
@@ -187,13 +196,6 @@ class BibleVerseService
      */
     protected function fallbackText(string $reference): string
     {
-        return "Verset tiré aléatoirement — {$reference}. Configurez BIBLE_API_KEY pour le texte complet.";
-    }
-}
-    }
-
-    protected function fallbackText(string $reference): string
-    {
-        return "Verset tiré aléatoirement — {$reference}. Configurez BIBLE_API_KEY pour le texte complet.";
+        return "Verset tiré aléatoirement — {$reference}.";
     }
 }

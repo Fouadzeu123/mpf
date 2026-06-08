@@ -42,7 +42,7 @@ defineProps<{
             <div class="grid gap-5">
                 <div class="grid gap-2">
                     <Label for="email" class="flex items-center gap-2">
-                        <Mail class="h-4 w-4 text-amber-600" />
+                        <Mail class="h-4 w-4 text-blue-500" />
                         Adresse e-mail
                     </Label>
                     <Input
@@ -54,7 +54,7 @@ defineProps<{
                         :tabindex="1"
                         autocomplete="email"
                         placeholder="vous@exemple.com"
-                        class="border-slate-200 focus-visible:ring-amber-500/40"
+                        class="border-slate-200 focus-visible:ring-primary/40"
                     />
                     <InputError :message="errors.email" />
                 </div>
@@ -62,13 +62,13 @@ defineProps<{
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
                         <Label for="password" class="flex items-center gap-2">
-                            <Shield class="h-4 w-4 text-amber-600" />
+                            <Shield class="h-4 w-4 text-blue-500" />
                             Mot de passe
                         </Label>
                         <TextLink
                             v-if="canResetPassword"
                             :href="request()"
-                            class="text-xs text-amber-700 dark:text-amber-400"
+                            class="text-xs text-primary dark:text-blue-400"
                             :tabindex="5"
                         >
                             Mot de passe oublié ?
@@ -95,7 +95,7 @@ defineProps<{
 
                 <Button
                     type="submit"
-                    class="mt-2 w-full gap-2 bg-slate-900 text-amber-50 hover:bg-slate-800 dark:bg-amber-600 dark:text-slate-900 dark:hover:bg-amber-500"
+                    class="mt-2 w-full gap-2 bg-primary text-primary-foreground hover:opacity-90 dark:bg-primary dark:text-primary-foreground dark:hover:opacity-90"
                     :tabindex="4"
                     :disabled="processing"
                 >

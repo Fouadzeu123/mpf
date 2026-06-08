@@ -34,17 +34,17 @@ defineProps<{
     <MemberLayout title="Mon espace">
         <div class="space-y-6">
             <div
-                class="rounded-[2rem] border border-amber-500/20 bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 text-white shadow-xl"
+                class="rounded-[2rem] border border-blue-500/20 bg-gradient-to-br from-blue-950 via-indigo-950 to-slate-900 p-6 text-white shadow-xl"
             >
                 <p
-                    class="text-xs font-semibold tracking-[0.25em] text-amber-300 uppercase"
+                    class="text-xs font-semibold tracking-[0.25em] text-blue-300 uppercase"
                 >
                     Espace personnel
                 </p>
                 <h1 class="mt-2 text-2xl font-black">
                     Bonjour, {{ member.first_name }}
                 </h1>
-                <p class="mt-1 font-mono text-sm text-amber-300/90">
+                <p class="mt-1 font-mono text-sm text-blue-300/90">
                     {{ member.member_code }}
                 </p>
                 <p v-if="member.department" class="mt-2 text-sm text-slate-300">
@@ -62,7 +62,7 @@ defineProps<{
                 <h2
                     class="flex items-center gap-2 font-semibold text-foreground"
                 >
-                    <Wine class="h-5 w-5 text-amber-600" />
+                    <Wine class="h-5 w-5 text-blue-500" />
                     Sainte Cène
                 </h2>
                 <p
@@ -77,7 +77,7 @@ defineProps<{
                     </p>
                     <Link
                         href="/membre/paiement"
-                        class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-950 py-3 font-bold text-white dark:bg-amber-500 dark:text-slate-950"
+                        class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition hover:bg-primary/90 active:scale-[0.98]"
                     >
                         <CreditCard class="h-4 w-4" />
                         Faire ma préparation
@@ -89,14 +89,14 @@ defineProps<{
                 <h2
                     class="flex items-center gap-2 font-semibold text-foreground"
                 >
-                    <BookOpen class="h-5 w-5 text-amber-600" />
+                    <BookOpen class="h-5 w-5 text-blue-500" />
                     Mes versets
                 </h2>
                 <ul class="mt-4 space-y-3">
                     <li
                         v-for="v in member.verse_history"
                         :key="v.created_at + v.verse_reference"
-                        class="border-l-2 border-amber-500/60 pl-3 text-sm"
+                        class="border-l-2 border-blue-500/60 pl-3 text-sm"
                     >
                         <strong class="text-foreground">{{
                             v.verse_reference

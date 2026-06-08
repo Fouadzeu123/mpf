@@ -76,10 +76,10 @@ function printMembers() {
     <AppLayout :breadcrumbs="[{ title: 'Impression A4', href: '/impression' }]">
         <div class="space-y-5 bg-slate-50 p-4 dark:bg-slate-950">
             <div
-                class="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 p-6 text-white shadow-xl"
+                class="rounded-3xl bg-gradient-to-br from-blue-950 via-indigo-950 to-slate-900 p-6 text-white shadow-xl"
             >
                 <p
-                    class="text-sm font-semibold tracking-[0.25em] text-amber-300 uppercase"
+                    class="text-sm font-semibold tracking-[0.25em] text-blue-300 uppercase"
                 >
                     Impression PDF
                 </p>

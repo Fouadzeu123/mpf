@@ -164,7 +164,7 @@ onUnmounted(() => stopScanner());
             <div class="flex flex-wrap gap-2">
                 <select
                     v-model="currentMode"
-                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
+                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary/30 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
                     @change="updateUrl"
                 >
                     <option v-for="m in modes" :key="m.value" :value="m.value">
@@ -174,7 +174,7 @@ onUnmounted(() => stopScanner());
                 <select
                     v-if="currentMode === 'attendance'"
                     v-model="currentService"
-                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-amber-400 focus:ring-2 focus:ring-amber-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
+                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-sm transition focus:border-primary focus:ring-2 focus:ring-primary/30 focus:outline-none dark:border-slate-700 dark:bg-slate-900"
                     @change="updateUrl"
                 >
                     <option
@@ -205,7 +205,7 @@ onUnmounted(() => stopScanner());
                 :class="
                     result.success
                         ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950'
-                        : 'border-amber-500 bg-amber-50'
+                        : 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/20'
                 "
             >
                 <p class="text-lg font-semibold">{{ result.message }}</p>
@@ -216,7 +216,7 @@ onUnmounted(() => stopScanner());
                             <img
                                 v-if="scannedMember?.photo_url"
                                 :src="scannedMember.photo_url"
-                                class="h-32 w-32 rounded-full object-cover ring-4 ring-amber-500"
+                                class="h-32 w-32 rounded-full object-cover ring-4 ring-primary"
                                 alt=""
                             />
                             <p class="text-2xl font-bold">
@@ -269,7 +269,7 @@ onUnmounted(() => stopScanner());
                             </div>
                             <Link
                                 :href="`/members/${scannedMember?.id}`"
-                                class="mt-2 inline-flex items-center gap-1 text-amber-600 hover:underline"
+                                class="mt-2 inline-flex items-center gap-1 text-primary hover:underline"
                             >
                                 <LinkIcon class="h-4 w-4" /> Voir profil complet
                             </Link>

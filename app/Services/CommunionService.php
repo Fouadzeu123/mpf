@@ -70,26 +70,3 @@ class CommunionService
             && $today->day <= 14;
     }
 }
-
-            'remote' => $remote,
-        ]);
-
-        return $preparation->fresh();
-    }
-
-    public function amountFor(Member $member): int
-    {
-        return ($member->age !== null && $member->age < 18)
-            ? (int) config('church.communion_student_fee')
-            : (int) config('church.communion_worker_fee');
-    }
-
-    public function isPreparationDay(): bool
-    {
-        $today = now();
-
-        return $today->isSaturday()
-            && $today->day >= 8
-            && $today->day <= 14;
-    }
-}

@@ -25,6 +25,7 @@ Route::prefix('membre')->name('member.')->group(function () {
         Route::get('espace', [MemberPortalController::class, 'index'])->name('portal');
         Route::get('paiement', [PaymentController::class, 'create'])->name('payment');
         Route::post('paiement', [PaymentController::class, 'initiate'])->name('payment.initiate');
+        Route::get('flux', [\App\Http\Controllers\FeedController::class, 'index'])->name('feed');
     });
 });
 
@@ -43,7 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('members/{member}', [MemberController::class, 'show'])->middleware('role:secretaire,ancienne')->name('members.show');
     Route::get('members/{member}/edit', [MemberController::class, 'edit'])->middleware('role:secretaire')->name('members.edit');
     Route::put('members/{member}', [MemberController::class, 'update'])->middleware('role:secretaire')->name('members.update');
-    Route::patch('members/{member}', [MemberController::class, 'update'])->middleware('role:secretaire');
     Route::delete('members/{member}', [MemberController::class, 'destroy'])->middleware('role:secretaire')->name('members.destroy');
     Route::post('members/{member}/gps', [MemberController::class, 'updateGps'])->middleware('role:secretaire')->name('members.gps');
     Route::get('members/{member}/carte', [MemberController::class, 'card'])->middleware('role:secretaire')->name('members.card');
@@ -62,6 +62,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('impression/visiteurs', [PrintController::class, 'visitors'])->middleware('role:secretaire')->name('print.visitors');
 
     Route::get('paiements', [PaymentController::class, 'index'])->middleware('role:admin')->name('payments.index');
+    Route::get('flux', [\App\Http\Controllers\FeedController::class, 'index'])->name('admin.feed');
+    Route::resource('admin-videos', \App\Http\Controllers\VideoController::class)->middleware('role:admin');
 });
 
 require __DIR__.'/settings.php';

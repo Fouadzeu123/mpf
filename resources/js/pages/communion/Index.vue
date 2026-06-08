@@ -47,7 +47,7 @@ defineProps<{
                         <span v-if="p.whatsapp_sent" class="text-emerald-600"
                             >WhatsApp ✓</span
                         >
-                        <span v-if="p.remote" class="text-amber-600"
+                        <span v-if="p.remote" class="text-blue-600 dark:text-blue-400"
                             >À distance</span
                         >
                     </div>

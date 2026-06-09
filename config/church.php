@@ -16,9 +16,9 @@ return [
     'a4_print' => [
         'columns' => 2,
         'rows' => 5,
-        'card_width_mm' => 85,
-        'card_height_mm' => 54,
-        'margin_mm' => 10,
-        'gap_mm' => 4,
+        'card_width_mm' => 87,
+        'card_height_mm' => 55,
+        'margin_mm' => 5,
+        'gap_mm' => 1.5,
     ],
 ];

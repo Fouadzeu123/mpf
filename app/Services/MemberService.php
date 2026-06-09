@@ -67,6 +67,8 @@ class MemberService
             if ($member->photo) {
                 Storage::disk('public')->delete($member->photo);
             }
+        } else {
+            unset($data['photo']);
         }
 
         if (! empty($data['password'])) {

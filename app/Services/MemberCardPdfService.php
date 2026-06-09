@@ -17,7 +17,42 @@ class MemberCardPdfService
     /** @param  Collection<int, Member>|array<int, Member>  $members */
     public function downloadMembers(Collection|array $members)
     {
-        $cards = $this->buildMemberCards($members);
+        $priority = [
+            'apotre' => 1,
+            'pasteur' => 2,
+            'dirigeant' => 2,
+            'evangeliste' => 3,
+            'anciens' => 4,
+            'ancien' => 4,
+            'diacres' => 5,
+            'diacre' => 5,
+            'chorale' => 6,
+        ];
+
+        $normalize = function($str) {
+            if (!$str) return '';
+            $str = strtolower(trim($str));
+            $str = str_replace(['é', 'è', 'ê', 'ë'], 'e', $str);
+            $str = str_replace(['à', 'â', 'ä'], 'a', $str);
+            $str = str_replace(['ô', 'ö'], 'o', $str);
+            $str = str_replace(['û', 'ü'], 'u', $str);
+            $str = str_replace(['ç'], 'c', $str);
+            return $str;
+        };
+
+        $sortedMembers = collect($members)->sortBy(function (Member $m) use ($priority, $normalize) {
+            $depts = explode(',', $m->department ?? '');
+            $minPriority = 999;
+            foreach ($depts as $dept) {
+                $norm = $normalize($dept);
+                if (isset($priority[$norm])) {
+                    $minPriority = min($minPriority, $priority[$norm]);
+                }
+            }
+            return $minPriority;
+        })->values();
+
+        $cards = $this->buildMemberCards($sortedMembers);
 
         return Pdf::loadView('pdf.cards-a4', $this->viewData($cards))
             ->setPaper('a4', 'portrait')
@@ -32,7 +67,7 @@ class MemberCardPdfService
             'full_name' => $v->full_name,
             'phone' => $v->phone,
             'code' => $v->qr_code,
-            'qr_data_uri' => $this->qrCodeService->generateDataUri($v->qr_code, 120),
+            'qr_data_uri' => $this->qrCodeService->generateDataUri($v->qr_code, 150),
             'visit_date' => $v->visit_date->format('d/m/Y'),
         ]);
 
@@ -64,7 +99,7 @@ class MemberCardPdfService
             'address' => $m->address_description,
             'code' => $m->member_code,
             'photo_data_uri' => $this->memberPhotoDataUri($m),
-            'qr_data_uri' => $this->qrCodeService->generateDataUri($m->qr_code, 120),
+            'qr_data_uri' => $this->qrCodeService->generateDataUri($m->qr_code, 150),
         ]);
     }
 

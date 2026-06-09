@@ -92,7 +92,7 @@
         }
         .photo-col {
             display: table-cell;
-            width: 20mm;
+            width: 21mm;
             vertical-align: top;
         }
         .info-col {
@@ -102,21 +102,21 @@
         }
         .qr-col {
             display: table-cell;
-            width: 20mm;
+            width: 24mm;
             vertical-align: top;
             text-align: center;
         }
         .photo {
-            width: 18mm;
-            height: 22mm;
+            width: 19mm;
+            height: 23mm;
             object-fit: cover;
             border-radius: 1.4mm;
             border: 0.7px solid #1e3a8a;
             background: #f8fafc;
         }
         .photo-empty {
-            width: 18mm;
-            height: 22mm;
+            width: 19mm;
+            height: 23mm;
             background: #eff6ff;
             border-radius: 1.4mm;
             border: 0.7px dashed #1e3a8a;
@@ -163,8 +163,8 @@
             margin-top: 0.8mm;
         }
         .qr-col img {
-            width: 18.5mm;
-            height: 18.5mm;
+            width: 22mm;
+            height: 22mm;
             border: 0.5px solid #cbd5e1;
             border-radius: 1mm;
             background: #ffffff;
@@ -202,55 +202,205 @@
             border: 0.25px dashed #e2e8f0;
         }
 
-        /* Special theme: Anciens (Emerald Green) */
-        .theme-ancien {
-            border-color: #047857 !important;
+        /* 1. Apôtre: Royal Purple & Gold */
+        .theme-apotre {
+            border-color: #6b21a8 !important;
         }
-        .theme-ancien .card-top {
-            background: #064e3b !important;
-        }
-        .theme-ancien .member-badge {
-            background: #059669 !important;
-        }
-        .theme-ancien .label {
-            color: #047857 !important;
-        }
-        .theme-ancien .first-name {
-            color: #059669 !important;
-        }
-        .theme-ancien .code {
-            background: #064e3b !important;
-        }
-        .theme-ancien .qr-label {
-            color: #047857 !important;
-        }
-
-        /* Special theme: Dirigeant (Black & Gold Premium) */
-        .theme-dirigeant {
-            border-color: #d97706 !important;
-        }
-        .theme-dirigeant .card-top {
-            background: #090d16 !important;
+        .theme-apotre .card-top {
+            background: #3b0764 !important;
             border-bottom: 0.5px solid #d97706 !important;
         }
-        .theme-dirigeant .member-badge {
+        .theme-apotre .member-badge {
             background: #d97706 !important;
             color: #ffffff !important;
         }
-        .theme-dirigeant .label {
+        .theme-apotre .label {
+            color: #6b21a8 !important;
+        }
+        .theme-apotre .first-name {
+            color: #7e22ce !important;
+        }
+        .theme-apotre .code {
+            background: #3b0764 !important;
+            border: 0.3px solid #d97706 !important;
+            color: #fcd34d !important;
+        }
+        .theme-apotre .qr-label {
+            color: #6b21a8 !important;
+        }
+        .theme-apotre .bible-verse {
+            color: #581c87 !important;
+        }
+        .theme-apotre .card-footer {
+            border-top-color: #e9d5ff !important;
+            color: #6b21a8 !important;
+        }
+        .theme-apotre .photo { border-color: #6b21a8 !important; }
+        .theme-apotre .photo-empty { border-color: #6b21a8 !important; }
+
+        /* 2. Pasteur: Black & Gold */
+        .theme-pasteur, .theme-dirigeant {
+            border-color: #d97706 !important;
+        }
+        .theme-pasteur .card-top, .theme-dirigeant .card-top {
+            background: #090d16 !important;
+            border-bottom: 0.5px solid #d97706 !important;
+        }
+        .theme-pasteur .member-badge, .theme-dirigeant .member-badge {
+            background: #d97706 !important;
+            color: #ffffff !important;
+        }
+        .theme-pasteur .label, .theme-dirigeant .label {
             color: #d97706 !important;
         }
-        .theme-dirigeant .first-name {
+        .theme-pasteur .first-name, .theme-dirigeant .first-name {
             color: #d97706 !important;
         }
-        .theme-dirigeant .code {
+        .theme-pasteur .code, .theme-dirigeant .code {
             background: #090d16 !important;
             border: 0.3px solid #d97706 !important;
             color: #fbbf24 !important;
         }
-        .theme-dirigeant .qr-label {
+        .theme-pasteur .qr-label, .theme-dirigeant .qr-label {
             color: #d97706 !important;
         }
+        .theme-pasteur .bible-verse, .theme-dirigeant .bible-verse {
+            color: #b45309 !important;
+        }
+        .theme-pasteur .card-footer, .theme-dirigeant .card-footer {
+            border-top-color: #fde68a !important;
+            color: #d97706 !important;
+        }
+        .theme-pasteur .photo, .theme-dirigeant .photo { border-color: #d97706 !important; }
+        .theme-pasteur .photo-empty, .theme-dirigeant .photo-empty { border-color: #d97706 !important; }
+
+        /* 3. Évangéliste: Cobalt Blue */
+        .theme-evangeliste {
+            border-color: #2563eb !important;
+        }
+        .theme-evangeliste .card-top {
+            background: #1d4ed8 !important;
+        }
+        .theme-evangeliste .member-badge {
+            background: #2563eb !important;
+        }
+        .theme-evangeliste .label {
+            color: #1d4ed8 !important;
+        }
+        .theme-evangeliste .first-name {
+            color: #2563eb !important;
+        }
+        .theme-evangeliste .code {
+            background: #1d4ed8 !important;
+        }
+        .theme-evangeliste .qr-label {
+            color: #1d4ed8 !important;
+        }
+        .theme-evangeliste .bible-verse {
+            color: #1e40af !important;
+        }
+        .theme-evangeliste .card-footer {
+            border-top-color: #bfdbfe !important;
+            color: #1d4ed8 !important;
+        }
+        .theme-evangeliste .photo { border-color: #2563eb !important; }
+        .theme-evangeliste .photo-empty { border-color: #2563eb !important; }
+
+        /* 4. Anciens: Bronze / Amber */
+        .theme-ancien {
+            border-color: #b45309 !important;
+        }
+        .theme-ancien .card-top {
+            background: #7c2d12 !important;
+        }
+        .theme-ancien .member-badge {
+            background: #b45309 !important;
+        }
+        .theme-ancien .label {
+            color: #b45309 !important;
+        }
+        .theme-ancien .first-name {
+            color: #c2410c !important;
+        }
+        .theme-ancien .code {
+            background: #7c2d12 !important;
+        }
+        .theme-ancien .qr-label {
+            color: #b45309 !important;
+        }
+        .theme-ancien .bible-verse {
+            color: #7c2d12 !important;
+        }
+        .theme-ancien .card-footer {
+            border-top-color: #ffedd5 !important;
+            color: #b45309 !important;
+        }
+        .theme-ancien .photo { border-color: #b45309 !important; }
+        .theme-ancien .photo-empty { border-color: #b45309 !important; }
+
+        /* 5. Diacres: Indigo / Lavender */
+        .theme-diacre {
+            border-color: #4f46e5 !important;
+        }
+        .theme-diacre .card-top {
+            background: #312e81 !important;
+        }
+        .theme-diacre .member-badge {
+            background: #4f46e5 !important;
+        }
+        .theme-diacre .label {
+            color: #4f46e5 !important;
+        }
+        .theme-diacre .first-name {
+            color: #6366f1 !important;
+        }
+        .theme-diacre .code {
+            background: #312e81 !important;
+        }
+        .theme-diacre .qr-label {
+            color: #4f46e5 !important;
+        }
+        .theme-diacre .bible-verse {
+            color: #3730a3 !important;
+        }
+        .theme-diacre .card-footer {
+            border-top-color: #e0e7ff !important;
+            color: #4f46e5 !important;
+        }
+        .theme-diacre .photo { border-color: #4f46e5 !important; }
+        .theme-diacre .photo-empty { border-color: #4f46e5 !important; }
+
+        /* 6. Chorale: Sky Blue / Cyan */
+        .theme-chorale {
+            border-color: #0284c7 !important;
+        }
+        .theme-chorale .card-top {
+            background: #0369a1 !important;
+        }
+        .theme-chorale .member-badge {
+            background: #0284c7 !important;
+        }
+        .theme-chorale .label {
+            color: #0284c7 !important;
+        }
+        .theme-chorale .first-name {
+            color: #38bdf8 !important;
+        }
+        .theme-chorale .code {
+            background: #0369a1 !important;
+        }
+        .theme-chorale .qr-label {
+            color: #0284c7 !important;
+        }
+        .theme-chorale .bible-verse {
+            color: #075985 !important;
+        }
+        .theme-chorale .card-footer {
+            border-top-color: #e0f2fe !important;
+            color: #0284c7 !important;
+        }
+        .theme-chorale .photo { border-color: #0284c7 !important; }
+        .theme-chorale .photo-empty { border-color: #0284c7 !important; }
 
         /* Added fields styling */
         .church-supername {
@@ -262,7 +412,7 @@
             text-transform: uppercase;
             margin-bottom: 0.2mm;
         }
-        .theme-dirigeant .church-supername {
+        .theme-apotre .church-supername, .theme-dirigeant .church-supername, .theme-pasteur .church-supername {
             color: #fbbf24;
         }
         .bible-verse {
@@ -273,12 +423,6 @@
             margin-top: 1mm;
             line-height: 1.25;
         }
-        .theme-ancien .bible-verse {
-            color: #065f46;
-        }
-        .theme-dirigeant .bible-verse {
-            color: #b45309;
-        }
         .card-footer {
             margin-top: 1mm;
             padding-top: 0.6mm;
@@ -287,14 +431,6 @@
             font-size: 4.5px;
             font-weight: bold;
             color: #64748b;
-        }
-        .theme-ancien .card-footer {
-            border-top-color: #a7f3d0;
-            color: #047857;
-        }
-        .theme-dirigeant .card-footer {
-            border-top-color: #fde68a;
-            color: #d97706;
         }
     </style>
 </head>
@@ -314,10 +450,17 @@
                     @php
                         $card = $pageCards->values()->get($r * $cols + $c);
                         
-                        $isAncien = false;
+                        $isApotre = false;
+                        $isPasteur = false;
                         $isDirigeant = false;
+                        $isEvangeliste = false;
+                        $isAncien = false;
+                        $isDiacre = false;
+                        $isChorale = false;
+                        
                         $isDeptHidden = false;
                         $themeClass = '';
+                        $badgeLabel = '';
                         $displayDept = '';
                         
                         if ($card && ($card['type'] ?? '') === 'member') {
@@ -343,21 +486,53 @@
                             
                             foreach ($memberDepts as $md) {
                                 $norm = $normalize($md);
+                                if ($norm === 'apotre') {
+                                    $isApotre = true;
+                                }
+                                if ($norm === 'pasteur') {
+                                    $isPasteur = true;
+                                }
+                                if ($norm === 'dirigeant') {
+                                    $isDirigeant = true;
+                                }
+                                if ($norm === 'evangeliste') {
+                                    $isEvangeliste = true;
+                                }
                                 if ($norm === 'anciens' || $norm === 'ancien') {
                                     $isAncien = true;
                                 }
-                                if ($norm === 'pasteur' || $norm === 'dirigeant') {
-                                    $isDirigeant = true;
+                                if ($norm === 'diacres' || $norm === 'diacre') {
+                                    $isDiacre = true;
+                                }
+                                if ($norm === 'chorale') {
+                                    $isChorale = true;
                                 }
                             }
                             
-                            if ($isAncien) {
+                            if ($isApotre) {
+                                $themeClass = 'theme-apotre';
+                                $badgeLabel = 'APÔTRE';
+                            } elseif ($isPasteur || $isDirigeant) {
+                                $themeClass = 'theme-pasteur';
+                                $badgeLabel = $isDirigeant ? 'DIRIGEANT' : 'PASTEUR';
+                            } elseif ($isEvangeliste) {
+                                $themeClass = 'theme-evangeliste';
+                                $badgeLabel = 'ÉVANGÉLISTE';
+                            } elseif ($isAncien) {
                                 $themeClass = 'theme-ancien';
-                            } elseif ($isDirigeant) {
-                                $themeClass = 'theme-dirigeant';
+                                $badgeLabel = 'ANCIEN';
+                            } elseif ($isDiacre) {
+                                $themeClass = 'theme-diacre';
+                                $badgeLabel = 'DIACRE';
+                            } elseif ($isChorale) {
+                                $themeClass = 'theme-chorale';
+                                $badgeLabel = 'CHORALE';
+                            } else {
+                                $themeClass = '';
+                                $badgeLabel = 'MEMBRE';
                             }
                             
-                            $hiddenDepts = ['anciens', 'evangelisation', 'nettoyage', 'chorale', 'pasteur', 'protocole', 'communication', "culte d'enfant", 'diacres', 'moniteurs'];
+                            $hiddenDepts = ['apotre', 'pasteur', 'dirigeant', 'evangeliste', 'anciens', 'ancien', 'diacres', 'diacre', 'chorale', 'nettoyage', 'protocole', 'communication', "culte d'enfant", 'moniteurs'];
                             $hiddenDeptsNorm = array_map($normalize, $hiddenDepts);
                             
                             $visibleDepts = [];
@@ -373,6 +548,8 @@
                             } else {
                                 $isDeptHidden = true;
                             }
+                        } elseif ($card && ($card['type'] ?? '') === 'visitor') {
+                            $badgeLabel = 'VISITEUR';
                         }
                     @endphp
                     <div class="cell cut-guide">
@@ -389,13 +566,7 @@
                                     </div>
                                     <div class="brand-badge">
                                         <span class="member-badge">
-                                            @if ($isDirigeant)
-                                                DIRIGEANT
-                                            @elseif (($card['type'] ?? '') === 'visitor')
-                                                VISITEUR
-                                            @else
-                                                MEMBRE
-                                            @endif
+                                            {{ $badgeLabel }}
                                         </span>
                                     </div>
                                 </div>

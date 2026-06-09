@@ -25,15 +25,16 @@ const form = useForm({
 });
 
 const availableDepartments = [
-    'Anciens',
-    'Évangélisation',
-    'Nettoyage',
-    'Chorale',
+    'Apôtre',
     'Pasteur',
+    'Évangéliste',
+    'Anciens',
+    'Diacres',
+    'Chorale',
+    'Nettoyage',
     'Protocole',
     'Communication',
     "Culte d'enfant",
-    'Diacres',
     'Moniteurs'
 ];
 

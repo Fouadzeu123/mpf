@@ -5,7 +5,16 @@
 /public/storage
 /storage/*.key
 /storage/pail
-
+/storage/app/public/members/*
+!/storage/app/public/members/.gitkeep
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
 /vendor
 .DS_Store
 .env

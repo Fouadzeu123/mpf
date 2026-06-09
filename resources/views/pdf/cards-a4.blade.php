@@ -16,8 +16,12 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: {{ $layout['gap_mm'] }}mm;
+            page-break-inside: avoid;
         }
-        .row { display: table-row; }
+        .row {
+            display: table-row;
+            page-break-inside: avoid;
+        }
         .cell {
             display: table-cell;
             width: {{ $layout['card_width_mm'] }}mm;
@@ -27,7 +31,7 @@
         }
         .card-inner {
             position: relative;
-            height: 100%;
+            height: {{ $layout['card_height_mm'] }}mm;
             border: 0.7px solid #1e3a8a;
             border-radius: 2mm;
             padding: 2mm;

@@ -133,3 +133,26 @@ Pour finaliser le déploiement, vous devez exécuter les migrations de base de d
    - **Vider les Caches** : Nettoie les caches de configuration de Laravel pour charger les nouvelles variables du fichier `.env` de production.
 
 4. **Recommandation de sécurité** : Une fois le déploiement terminé avec succès, supprimez ou renommez le fichier `symlink.php` sur le serveur pour éviter tout risque d'exécution accidentelle.
+
+---
+
+## ⚠️ Éviter la suppression des photos de membres lors des déploiements
+
+Sur Hostinger (ou tout autre serveur de production), les photos des membres sont téléversées et stockées dans le dossier dynamique :
+`/home/u123456789/bibleStory/storage/app/public/members/`
+
+Lors de la mise à jour ou du redéploiement de votre code, ces fichiers peuvent être accidentellement supprimés si vous écrasez les dossiers. Voici les règles d'or pour l'éviter :
+
+### 1. Si vous déployez par Archive ZIP (File Manager Hostinger) :
+- **Ne mettez jamais le dossier `storage` dans votre fichier `.zip` local** que vous uploadez. Excluez-le de l'archive avant de l'envoyer.
+- Si vous uploadez le dossier `storage` vide de votre projet local et que vous l'extrayez sur Hostinger, il écrasera (et donc videra) le dossier `storage` contenant les photos de production.
+
+### 2. Si vous utilisez Git / GitHub (Déploiement automatique) :
+- Assurez-vous que votre script ou outil de déploiement (comme Git ou un webhook) n'exécute **pas** la commande `git clean -fd` sur le dossier `storage`, car les photos étant des fichiers non suivis par Git (présents dans `.gitignore`), elles seraient définitivement supprimées par cette commande.
+
+### 3. Si vous déployez par FTP (FileZilla, Cyberduck, etc.) :
+- Lors du transfert FTP, configurez votre client pour **exclure** le transfert du dossier `storage/` ou configurez-le pour ne **jamais supprimer/écraser** les fichiers du dossier `storage/app/public/members/` sur le serveur.
+
+> [!TIP]
+> **Bonne pratique de sauvegarde** :
+> Avant chaque mise à jour de code en production, téléchargez et sauvegardez toujours le dossier `storage/app/public/members/` de votre serveur Hostinger vers votre ordinateur local. Ainsi, en cas d'erreur de manipulation, vous pourrez restaurer toutes les photos instantanément.

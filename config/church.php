@@ -11,7 +11,6 @@ return [
         'Mercredi : Enseignement biblique',
         'Dernier vendredi : Prière pour les malades',
         'Deuxième dimanche : Sainte Cène',
-        'Dernier dimanche : Grenier du Pasteur',
     ],
     'a4_print' => [
         'columns' => 2,

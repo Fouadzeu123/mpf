@@ -20,6 +20,12 @@ const props = defineProps<{
     compact?: boolean;
 }>();
 
+function getAppUrl(path: string): string {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="app-url"]');
+    const baseUrl = meta?.content ? meta.content.replace(/\/$/, '') : '';
+    return `${baseUrl}/${path.replace(/^\//, '')}`;
+}
+
 function formatDate(dateStr?: string | null): string {
     if (!dateStr) return '-';
     const parts = dateStr.split('-');
@@ -203,7 +209,7 @@ const codeClasses = computed(() => {
             :class="headerClasses"
         >
             <img
-                src="/favicon.svg"
+                :src="getAppUrl('/favicon.svg')"
                 alt="Logo"
                 class="h-12 w-12 object-contain bg-white rounded-lg p-0.5"
             />

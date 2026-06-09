@@ -28,6 +28,12 @@ const sizeClasses = {
     xl: 'h-20 w-20',
 };
 
+function getAppUrl(path: string): string {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="app-url"]');
+    const baseUrl = meta?.content ? meta.content.replace(/\/$/, '') : '';
+    return `${baseUrl}/${path.replace(/^\//, '')}`;
+}
+
 const imgError = ref(false);
 
 const textClasses = {
@@ -54,7 +60,7 @@ const textClasses = {
         >
             <img
                 v-if="!imgError"
-                src="/favicon.svg"
+                :src="getAppUrl('/favicon.svg')"
                 :alt="churchName"
                 class="h-[85%] w-[85%] object-contain"
                 @error="imgError = true"

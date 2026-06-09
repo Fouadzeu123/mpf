@@ -44,6 +44,12 @@ watch(selectedDepartments, (newVal) => {
     form.department = newVal.join(', ');
 }, { deep: true });
 
+function getAppUrl(path: string): string {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="app-url"]');
+    const baseUrl = meta?.content ? meta.content.replace(/\/$/, '') : '';
+    return `${baseUrl}/${path.replace(/^\//, '')}`;
+}
+
 const uploadingPhoto = ref(false);
 const photoPreviewUrl = ref<string | null>(null);
 
@@ -90,7 +96,7 @@ function handlePhotoChange(event: Event) {
                     const formData = new FormData();
                     formData.append('photo', blob, 'photo.jpg');
 
-                    fetch('/members/upload-photo', {
+                    fetch(getAppUrl('/members/upload-photo'), {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? '',

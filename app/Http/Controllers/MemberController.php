@@ -191,4 +191,93 @@ class MemberController extends Controller
             'url' => asset('storage/' . $path),
         ]);
     }
+
+    public function reorderCodes(Request $request): RedirectResponse
+    {
+        $priority = [
+            'apotre' => 1,
+            'pasteur' => 2,
+            'dirigeant' => 2,
+            'evangeliste' => 3,
+            'anciens' => 4,
+            'ancien' => 4,
+            'diacres' => 5,
+            'diacre' => 5,
+            'chorale' => 6,
+        ];
+
+        $normalize = function($str) {
+            if (!$str) return '';
+            $str = strtolower(trim($str));
+            $str = str_replace(['é', 'è', 'ê', 'ë'], 'e', $str);
+            $str = str_replace(['à', 'â', 'ä'], 'a', $str);
+            $str = str_replace(['ô', 'ö'], 'o', $str);
+            $str = str_replace(['û', 'ü'], 'u', $str);
+            $str = str_replace(['ç'], 'c', $str);
+            return $str;
+        };
+
+        $members = Member::all();
+
+        $sorted = $members->sort(function ($a, $b) use ($priority, $normalize) {
+            $deptsA = array_filter(array_map('trim', explode(',', $a->department ?? '')));
+            $pA = 7;
+            foreach ($deptsA as $d) {
+                $norm = $normalize($d);
+                if (isset($priority[$norm])) {
+                    $pA = min($pA, $priority[$norm]);
+                }
+            }
+
+            $deptsB = array_filter(array_map('trim', explode(',', $b->department ?? '')));
+            $pB = 7;
+            foreach ($deptsB as $d) {
+                $norm = $normalize($d);
+                if (isset($priority[$norm])) {
+                    $pB = min($pB, $priority[$norm]);
+                }
+            }
+
+            if ($pA !== $pB) {
+                return $pA <=> $pB;
+            }
+
+            $hasDeptA = !empty($deptsA) ? 1 : 0;
+            $hasDeptB = !empty($deptsB) ? 1 : 0;
+            if ($hasDeptA !== $hasDeptB) {
+                return $hasDeptB <=> $hasDeptA;
+            }
+
+            $lastNameComp = strcasecmp($a->last_name ?? '', $b->last_name ?? '');
+            if ($lastNameComp !== 0) {
+                return $lastNameComp;
+            }
+
+            return strcasecmp($a->first_name ?? '', $b->first_name ?? '');
+        })->values();
+
+        \Illuminate\Support\Facades\DB::transaction(function () use ($sorted) {
+            // First pass: assign temp codes to avoid unique constraint collisions
+            foreach ($sorted as $member) {
+                $temp = 'TEMP-' . $member->id . '-' . uniqid();
+                $member->update([
+                    'member_code' => $temp,
+                    'qr_code' => $temp,
+                ]);
+            }
+
+            // Second pass: assign final sequential codes
+            foreach ($sorted as $i => $member) {
+                $num = str_pad((string) ($i + 1), 6, '0', STR_PAD_LEFT);
+                $newCode = "MEM-{$num}";
+                $member->update([
+                    'member_code' => $newCode,
+                    'qr_code' => $newCode,
+                ]);
+            }
+        });
+
+        return redirect()->route('members.index')
+            ->with('toast', ['type' => 'success', 'message' => 'Les codes membres ont été reclassés avec succès.']);
+    }
 }

@@ -266,6 +266,61 @@ uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     uploadPhoto.form = uploadPhotoForm
 /**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+export const reorderCodes = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorderCodes.url(options),
+    method: 'post',
+})
+
+reorderCodes.definition = {
+    methods: ["post"],
+    url: '/members/reorder-codes',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+reorderCodes.url = (options?: RouteQueryOptions) => {
+    return reorderCodes.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+reorderCodes.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorderCodes.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+    const reorderCodesForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: reorderCodes.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+        reorderCodesForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: reorderCodes.url(options),
+            method: 'post',
+        })
+    
+    reorderCodes.form = reorderCodesForm
+/**
 * @see \App\Http\Controllers\MemberController::show
  * @see app/Http/Controllers/MemberController.php:67
  * @route '/members/{member}'
@@ -833,6 +888,7 @@ const members = {
 create: Object.assign(create, create),
 store: Object.assign(store, store),
 uploadPhoto: Object.assign(uploadPhoto, uploadPhoto),
+reorderCodes: Object.assign(reorderCodes, reorderCodes),
 show: Object.assign(show, show),
 edit: Object.assign(edit, edit),
 update: Object.assign(update, update),

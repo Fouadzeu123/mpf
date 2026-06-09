@@ -156,12 +156,18 @@ function playBeep() {
     }
 }
 
+function getAppUrl(path: string): string {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="app-url"]');
+    const baseUrl = meta?.content ? meta.content.replace(/\/$/, '') : '';
+    return `${baseUrl}/${path.replace(/^\//, '')}`;
+}
+
 async function onScan(code: string) {
     const csrf = document.querySelector<HTMLMetaElement>(
         'meta[name="csrf-token"]',
     )?.content;
 
-    const res = await fetch('/scanner/scan', {
+    const res = await fetch(getAppUrl('/scanner/scan'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

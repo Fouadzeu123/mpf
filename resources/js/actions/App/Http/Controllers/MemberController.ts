@@ -266,6 +266,61 @@ uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     uploadPhoto.form = uploadPhotoForm
 /**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+export const reorderCodes = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorderCodes.url(options),
+    method: 'post',
+})
+
+reorderCodes.definition = {
+    methods: ["post"],
+    url: '/members/reorder-codes',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+reorderCodes.url = (options?: RouteQueryOptions) => {
+    return reorderCodes.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+reorderCodes.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: reorderCodes.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+    const reorderCodesForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: reorderCodes.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\MemberController::reorderCodes
+ * @see app/Http/Controllers/MemberController.php:195
+ * @route '/members/reorder-codes'
+ */
+        reorderCodesForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: reorderCodes.url(options),
+            method: 'post',
+        })
+    
+    reorderCodes.form = reorderCodesForm
+/**
 * @see \App\Http\Controllers\MemberController::show
  * @see app/Http/Controllers/MemberController.php:67
  * @route '/members/{member}'
@@ -828,6 +883,6 @@ card.head = (args: { member: number | { id: number } } | [member: number | { id:
         })
     
     card.form = cardForm
-const MemberController = { index, create, store, uploadPhoto, show, edit, update, destroy, updateGps, card }
+const MemberController = { index, create, store, uploadPhoto, reorderCodes, show, edit, update, destroy, updateGps, card }
 
 export default MemberController

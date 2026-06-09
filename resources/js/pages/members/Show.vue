@@ -117,13 +117,34 @@ function formatDate(dateStr: string | null): string {
     }
     return dateStr;
 }
+
+function getAppUrl(path: string): string {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="app-url"]');
+    const baseUrl = meta?.content ? meta.content.replace(/\/$/, '') : '';
+    return `${baseUrl}/${path.replace(/^\//, '')}`;
+}
 </script>
 
 <template>
     <Head :title="member.member_code" />
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="no-print grid gap-6 p-4 lg:grid-cols-3">
-            <div class="space-y-6 lg:col-span-2">
+            <!-- Card Preview Sidebar (Top on mobile, Right on desktop) -->
+            <div class="order-1 lg:order-2 space-y-6">
+                <h2
+                    class="mb-3 text-center text-sm font-medium text-muted-foreground"
+                >
+                    Aperçu carte membre
+                </h2>
+                <MemberCardPreview
+                    :member="member"
+                    :qr-svg="qrSvg"
+                    :programs="programs"
+                />
+            </div>
+
+            <!-- Details Column (Bottom on mobile, Left on desktop) -->
+            <div class="space-y-6 lg:col-span-2 order-2 lg:order-1">
                 <div class="flex flex-wrap items-start justify-between gap-4">
                     <div>
                         <h1 class="text-2xl font-bold">
@@ -340,281 +361,156 @@ function formatDate(dateStr: string | null): string {
                     </Button>
                 </div>
             </div>
-
-            <div>
-                <h2
-                    class="mb-3 text-center text-sm font-medium text-muted-foreground"
-                >
-                    Aperçu carte membre
-                </h2>
-                <MemberCardPreview
-                    :member="member"
-                    :qr-svg="qrSvg"
-                    :programs="programs"
-                />
-            </div>
         </div>
 
-        <section class="print-profile hidden bg-white p-10 text-slate-900">
-            <div
-                class="mx-auto min-h-[277mm] w-[190mm] border border-slate-200 p-8"
-            >
-                <div
-                    class="flex items-center justify-between border-b-4 border-blue-500 pb-5"
-                >
+        <section class="print-profile hidden bg-white text-slate-900">
+            <div class="mx-auto w-[180mm] p-4 font-sans text-xs">
+                <!-- Header -->
+                <div class="flex items-center justify-between pb-6">
                     <div class="flex items-center gap-4">
                         <img
-                            src="/favicon.svg"
+                            :src="getAppUrl('/favicon.svg')"
                             alt="Logo"
-                            class="h-20 w-20 object-contain"
+                            class="h-16 w-16 object-contain"
                         />
                         <div>
-                            <h1 class="text-2xl font-black uppercase">
-                                Fiche complète membre
-                            </h1>
-                            <p class="text-sm font-semibold text-slate-600">
-                                Ministère Prophétique de la Foi
+                            <p class="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                                Fiche d'identification
                             </p>
+                            <h1 class="text-xl font-black uppercase text-slate-900">
+                                Ministère Prophétique de la Foi
+                            </h1>
                         </div>
                     </div>
-                    <div
-                        class="rounded-full bg-slate-950 px-5 py-2 text-sm font-bold text-white"
-                    >
-                        {{ member.member_code }}
+                    <div class="text-right">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase">
+                            Code Membre
+                        </p>
+                        <p class="font-mono text-base font-black text-slate-900">
+                            {{ member.member_code }}
+                        </p>
                     </div>
                 </div>
 
-                <div class="mt-8 space-y-6">
-                    <div>
+                <!-- Profile Info & Photo block -->
+                <div class="grid grid-cols-3 gap-6 pt-4">
+                    <!-- Photo column -->
+                    <div class="col-span-1 flex flex-col items-center">
                         <img
                             v-if="member.photo_url"
                             :src="member.photo_url"
+                            class="h-44 w-32 rounded-xl object-cover"
                             alt=""
-                            class="h-48 w-36 rounded-xl object-cover ring-2 ring-blue-500/70"
                         />
                         <div
                             v-else
-                            class="flex h-48 w-36 items-center justify-center rounded-xl bg-blue-100 text-3xl font-black text-blue-900 ring-2 ring-blue-500/70 dark:bg-blue-950 dark:text-blue-200"
+                            class="flex h-44 w-32 items-center justify-center rounded-xl bg-slate-100 text-3xl font-black text-slate-400"
                         >
                             {{ member.first_name[0] }}{{ member.last_name[0] }}
                         </div>
                     </div>
 
-                    <div>
-                        <h2 class="text-3xl font-black uppercase">
-                            {{ member.last_name }}
-                        </h2>
-                        <p class="text-2xl font-bold text-primary dark:text-blue-400">
-                            {{ member.first_name }}
-                        </p>
-
-                        <div class="mt-6 space-y-3 text-sm">
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Numéro membre
-                                </p>
-                                <p class="mt-1 font-mono text-lg font-bold">
-                                    {{ member.member_code }}
-                                </p>
-                            </div>
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Téléphone
-                                </p>
-                                <p class="mt-1 text-lg font-bold">
-                                    {{ member.phone || 'Non renseigné' }}
-                                </p>
-                            </div>
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Sexe
-                                </p>
-                                <p class="mt-1 text-lg font-bold">
-                                    {{ member.gender || 'Non renseigné' }}
-                                </p>
-                            </div>
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Date de naissance
-                                </p>
-                                <p class="mt-1 text-lg font-bold">
-                                    {{ formatDate(member.birth_date) }}
-                                </p>
-                            </div>
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Profession
-                                </p>
-                                <p class="mt-1 text-lg font-bold">
-                                    {{ member.profession || 'Non renseignée' }}
-                                </p>
-                            </div>
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Département
-                                </p>
-                                <p class="mt-1 text-lg font-bold">
-                                    {{ member.department || 'Non renseigné' }}
-                                </p>
-                            </div>
-                            <div class="rounded-xl border p-4">
-                                <p
-                                    class="text-xs font-bold text-slate-500 uppercase"
-                                >
-                                    Statut GPS
-                                </p>
-                                <p class="mt-1 text-lg font-bold">
-                                    {{
-                                        member.latitude && member.longitude
-                                            ? 'Localisé'
-                                            : 'Non localisé'
-                                    }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 rounded-xl border p-5">
-                    <p class="text-xs font-bold text-slate-500 uppercase">
-                        Adresse complète
-                    </p>
-                    <p class="mt-2 text-lg font-semibold">
-                        {{
-                            member.address_description ||
-                            'Adresse non renseignée'
-                        }}
-                    </p>
-                </div>
-
-                <div class="mt-6 rounded-xl border p-5">
-                    <div class="flex items-center justify-between">
+                    <!-- Details Column -->
+                    <div class="col-span-2 space-y-4">
                         <div>
-                            <p
-                                class="text-xs font-bold text-slate-500 uppercase"
+                            <h2 class="text-2xl font-black uppercase text-slate-900">
+                                {{ member.last_name }}
+                            </h2>
+                            <p class="text-lg font-bold text-blue-600">
+                                {{ member.first_name }}
+                            </p>
+                        </div>
+
+                        <!-- Information Table (No borders, clean alignment) -->
+                        <div class="grid grid-cols-2 gap-y-3 gap-x-6 text-xs">
+                            <div>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Sexe</p>
+                                <p class="font-semibold text-slate-800">{{ member.gender || 'Non renseigné' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Date de naissance</p>
+                                <p class="font-semibold text-slate-800">{{ formatDate(member.birth_date) }}</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Téléphone</p>
+                                <p class="font-semibold text-slate-800">{{ member.phone || 'Non renseigné' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Profession</p>
+                                <p class="font-semibold text-slate-800">{{ member.profession || 'Non renseignée' }}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Département(s)</p>
+                                <p class="font-semibold text-slate-800">{{ member.department || 'Aucun département' }}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Adresse complète</p>
+                                <p class="font-semibold text-slate-800">{{ member.address_description || 'Adresse non renseignée' }}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="text-[9px] font-bold text-slate-400 uppercase">Coordonnées GPS</p>
+                                <p class="font-semibold text-slate-800">
+                                    {{ member.latitude && member.longitude ? `${member.latitude}, ${member.longitude}` : 'Non renseigné' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sunday Attendances and Sainte Cene (side by side, very clean) -->
+                <div class="grid grid-cols-2 gap-8 pt-8 mt-8">
+                    <!-- Column 1: Attendances -->
+                    <div>
+                        <h3 class="text-[10px] font-bold tracking-wider text-slate-400 uppercase mb-3">
+                            Présences au culte (Dimanche)
+                        </h3>
+                        <p class="text-xs font-semibold text-slate-700 mb-3">
+                            {{ currentMonthLabel }} : {{ sundayAttendancesCount }} présence(s)
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <div
+                                v-for="attendance in sundayAttendances.slice(0, 5)"
+                                :key="'print-' + attendance.date + attendance.time"
+                                class="py-0.5"
                             >
-                                Localisation exacte
-                            </p>
-                            <p class="mt-2 font-mono text-base">
-                                {{
-                                    member.latitude && member.longitude
-                                        ? `${member.latitude}, ${member.longitude}`
-                                        : 'Coordonnées GPS non renseignées'
-                                }}
+                                <p class="font-bold text-slate-800 text-[11px]">{{ attendance.date }} · {{ attendance.time }}</p>
+                                <p class="text-slate-500 text-[10px]">{{ attendance.service_type }}</p>
+                            </div>
+                            <p v-if="!sundayAttendances.length" class="text-xs text-slate-400 italic">
+                                Aucune présence au culte ce mois.
                             </p>
                         </div>
-                        <a
-                            v-if="routeUrl"
-                            :href="routeUrl"
-                            class="rounded-full bg-blue-500 px-5 py-2 text-sm font-bold text-white shadow-sm shadow-blue-500/20"
-                        >
-                            Voir itinéraire
-                        </a>
                     </div>
-                    <iframe
-                        v-if="
-                            googleMapsKey && member.latitude && member.longitude
-                        "
-                        class="mt-5 h-72 w-full rounded-xl border"
-                        :src="`https://www.google.com/maps/embed/v1/place?key=${googleMapsKey}&q=${member.latitude},${member.longitude}`"
-                    />
-                </div>
 
-                <div class="mt-6 rounded-xl border p-5">
-                    <p class="text-xs font-bold text-slate-500 uppercase">
-                        Présences au culte du dimanche
-                    </p>
-                    <p class="mt-2 text-lg font-bold">
-                        {{ currentMonthLabel }} :
-                        {{ sundayAttendancesCount }} présence(s)
-                    </p>
-                    <div class="mt-4 space-y-2">
-                        <div
-                            v-for="attendance in sundayAttendances"
-                            :key="'print-' + attendance.date + attendance.time"
-                            class="rounded-lg border p-3 text-sm"
-                        >
-                            <p class="font-bold">{{ attendance.date }}</p>
-                            <p>
-                                {{ attendance.time }} -
-                                {{ attendance.service_type }}
+                    <!-- Column 2: Sainte Cène preparations -->
+                    <div>
+                        <h3 class="text-[10px] font-bold tracking-wider text-slate-400 uppercase mb-3">
+                            Préparations Sainte Cène
+                        </h3>
+                        <p class="text-xs font-semibold text-slate-700 mb-3">
+                            Dernières préparations
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div
+                                v-for="preparation in communionPreparations.slice(0, 4)"
+                                :key="'print-prep-' + preparation.date + preparation.time"
+                                class="text-[10px]"
+                            >
+                                <div class="flex justify-between font-bold text-slate-800">
+                                    <span>{{ preparation.date }} à {{ preparation.time }}</span>
+                                    <span class="text-slate-500">({{ preparation.remote ? 'À distance' : 'Sur place' }})</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-1 text-slate-500 mt-0.5">
+                                    <span>Verset: {{ preparation.verse_reference || '-' }}</span>
+                                    <span class="text-right">Réf: {{ preparation.payment_reference || '-' }}</span>
+                                </div>
+                            </div>
+                            <p v-if="!communionPreparations.length" class="text-xs text-slate-400 italic">
+                                Aucune préparation enregistrée.
                             </p>
                         </div>
-                        <p
-                            v-if="!sundayAttendances.length"
-                            class="text-sm text-slate-600"
-                        >
-                            Aucune présence au culte du dimanche pour ce mois.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="mt-6 rounded-xl border p-5">
-                    <p class="text-xs font-bold text-slate-500 uppercase">
-                        Préparations de carte Sainte Cène
-                    </p>
-                    <div class="mt-4 space-y-2">
-                        <div
-                            v-for="preparation in communionPreparations"
-                            :key="
-                                'print-prep-' +
-                                preparation.date +
-                                preparation.time +
-                                preparation.payment_reference
-                            "
-                            class="rounded-lg border p-3 text-sm"
-                        >
-                            <p class="font-bold">
-                                {{ preparation.date }} à {{ preparation.time }}
-                            </p>
-                            <p>
-                                Verset :
-                                {{
-                                    preparation.verse_reference ||
-                                    'Non renseigné'
-                                }}
-                            </p>
-                            <p>
-                                Paiement :
-                                {{
-                                    preparation.payment_status ||
-                                    'Non renseigné'
-                                }}
-                            </p>
-                            <p>
-                                Référence :
-                                {{
-                                    preparation.payment_reference ||
-                                    'Non renseignée'
-                                }}
-                            </p>
-                            <p>
-                                Mode :
-                                {{
-                                    preparation.remote
-                                        ? 'À distance'
-                                        : 'Sur place'
-                                }}
-                            </p>
-                        </div>
-                        <p
-                            v-if="!communionPreparations.length"
-                            class="text-sm text-slate-600"
-                        >
-                            Aucune préparation enregistrée.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -641,7 +537,7 @@ function formatDate(dateStr: string | null): string {
 
     @page {
         size: A4;
-        margin: 10mm;
+        margin: 15mm;
     }
 }
 </style>

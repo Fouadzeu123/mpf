@@ -23,7 +23,7 @@
             width: {{ $layout['card_width_mm'] }}mm;
             height: {{ $layout['card_height_mm'] }}mm;
             vertical-align: top;
-            padding: 1.8mm;
+            padding: 0;
         }
         .card-inner {
             position: relative;

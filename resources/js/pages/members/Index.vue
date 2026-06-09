@@ -27,6 +27,29 @@ const search = ref(props.filters.search ?? '');
 const department = ref(props.filters.department ?? '');
 const status = ref(props.filters.status ?? '');
 
+const sorting = ref(false);
+
+function reorderMembers() {
+    if (
+        !confirm(
+            "Êtes-vous sûr de vouloir réattribuer les codes de tous les membres ?\n\nCette action va modifier les codes membres (MEM-xxxxxx) dans l'ordre hiérarchique : Apôtre, Pasteur, Évangéliste, Anciens, Diacres, Chorale, en priorisant ceux qui font partie d'un département, puis par ordre alphabétique."
+        )
+    ) {
+        return;
+    }
+
+    sorting.value = true;
+    router.post(
+        '/members/reorder-codes',
+        {},
+        {
+            onFinish: () => {
+                sorting.value = false;
+            },
+        }
+    );
+}
+
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Membres', href: '/members' }];
 
 function applyFilters() {
@@ -48,11 +71,24 @@ function applyFilters() {
         <div class="flex flex-col gap-4 p-4">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <h1 class="text-2xl font-bold">Membres</h1>
-                <Link href="/members/create">
+                <div class="flex items-center gap-2">
                     <Button
-                        ><Plus class="mr-2 h-4 w-4" /> Nouveau membre</Button
+                        variant="outline"
+                        :disabled="sorting"
+                        @click="reorderMembers"
                     >
-                </Link>
+                        <span
+                            v-if="sorting"
+                            class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"
+                        />
+                        Classer les codes
+                    </Button>
+                    <Link href="/members/create">
+                        <Button
+                            ><Plus class="mr-2 h-4 w-4" /> Nouveau membre</Button
+                        >
+                    </Link>
+                </div>
             </div>
 
             <div class="flex flex-wrap gap-2">

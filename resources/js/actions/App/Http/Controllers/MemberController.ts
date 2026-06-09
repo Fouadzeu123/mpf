@@ -211,6 +211,61 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     store.form = storeForm
 /**
+* @see \App\Http\Controllers\MemberController::uploadPhoto
+ * @see app/Http/Controllers/MemberController.php:181
+ * @route '/members/upload-photo'
+ */
+export const uploadPhoto = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: uploadPhoto.url(options),
+    method: 'post',
+})
+
+uploadPhoto.definition = {
+    methods: ["post"],
+    url: '/members/upload-photo',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\MemberController::uploadPhoto
+ * @see app/Http/Controllers/MemberController.php:181
+ * @route '/members/upload-photo'
+ */
+uploadPhoto.url = (options?: RouteQueryOptions) => {
+    return uploadPhoto.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\MemberController::uploadPhoto
+ * @see app/Http/Controllers/MemberController.php:181
+ * @route '/members/upload-photo'
+ */
+uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: uploadPhoto.url(options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\MemberController::uploadPhoto
+ * @see app/Http/Controllers/MemberController.php:181
+ * @route '/members/upload-photo'
+ */
+    const uploadPhotoForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: uploadPhoto.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\MemberController::uploadPhoto
+ * @see app/Http/Controllers/MemberController.php:181
+ * @route '/members/upload-photo'
+ */
+        uploadPhotoForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: uploadPhoto.url(options),
+            method: 'post',
+        })
+    
+    uploadPhoto.form = uploadPhotoForm
+/**
 * @see \App\Http\Controllers\MemberController::show
  * @see app/Http/Controllers/MemberController.php:67
  * @route '/members/{member}'
@@ -773,6 +828,6 @@ card.head = (args: { member: number | { id: number } } | [member: number | { id:
         })
     
     card.form = cardForm
-const MemberController = { index, create, store, show, edit, update, destroy, updateGps, card }
+const MemberController = { index, create, store, uploadPhoto, show, edit, update, destroy, updateGps, card }
 
 export default MemberController

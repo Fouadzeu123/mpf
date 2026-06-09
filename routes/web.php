@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('members', [MemberController::class, 'index'])->middleware('role:secretaire,ancienne')->name('members.index');
     Route::get('members/create', [MemberController::class, 'create'])->middleware('role:secretaire')->name('members.create');
     Route::post('members', [MemberController::class, 'store'])->middleware('role:secretaire')->name('members.store');
+    Route::post('members/upload-photo', [MemberController::class, 'uploadPhoto'])->middleware('role:secretaire')->name('members.upload-photo');
     Route::get('members/{member}', [MemberController::class, 'show'])->middleware('role:secretaire,ancienne')->name('members.show');
     Route::get('members/{member}/edit', [MemberController::class, 'edit'])->middleware('role:secretaire')->name('members.edit');
     Route::put('members/{member}', [MemberController::class, 'update'])->middleware('role:secretaire')->name('members.update');

@@ -177,4 +177,18 @@ class MemberController extends Controller
 
         return back()->with('toast', ['type' => 'success', 'message' => 'Localisation enregistrée.']);
     }
+
+    public function uploadPhoto(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $request->validate([
+            'photo' => ['required', 'image', 'max:10240'],
+        ]);
+
+        $path = $request->file('photo')->store('members', 'public');
+
+        return response()->json([
+            'path' => $path,
+            'url' => asset('storage/' . $path),
+        ]);
+    }
 }

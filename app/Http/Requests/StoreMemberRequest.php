@@ -27,7 +27,11 @@ class StoreMemberRequest extends FormRequest
             'department' => ['nullable', 'string', 'max:100'],
             'status' => ['nullable', Rule::enum(MemberStatus::class)],
             'password' => ['nullable', 'string', 'min:4'],
-            'photo' => ['nullable', 'image', 'max:2048'],
+            'photo' => ['nullable', function ($attribute, $value, $fail) {
+                if (!is_string($value) && !($value instanceof \Illuminate\Http\UploadedFile)) {
+                    $fail("Le champ photo doit être une image ou une chaîne de caractères.");
+                }
+            }],
         ];
     }
 }

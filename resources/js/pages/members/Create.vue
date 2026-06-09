@@ -43,6 +43,82 @@ watch(selectedDepartments, (newVal) => {
     form.department = newVal.join(', ');
 }, { deep: true });
 
+const uploadingPhoto = ref(false);
+const photoPreviewUrl = ref<string | null>(null);
+
+function handlePhotoChange(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+
+    uploadingPhoto.value = true;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 800;
+            const MAX_HEIGHT = 800;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(
+                (blob) => {
+                    if (!blob) {
+                        uploadingPhoto.value = false;
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('photo', blob, 'photo.jpg');
+
+                    fetch('/members/upload-photo', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content ?? '',
+                        },
+                        body: formData,
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            if (data.path) {
+                                form.photo = data.path;
+                                photoPreviewUrl.value = data.url;
+                            }
+                        })
+                        .catch((err) => {
+                            console.error('Error uploading photo:', err);
+                        })
+                        .finally(() => {
+                            uploadingPhoto.value = false;
+                        });
+                },
+                'image/jpeg',
+                0.8
+            );
+        };
+        img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+}
+
 function submit() {
     form.post('/members', { forceFormData: true });
 }
@@ -152,16 +228,22 @@ function submit() {
             </div>
             <div>
                 <label class="text-sm font-medium">Photo</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    class="mt-1"
-                    @change="
-                        form.photo =
-                            ($event.target as HTMLInputElement).files?.[0] ??
-                            null
-                    "
-                />
+                <div class="mt-1 flex items-center gap-4">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                        @change="handlePhotoChange"
+                    />
+                    <div v-if="uploadingPhoto" class="flex items-center gap-2 text-xs text-slate-500">
+                        <span class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full" />
+                        Compression & envoi...
+                    </div>
+                </div>
+                <div v-if="photoPreviewUrl" class="mt-3">
+                    <img :src="photoPreviewUrl" class="h-24 w-20 rounded-lg object-cover border" alt="Aperçu" />
+                </div>
+                <InputError :message="form.errors.photo" />
             </div>
             <Button type="submit" :disabled="form.processing"
                 >Enregistrer</Button

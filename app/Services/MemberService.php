@@ -25,6 +25,13 @@ class MemberService
         $memberCode = $this->memberCodeService->generate();
         $password = $data['password'] ?? $this->memberCodeService->defaultPassword($memberCode);
 
+        $photoPath = null;
+        if ($photo) {
+            $photoPath = $this->storePhoto($photo);
+        } elseif (!empty($data['photo']) && is_string($data['photo'])) {
+            $photoPath = $data['photo'];
+        }
+
         $member = Member::create([
             'member_code' => $memberCode,
             'first_name' => $data['first_name'],
@@ -38,7 +45,7 @@ class MemberService
             'status' => $data['status'] ?? MemberStatus::Active,
             'qr_code' => $memberCode,
             'password' => Hash::make(strtolower($password)),
-            'photo' => $photo ? $this->storePhoto($photo) : null,
+            'photo' => $photoPath,
         ]);
 
         $this->activityLogService->log('member_created', meta: ['member_id' => $member->id]);
@@ -56,6 +63,10 @@ class MemberService
                 Storage::disk('public')->delete($member->photo);
             }
             $data['photo'] = $this->storePhoto($photo);
+        } elseif (isset($data['photo']) && is_string($data['photo']) && $data['photo'] !== $member->photo) {
+            if ($member->photo) {
+                Storage::disk('public')->delete($member->photo);
+            }
         }
 
         if (! empty($data['password'])) {

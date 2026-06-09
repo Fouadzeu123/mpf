@@ -75,13 +75,70 @@ class PaymentController extends Controller
         $member = $transaction->member;
 
         if ($transaction->status === PaymentStatus::Paid) {
-            $this->communionService->prepare($member, remote: true, paymentReference: $reference);
+            if ($transaction->type === 'event_contribution') {
+                \App\Models\Contribution::where('payment_reference', $reference)->update(['payment_status' => 'paid']);
 
+                return redirect()->route('member.portal')
+                    ->with('toast', ['type' => 'success', 'message' => 'Paiement validé. Contribution enregistrée.']);
+            } else {
+                $this->communionService->prepare($member, remote: true, paymentReference: $reference);
+
+                return redirect()->route('member.portal')
+                    ->with('toast', ['type' => 'success', 'message' => 'Paiement validé. Préparation enregistrée.']);
+            }
+        }
+
+        if ($transaction->type === 'event_contribution') {
             return redirect()->route('member.portal')
-                ->with('toast', ['type' => 'success', 'message' => 'Paiement validé. Préparation enregistrée.']);
+                ->with('toast', ['type' => 'warning', 'message' => 'Paiement de la contribution en attente de confirmation.']);
         }
 
         return redirect()->route('payments.create', ['member_id' => $member->id])
             ->with('toast', ['type' => 'warning', 'message' => 'Paiement en attente de confirmation.']);
+    }
+
+    public function initiateContribution(Request $request, \App\Models\Event $event): RedirectResponse
+    {
+        $request->validate([
+            'amount' => ['required', 'integer', 'min:100'],
+        ]);
+
+        $member = auth('member')->user();
+        if (!$member) {
+            return redirect()->back()->with('toast', ['type' => 'error', 'message' => 'Non autorisé.']);
+        }
+
+        $amount = (int) $request->amount;
+
+        // Create pending contribution
+        $contribution = \App\Models\Contribution::create([
+            'event_id' => $event->id,
+            'member_id' => $member->id,
+            'amount' => $amount,
+            'payment_status' => 'pending',
+            'payment_method' => 'mobile_money',
+        ]);
+
+        $transaction = $this->notchPayService->initiate(
+            $member,
+            $amount,
+            'Contribution : ' . $event->title,
+            'event_contribution',
+            $event->id
+        );
+
+        $contribution->update([
+            'payment_reference' => $transaction->reference,
+        ]);
+
+        if (! config('services.notchpay.private_key')) {
+            $contribution->update(['payment_status' => 'paid']);
+            $transaction->update(['status' => PaymentStatus::Paid]);
+
+            return redirect()->route('member.portal')
+                ->with('toast', ['type' => 'success', 'message' => 'Contribution enregistrée avec succès (mode démo).']);
+        }
+
+        return redirect()->route('payments.verify', $transaction->reference);
     }
 }

@@ -318,27 +318,9 @@
                         $isDirigeant = false;
                         $isDeptHidden = false;
                         $themeClass = '';
+                        $displayDept = '';
                         
                         if ($card && ($card['type'] ?? '') === 'member') {
-                            $dept = strtolower(trim($card['department'] ?? ''));
-                            // Remove accents
-                            $dept = str_replace(['é', 'è', 'ê', 'ë'], 'e', $dept);
-                            $dept = str_replace(['à', 'â', 'ä'], 'a', $dept);
-                            $dept = str_replace(['ô', 'ö'], 'o', $dept);
-                            $dept = str_replace(['û', 'ü'], 'u', $dept);
-                            $dept = str_replace(['ç'], 'c', $dept);
-                            
-                            $isAncien = ($dept === 'anciens' || $dept === 'ancien');
-                            $isDirigeant = ($dept === 'pasteur' || $dept === 'dirigeant');
-                            
-                            if ($isAncien) {
-                                $themeClass = 'theme-ancien';
-                            } elseif ($isDirigeant) {
-                                $themeClass = 'theme-dirigeant';
-                            }
-                            
-                            $hiddenDepts = ['anciens', 'evangelisation', 'nettoyage', 'chorale', 'pasteur', 'protocole', 'communication', "culte d'enfant", 'diacres', 'moniteurs'];
-                            
                             $normalize = function($str) {
                                 if (!$str) return '';
                                 $str = strtolower(trim($str));
@@ -350,14 +332,46 @@
                                 return $str;
                             };
                             
-                            $normalizedDept = $normalize($card['department'] ?? '');
-                            if ($normalizedDept) {
-                                foreach ($hiddenDepts as $hd) {
-                                    if ($normalize($hd) === $normalizedDept) {
-                                        $isDeptHidden = true;
-                                        break;
-                                    }
+                            $rawDepts = explode(',', $card['department'] ?? '');
+                            $memberDepts = [];
+                            foreach ($rawDepts as $rd) {
+                                $trimmed = trim($rd);
+                                if ($trimmed !== '') {
+                                    $memberDepts[] = $trimmed;
                                 }
+                            }
+                            
+                            foreach ($memberDepts as $md) {
+                                $norm = $normalize($md);
+                                if ($norm === 'anciens' || $norm === 'ancien') {
+                                    $isAncien = true;
+                                }
+                                if ($norm === 'pasteur' || $norm === 'dirigeant') {
+                                    $isDirigeant = true;
+                                }
+                            }
+                            
+                            if ($isAncien) {
+                                $themeClass = 'theme-ancien';
+                            } elseif ($isDirigeant) {
+                                $themeClass = 'theme-dirigeant';
+                            }
+                            
+                            $hiddenDepts = ['anciens', 'evangelisation', 'nettoyage', 'chorale', 'pasteur', 'protocole', 'communication', "culte d'enfant", 'diacres', 'moniteurs'];
+                            $hiddenDeptsNorm = array_map($normalize, $hiddenDepts);
+                            
+                            $visibleDepts = [];
+                            foreach ($memberDepts as $md) {
+                                $norm = $normalize($md);
+                                if (!in_array($norm, $hiddenDeptsNorm, true)) {
+                                    $visibleDepts[] = $md;
+                                }
+                            }
+                            
+                            if (!empty($visibleDepts)) {
+                                $displayDept = implode(', ', $visibleDepts);
+                            } else {
+                                $isDeptHidden = true;
                             }
                         }
                     @endphp
@@ -400,11 +414,11 @@
                                         @endif
                                         <div class="meta">
                                             @if (($card['type'] ?? '') === 'member')
-                                                <div class="line"><span class="label">Sexe</span> : {{ $card['gender'] ?: '-' }} &nbsp; <span class="label">Age</span> : {{ $card['age'] ? $card['age'].' ans' : '-' }}</div>
+                                                <div class="line"><span class="label">Sexe</span> : {{ $card['gender'] ?: '-' }} &nbsp; <span class="label">Naissance</span> : {{ $card['birth_date'] ?: '-' }}</div>
                                                 <div class="line"><span class="label">Adresse</span> : {{ $card['address'] ?: '-' }}</div>
                                                 <div class="line"><span class="label">Téléphone</span> : {{ $card['phone'] ?: '-' }}</div>
-                                                @if (!$isDeptHidden && !empty($card['department']))
-                                                    <div class="line"><span class="label">Département</span> : {{ $card['department'] }}</div>
+                                                @if (!$isDeptHidden && !empty($displayDept))
+                                                    <div class="line"><span class="label">Département</span> : {{ $displayDept }}</div>
                                                 @endif
                                             @else
                                                 @if (!empty($card['phone']))

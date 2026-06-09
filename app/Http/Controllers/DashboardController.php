@@ -55,6 +55,32 @@ class DashboardController extends Controller
                 ->groupBy('date')
                 ->orderBy('date')
                 ->get() : [],
+            'upcomingEvents' => $isAdmin ? \App\Models\Event::where('start_date', '>=', now())
+                ->orderBy('start_date', 'asc')
+                ->get()
+                ->map(fn ($e) => [
+                    'id' => $e->id,
+                    'title' => $e->title,
+                    'description' => $e->description,
+                    'location' => $e->location,
+                    'start_date' => $e->start_date->format('d/m/Y H:i'),
+                    'end_date' => $e->end_date ? $e->end_date->format('d/m/Y H:i') : null,
+                    'banner_url' => $e->banner_url,
+                    'total_contributions' => $e->total_contributions,
+                ]) : [],
+            'pastEvents' => $isAdmin ? \App\Models\Event::where('start_date', '<', now())
+                ->orderBy('start_date', 'desc')
+                ->get()
+                ->map(fn ($e) => [
+                    'id' => $e->id,
+                    'title' => $e->title,
+                    'description' => $e->description,
+                    'location' => $e->location,
+                    'start_date' => $e->start_date->format('d/m/Y H:i'),
+                    'end_date' => $e->end_date ? $e->end_date->format('d/m/Y H:i') : null,
+                    'banner_url' => $e->banner_url,
+                    'total_contributions' => $e->total_contributions,
+                ]) : [],
         ]);
     }
 }

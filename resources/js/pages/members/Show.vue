@@ -14,7 +14,7 @@ const props = defineProps<{
         first_name: string;
         last_name: string;
         photo_url: string | null;
-        age: number | null;
+        birth_date: string | null;
         gender: string | null;
         phone: string | null;
         department: string | null;
@@ -22,6 +22,14 @@ const props = defineProps<{
         latitude: number | null;
         longitude: number | null;
     };
+    contributions: Array<{
+        id: number;
+        event_title: string;
+        amount: number;
+        payment_method: string;
+        date: string;
+    }>;
+    totalContributions: number;
     sundayAttendancesCount: number;
     sundayAttendances: Array<{
         date: string;
@@ -99,6 +107,15 @@ function saveGps() {
 function printProfile() {
     window.print();
 }
+
+function formatDate(dateStr: string | null): string {
+    if (!dateStr) return 'Non renseigné';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateStr;
+}
 </script>
 
 <template>
@@ -155,12 +172,8 @@ function printProfile() {
                             {{ member.gender || 'Non renseigné' }}
                         </p>
                         <p>
-                            <span class="font-medium">Âge :</span>
-                            {{
-                                member.age
-                                    ? `${member.age} ans`
-                                    : 'Non renseigné'
-                            }}
+                            <span class="font-medium">Date de naissance :</span>
+                            {{ formatDate(member.birth_date) }}
                         </p>
                         <p>
                             <span class="font-medium">Adresse :</span>
@@ -251,6 +264,38 @@ function printProfile() {
                             class="text-sm text-muted-foreground"
                         >
                             Aucune préparation enregistrée.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border bg-card p-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="font-semibold">Contributions pour événements</h2>
+                        <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
+                            Total : {{ totalContributions }} FCFA
+                        </span>
+                    </div>
+                    <div class="mt-3 space-y-2">
+                        <div
+                            v-for="contrib in contributions"
+                            :key="contrib.id"
+                            class="rounded-lg border px-3 py-2 text-sm flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/30"
+                        >
+                            <div>
+                                <p class="font-medium">{{ contrib.event_title }}</p>
+                                <p class="text-xs text-muted-foreground mt-0.5">
+                                    {{ contrib.date }} · {{ contrib.payment_method }}
+                                </p>
+                            </div>
+                            <span class="font-bold text-slate-800 dark:text-slate-100">
+                                {{ contrib.amount }} FCFA
+                            </span>
+                        </div>
+                        <p
+                            v-if="!contributions.length"
+                            class="text-sm text-muted-foreground"
+                        >
+                            Aucune contribution enregistrée.
                         </p>
                     </div>
                 </div>
@@ -393,14 +438,10 @@ function printProfile() {
                                 <p
                                     class="text-xs font-bold text-slate-500 uppercase"
                                 >
-                                    Âge
+                                    Date de naissance
                                 </p>
                                 <p class="mt-1 text-lg font-bold">
-                                    {{
-                                        member.age
-                                            ? `${member.age} ans`
-                                            : 'Non renseigné'
-                                    }}
+                                    {{ formatDate(member.birth_date) }}
                                 </p>
                             </div>
                             <div class="rounded-xl border p-4">

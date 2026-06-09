@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
+import { ref, watch } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -13,7 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const form = useForm({
     first_name: '',
     last_name: '',
-    age: '' as string | number,
+    birth_date: '',
     gender: '',
     phone: '',
     address_description: '',
@@ -21,6 +22,25 @@ const form = useForm({
     password: '',
     photo: null as File | null,
 });
+
+const availableDepartments = [
+    'Anciens',
+    'Évangélisation',
+    'Nettoyage',
+    'Chorale',
+    'Pasteur',
+    'Protocole',
+    'Communication',
+    "Culte d'enfant",
+    'Diacres',
+    'Moniteurs'
+];
+
+const selectedDepartments = ref<string[]>([]);
+
+watch(selectedDepartments, (newVal) => {
+    form.department = newVal.join(', ');
+}, { deep: true });
 
 function submit() {
     form.post('/members', { forceFormData: true });
@@ -54,12 +74,13 @@ function submit() {
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
                 <div>
-                    <label class="text-sm font-medium">Âge</label>
+                    <label class="text-sm font-medium">Date de naissance</label>
                     <input
-                        v-model="form.age"
-                        type="number"
+                        v-model="form.birth_date"
+                        type="date"
                         class="mt-1 w-full rounded-lg border px-3 py-2"
                     />
+                    <InputError :message="form.errors.birth_date" />
                 </div>
                 <div>
                     <label class="text-sm font-medium">Sexe</label>
@@ -89,11 +110,22 @@ function submit() {
                 />
             </div>
             <div>
-                <label class="text-sm font-medium">Département</label>
-                <input
-                    v-model="form.department"
-                    class="mt-1 w-full rounded-lg border px-3 py-2"
-                />
+                <label class="text-sm font-medium block mb-2">Départements</label>
+                <div class="grid grid-cols-2 gap-2 rounded-lg border p-3 bg-card dark:border-slate-800">
+                    <label
+                        v-for="dept in availableDepartments"
+                        :key="dept"
+                        class="flex items-center gap-2 text-sm font-medium cursor-pointer text-slate-700 dark:text-slate-300"
+                    >
+                        <input
+                            type="checkbox"
+                            :value="dept"
+                            v-model="selectedDepartments"
+                            class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                        />
+                        {{ dept }}
+                    </label>
+                </div>
             </div>
             <div>
                 <label class="text-sm font-medium"

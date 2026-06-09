@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import {
+    Calendar,
     CreditCard,
     LayoutGrid,
     Printer,
@@ -78,6 +79,12 @@ const allNavItems: Array<NavItem & { roles?: string[] }> = [
         title: 'Gérer Vidéos',
         href: '/admin-videos',
         icon: Tv,
+        roles: ['admin'],
+    },
+    {
+        title: 'Événements',
+        href: '/admin-events',
+        icon: Calendar,
         roles: ['admin'],
     },
 ];

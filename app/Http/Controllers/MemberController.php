@@ -71,10 +71,12 @@ class MemberController extends Controller
         $member->load([
             'attendances' => fn ($q) => $canViewSpiritualTracking ? $q->latest('scanned_at')->limit(20) : $q->whereRaw('1 = 0'),
             'communionPreparations' => fn ($q) => $canViewSpiritualTracking ? $q->latest()->limit(20) : $q->whereRaw('1 = 0'),
+            'contributions.event',
         ]);
 
         $sundayAttendances = collect();
         $communionPreparations = collect();
+        $contributions = collect();
 
         if ($canViewSpiritualTracking) {
             $monthStart = now()->startOfMonth();
@@ -102,6 +104,18 @@ class MemberController extends Controller
                     'payment_reference' => $preparation->payment_reference,
                     'remote' => $preparation->remote,
                 ]);
+
+            $contributions = $member->contributions()
+                ->where('payment_status', 'paid')
+                ->latest()
+                ->get()
+                ->map(fn ($c) => [
+                    'id' => $c->id,
+                    'event_title' => $c->event->title,
+                    'amount' => $c->amount,
+                    'payment_method' => $c->payment_method === 'manual' ? 'Manuel (Espèces)' : 'Mobile Money',
+                    'date' => $c->created_at->format('d/m/Y H:i'),
+                ]);
         }
 
         return Inertia::render('members/Show', [
@@ -110,6 +124,8 @@ class MemberController extends Controller
             'sundayAttendancesCount' => $sundayAttendances->count(),
             'sundayAttendances' => $sundayAttendances,
             'communionPreparations' => $communionPreparations,
+            'contributions' => $contributions,
+            'totalContributions' => $contributions->sum('amount'),
             'currentMonthLabel' => now()->translatedFormat('F Y'),
             'qrSvg' => $this->qrCodeService->generateSvg($member->qr_code),
             'programs' => config('church.programs'),

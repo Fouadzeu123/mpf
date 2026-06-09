@@ -24,7 +24,7 @@ defineProps<{
             <h1 class="mb-4 text-2xl font-bold">
                 Historique paiements (Notch Pay)
             </h1>
-            <div class="overflow-hidden rounded-xl border">
+            <div class="overflow-x-auto rounded-xl border">
                 <table class="w-full text-sm">
                     <thead class="bg-muted/50">
                         <tr>

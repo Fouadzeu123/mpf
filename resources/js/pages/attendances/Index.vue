@@ -45,7 +45,7 @@ function filter() {
                 />
                 <Button variant="secondary" @click="filter">Filtrer</Button>
             </div>
-            <div class="overflow-hidden rounded-xl border">
+            <div class="overflow-x-auto rounded-xl border">
                 <table class="w-full text-sm">
                     <thead class="bg-muted/50">
                         <tr>

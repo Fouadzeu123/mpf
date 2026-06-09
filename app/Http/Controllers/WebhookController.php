@@ -60,17 +60,22 @@ class WebhookController extends Controller
                 'payload' => $request->all(),
             ]);
 
-            // If payment completed, prepare communion
+            // If payment completed, process the action
             if ($paymentStatus === PaymentStatus::Paid) {
-                $this->communionService->prepare(
-                    $transaction->member,
-                    remote: true,
-                    paymentReference: $reference
-                );
+                if ($transaction->type === 'event_contribution') {
+                    \App\Models\Contribution::where('payment_reference', $reference)->update(['payment_status' => 'paid']);
+                } else {
+                    $this->communionService->prepare(
+                        $transaction->member,
+                        remote: true,
+                        paymentReference: $reference
+                    );
+                }
 
                 Log::info('Payment processed via webhook', [
                     'reference' => $reference,
                     'member_id' => $transaction->member_id,
+                    'type' => $transaction->type,
                 ]);
             }
 

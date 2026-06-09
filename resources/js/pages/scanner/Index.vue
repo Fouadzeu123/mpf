@@ -64,15 +64,69 @@ async function startScanner() {
     scanner = new Html5Qrcode(readerId);
 
     try {
+        // First, get the list of available cameras
+        const cameras = await Html5Qrcode.getCameras();
+        
+        if (!cameras || cameras.length === 0) {
+            throw new Error("Aucune caméra trouvée.");
+        }
+
+        // Try to find a back camera
+        let cameraId = cameras[0].id;
+        for (const camera of cameras) {
+            const label = camera.label.toLowerCase();
+            if (label.indexOf('back') !== -1 || label.indexOf('rear') !== -1 || label.indexOf('arrière') !== -1 || label.indexOf('environnement') !== -1) {
+                cameraId = camera.id;
+                break;
+            }
+        }
+
+        // Start scanning with the selected camera ID
         await scanner.start(
-            { facingMode: 'environment' },
-            { fps: 10, qrbox: { width: 250, height: 250 } },
+            cameraId,
+            { 
+                fps: 10, 
+                qrbox: (width, height) => {
+                    const min = Math.min(width, height);
+                    return {
+                        width: Math.floor(min * 0.7),
+                        height: Math.floor(min * 0.7)
+                    };
+                }
+            },
             onScan,
             () => {},
         );
+        
         scanning.value = true;
-    } catch {
-        error.value = "Caméra inaccessible. Autorisez l'accès.";
+        error.value = '';
+    } catch (err: any) {
+        console.warn("Html5Qrcode getCameras failed or start failed, trying fallback to facingMode...", err);
+        // Fallback to basic facingMode if getCameras fails or is blocked
+        try {
+            await scanner.start(
+                { facingMode: 'environment' },
+                { 
+                    fps: 10, 
+                    qrbox: { width: 220, height: 220 } 
+                },
+                onScan,
+                () => {},
+            ).catch(async (fallbackErr) => {
+                console.warn("Could not start environment camera, trying fallback to user camera...", fallbackErr);
+                return await scanner!.start(
+                    { facingMode: 'user' },
+                    { fps: 10, qrbox: { width: 220, height: 220 } },
+                    onScan,
+                    () => {},
+                );
+            });
+            scanning.value = true;
+            error.value = '';
+        } catch (fallbackErr: any) {
+            console.error("Html5Qrcode fallback also failed:", fallbackErr);
+            error.value = "Caméra inaccessible. Veuillez autoriser l'accès et vérifier que vous utilisez une connexion sécurisée (HTTPS).";
+        }
     }
 }
 

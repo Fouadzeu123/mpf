@@ -133,6 +133,85 @@ initiate.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     initiate.form = initiateForm
 /**
+* @see \App\Http\Controllers\PaymentController::initiateContribution
+ * @see app/Http/Controllers/PaymentController.php:100
+ * @route '/membre/evenements/{event}/contribuer'
+ */
+export const initiateContribution = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: initiateContribution.url(args, options),
+    method: 'post',
+})
+
+initiateContribution.definition = {
+    methods: ["post"],
+    url: '/membre/evenements/{event}/contribuer',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\PaymentController::initiateContribution
+ * @see app/Http/Controllers/PaymentController.php:100
+ * @route '/membre/evenements/{event}/contribuer'
+ */
+initiateContribution.url = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { event: args }
+    }
+
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { event: args.id }
+        }
+    
+    if (Array.isArray(args)) {
+        args = {
+                    event: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        event: typeof args.event === 'object'
+                ? args.event.id
+                : args.event,
+                }
+
+    return initiateContribution.definition.url
+            .replace('{event}', parsedArgs.event.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\PaymentController::initiateContribution
+ * @see app/Http/Controllers/PaymentController.php:100
+ * @route '/membre/evenements/{event}/contribuer'
+ */
+initiateContribution.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: initiateContribution.url(args, options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\PaymentController::initiateContribution
+ * @see app/Http/Controllers/PaymentController.php:100
+ * @route '/membre/evenements/{event}/contribuer'
+ */
+    const initiateContributionForm = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: initiateContribution.url(args, options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\PaymentController::initiateContribution
+ * @see app/Http/Controllers/PaymentController.php:100
+ * @route '/membre/evenements/{event}/contribuer'
+ */
+        initiateContributionForm.post = (args: { event: number | { id: number } } | [event: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: initiateContribution.url(args, options),
+            method: 'post',
+        })
+    
+    initiateContribution.form = initiateContributionForm
+/**
 * @see \App\Http\Controllers\PaymentController::callback
  * @see app/Http/Controllers/PaymentController.php:61
  * @route '/paiements/callback'
@@ -385,6 +464,6 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     index.form = indexForm
-const PaymentController = { create, initiate, callback, verify, index }
+const PaymentController = { create, initiate, initiateContribution, callback, verify, index }
 
 export default PaymentController

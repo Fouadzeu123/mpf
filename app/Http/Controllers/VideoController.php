@@ -44,7 +44,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'category' => 'required|in:predication,prieres,temoignages',
+            'category' => 'required|in:enseignement,priere,temoignage,louange,adoration,autres',
             'title' => 'required|string|max:255',
             'speaker' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -78,7 +78,7 @@ class VideoController extends Controller
     public function update(Request $request, Video $video)
     {
         $validated = $request->validate([
-            'category' => 'required|in:predication,prieres,temoignages',
+            'category' => 'required|in:enseignement,priere,temoignage,louange,adoration,autres',
             'title' => 'required|string|max:255',
             'speaker' => 'required|string|max:255',
             'description' => 'nullable|string',

@@ -7,8 +7,9 @@ defineProps<{
         first_name: string;
         last_name: string;
         photo_url?: string | null;
-        age?: number | null;
+        birth_date?: string | null;
         gender?: string | null;
+        phone?: string | null;
         department?: string | null;
         address_description?: string | null;
     };
@@ -17,6 +18,15 @@ defineProps<{
     programs?: string[];
     compact?: boolean;
 }>();
+
+function formatDate(dateStr?: string | null): string {
+    if (!dateStr) return '-';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateStr;
+}
 </script>
 
 <template>
@@ -83,12 +93,16 @@ defineProps<{
                     <p class="border-b border-slate-100 dark:border-slate-800 pb-0.5">
                         <span class="font-bold text-blue-900 dark:text-blue-300">SEXE :</span>
                         {{ member.gender || '-' }}
-                        <span class="ml-2 font-bold text-blue-900 dark:text-blue-300">ÂGE :</span>
-                        {{ member.age ? `${member.age} ans` : '-' }}
+                        <span class="ml-2 font-bold text-blue-900 dark:text-blue-300">NAISSANCE :</span>
+                        {{ formatDate(member.birth_date) }}
                     </p>
                     <p class="border-b border-slate-100 dark:border-slate-800 py-0.5 truncate">
                         <span class="font-bold text-blue-900 dark:text-blue-300">ADRESSE :</span>
                         {{ member.address_description || '-' }}
+                    </p>
+                    <p class="border-b border-slate-100 dark:border-slate-800 py-0.5 truncate">
+                        <span class="font-bold text-blue-900 dark:text-blue-300">TEL :</span>
+                        {{ member.phone || '-' }}
                     </p>
                     <p class="border-b border-slate-100 dark:border-slate-800 py-0.5 truncate">
                         <span class="font-bold text-blue-900 dark:text-blue-300">DEPT :</span>

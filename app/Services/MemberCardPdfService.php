@@ -57,7 +57,7 @@ class MemberCardPdfService
             'full_name' => $m->full_name,
             'first_name' => $m->first_name,
             'last_name' => $m->last_name,
-            'age' => $m->age,
+            'birth_date' => $m->birth_date ? $m->birth_date->format('d/m/Y') : null,
             'gender' => $m->gender,
             'phone' => $m->phone,
             'department' => $m->department,

@@ -19,7 +19,7 @@ class Member extends Authenticatable
         'first_name',
         'last_name',
         'photo',
-        'age',
+        'birth_date',
         'gender',
         'phone',
         'address_description',
@@ -38,6 +38,7 @@ class Member extends Authenticatable
     protected function casts(): array
     {
         return [
+            'birth_date' => 'date',
             'latitude' => 'float',
             'longitude' => 'float',
             'status' => MemberStatus::class,
@@ -62,6 +63,11 @@ class Member extends Authenticatable
     public function paymentTransactions(): HasMany
     {
         return $this->hasMany(PaymentTransaction::class);
+    }
+
+    public function contributions(): HasMany
+    {
+        return $this->hasMany(Contribution::class);
     }
 
     public function getFullNameAttribute(): string

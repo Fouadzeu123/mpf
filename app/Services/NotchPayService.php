@@ -21,12 +21,14 @@ class NotchPayService
         }
     }
 
-    public function initiate(Member $member, int $amount, string $description): PaymentTransaction
+    public function initiate(Member $member, int $amount, string $description, string $type = 'communion', ?int $eventId = null): PaymentTransaction
     {
         $reference = 'MPF-'.Str::upper(Str::random(12));
 
         $transaction = PaymentTransaction::create([
             'member_id' => $member->id,
+            'type' => $type,
+            'event_id' => $eventId,
             'reference' => $reference,
             'amount' => $amount,
             'currency' => 'XAF',

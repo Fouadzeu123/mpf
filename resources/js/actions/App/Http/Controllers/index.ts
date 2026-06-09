@@ -11,6 +11,7 @@ import AttendanceController from './AttendanceController'
 import CommunionController from './CommunionController'
 import PrintController from './PrintController'
 import VideoController from './VideoController'
+import EventController from './EventController'
 import Settings from './Settings'
 const Controllers = {
     Auth: Object.assign(Auth, Auth),
@@ -26,6 +27,7 @@ AttendanceController: Object.assign(AttendanceController, AttendanceController),
 CommunionController: Object.assign(CommunionController, CommunionController),
 PrintController: Object.assign(PrintController, PrintController),
 VideoController: Object.assign(VideoController, VideoController),
+EventController: Object.assign(EventController, EventController),
 Settings: Object.assign(Settings, Settings),
 }
 

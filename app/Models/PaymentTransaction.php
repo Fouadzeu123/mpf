@@ -10,6 +10,8 @@ class PaymentTransaction extends Model
 {
     protected $fillable = [
         'member_id',
+        'type',
+        'event_id',
         'reference',
         'amount',
         'currency',

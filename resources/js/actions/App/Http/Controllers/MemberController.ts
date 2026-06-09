@@ -314,7 +314,7 @@ show.head = (args: { member: number | { id: number } } | [member: number | { id:
     show.form = showForm
 /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
 export const edit = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -329,7 +329,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
 edit.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -362,7 +362,7 @@ edit.url = (args: { member: number | { id: number } } | [member: number | { id: 
 
 /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
 edit.get = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -371,7 +371,7 @@ edit.get = (args: { member: number | { id: number } } | [member: number | { id: 
 })
 /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
 edit.head = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -381,7 +381,7 @@ edit.head = (args: { member: number | { id: number } } | [member: number | { id:
 
     /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
     const editForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -391,7 +391,7 @@ edit.head = (args: { member: number | { id: number } } | [member: number | { id:
 
             /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
         editForm.get = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -400,7 +400,7 @@ edit.head = (args: { member: number | { id: number } } | [member: number | { id:
         })
             /**
 * @see \App\Http\Controllers\MemberController::edit
- * @see app/Http/Controllers/MemberController.php:123
+ * @see app/Http/Controllers/MemberController.php:139
  * @route '/members/{member}/edit'
  */
         editForm.head = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -416,7 +416,7 @@ edit.head = (args: { member: number | { id: number } } | [member: number | { id:
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
+ * @see app/Http/Controllers/MemberController.php:144
  * @route '/members/{member}'
  */
 export const update = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -431,7 +431,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
+ * @see app/Http/Controllers/MemberController.php:144
  * @route '/members/{member}'
  */
 update.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -464,7 +464,7 @@ update.url = (args: { member: number | { id: number } } | [member: number | { id
 
 /**
 * @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
+ * @see app/Http/Controllers/MemberController.php:144
  * @route '/members/{member}'
  */
 update.put = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -474,7 +474,7 @@ update.put = (args: { member: number | { id: number } } | [member: number | { id
 
     /**
 * @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
+ * @see app/Http/Controllers/MemberController.php:144
  * @route '/members/{member}'
  */
     const updateForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -489,7 +489,7 @@ update.put = (args: { member: number | { id: number } } | [member: number | { id
 
             /**
 * @see \App\Http\Controllers\MemberController::update
- * @see app/Http/Controllers/MemberController.php:128
+ * @see app/Http/Controllers/MemberController.php:144
  * @route '/members/{member}'
  */
         updateForm.put = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -505,7 +505,7 @@ update.put = (args: { member: number | { id: number } } | [member: number | { id
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\MemberController::destroy
- * @see app/Http/Controllers/MemberController.php:136
+ * @see app/Http/Controllers/MemberController.php:152
  * @route '/members/{member}'
  */
 export const destroy = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -520,7 +520,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::destroy
- * @see app/Http/Controllers/MemberController.php:136
+ * @see app/Http/Controllers/MemberController.php:152
  * @route '/members/{member}'
  */
 destroy.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -553,7 +553,7 @@ destroy.url = (args: { member: number | { id: number } } | [member: number | { i
 
 /**
 * @see \App\Http\Controllers\MemberController::destroy
- * @see app/Http/Controllers/MemberController.php:136
+ * @see app/Http/Controllers/MemberController.php:152
  * @route '/members/{member}'
  */
 destroy.delete = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -563,7 +563,7 @@ destroy.delete = (args: { member: number | { id: number } } | [member: number | 
 
     /**
 * @see \App\Http\Controllers\MemberController::destroy
- * @see app/Http/Controllers/MemberController.php:136
+ * @see app/Http/Controllers/MemberController.php:152
  * @route '/members/{member}'
  */
     const destroyForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -578,7 +578,7 @@ destroy.delete = (args: { member: number | { id: number } } | [member: number | 
 
             /**
 * @see \App\Http\Controllers\MemberController::destroy
- * @see app/Http/Controllers/MemberController.php:136
+ * @see app/Http/Controllers/MemberController.php:152
  * @route '/members/{member}'
  */
         destroyForm.delete = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -594,7 +594,7 @@ destroy.delete = (args: { member: number | { id: number } } | [member: number | 
     destroy.form = destroyForm
 /**
 * @see \App\Http\Controllers\MemberController::updateGps
- * @see app/Http/Controllers/MemberController.php:149
+ * @see app/Http/Controllers/MemberController.php:165
  * @route '/members/{member}/gps'
  */
 export const updateGps = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -609,7 +609,7 @@ updateGps.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::updateGps
- * @see app/Http/Controllers/MemberController.php:149
+ * @see app/Http/Controllers/MemberController.php:165
  * @route '/members/{member}/gps'
  */
 updateGps.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -642,7 +642,7 @@ updateGps.url = (args: { member: number | { id: number } } | [member: number | {
 
 /**
 * @see \App\Http\Controllers\MemberController::updateGps
- * @see app/Http/Controllers/MemberController.php:149
+ * @see app/Http/Controllers/MemberController.php:165
  * @route '/members/{member}/gps'
  */
 updateGps.post = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -652,7 +652,7 @@ updateGps.post = (args: { member: number | { id: number } } | [member: number | 
 
     /**
 * @see \App\Http\Controllers\MemberController::updateGps
- * @see app/Http/Controllers/MemberController.php:149
+ * @see app/Http/Controllers/MemberController.php:165
  * @route '/members/{member}/gps'
  */
     const updateGpsForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -662,7 +662,7 @@ updateGps.post = (args: { member: number | { id: number } } | [member: number | 
 
             /**
 * @see \App\Http\Controllers\MemberController::updateGps
- * @see app/Http/Controllers/MemberController.php:149
+ * @see app/Http/Controllers/MemberController.php:165
  * @route '/members/{member}/gps'
  */
         updateGpsForm.post = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -673,7 +673,7 @@ updateGps.post = (args: { member: number | { id: number } } | [member: number | 
     updateGps.form = updateGpsForm
 /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
 export const card = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -688,7 +688,7 @@ card.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
 card.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -721,7 +721,7 @@ card.url = (args: { member: number | { id: number } } | [member: number | { id: 
 
 /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
 card.get = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -730,7 +730,7 @@ card.get = (args: { member: number | { id: number } } | [member: number | { id: 
 })
 /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
 card.head = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -740,7 +740,7 @@ card.head = (args: { member: number | { id: number } } | [member: number | { id:
 
     /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
     const cardForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -750,7 +750,7 @@ card.head = (args: { member: number | { id: number } } | [member: number | { id:
 
             /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
         cardForm.get = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -759,7 +759,7 @@ card.head = (args: { member: number | { id: number } } | [member: number | { id:
         })
             /**
 * @see \App\Http\Controllers\MemberController::card
- * @see app/Http/Controllers/MemberController.php:144
+ * @see app/Http/Controllers/MemberController.php:160
  * @route '/members/{member}/carte'
  */
         cardForm.head = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

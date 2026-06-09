@@ -26,6 +26,7 @@ Route::prefix('membre')->name('member.')->group(function () {
         Route::get('paiement', [PaymentController::class, 'create'])->name('payment');
         Route::post('paiement', [PaymentController::class, 'initiate'])->name('payment.initiate');
         Route::get('flux', [\App\Http\Controllers\FeedController::class, 'index'])->name('feed');
+        Route::post('evenements/{event}/contribuer', [PaymentController::class, 'initiateContribution'])->name('events.contribute');
     });
 });
 
@@ -64,6 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('paiements', [PaymentController::class, 'index'])->middleware('role:admin')->name('payments.index');
     Route::get('flux', [\App\Http\Controllers\FeedController::class, 'index'])->name('admin.feed');
     Route::resource('admin-videos', \App\Http\Controllers\VideoController::class)->middleware('role:admin');
+    Route::resource('admin-events', \App\Http\Controllers\EventController::class)->middleware('role:admin');
+    Route::post('admin-events/{event}/contributions', [\App\Http\Controllers\EventController::class, 'storeContribution'])->middleware('role:admin')->name('admin-events.contributions.store');
 });
 
 require __DIR__.'/settings.php';

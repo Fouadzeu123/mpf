@@ -17,7 +17,7 @@ import BottomNavBarMember from '@/components/BottomNavBarMember.vue';
 
 type VideoItem = {
     id: number;
-    category: 'predication' | 'prieres' | 'temoignages';
+    category: string;
     title: string;
     speaker: string;
     description: string;
@@ -34,7 +34,7 @@ const props = defineProps<{
     isMember: boolean;
 }>();
 
-const activeTab = ref<'predication' | 'prieres' | 'temoignages'>('predication');
+const activeTab = ref<'pour_vous' | 'populaire'>('pour_vous');
 const activeIndex = ref(0);
 const isMuted = ref(true);
 const likedVideos = ref<number[]>([]);
@@ -42,7 +42,10 @@ const activeVerse = ref<{ title: string; ref: string } | null>(null);
 
 // Filter videos by tab
 const filteredVideos = computed(() => {
-    return props.videos.filter((v) => v.category === activeTab.value);
+    if (activeTab.value === 'populaire') {
+        return [...props.videos].sort((a, b) => b.likes - a.likes);
+    }
+    return props.videos;
 });
 
 // Load liked states from cache
@@ -151,7 +154,7 @@ function togglePlayPause(id: number) {
 }
 
 // Reset scroll on tab change
-function selectTab(tab: 'predication' | 'prieres' | 'temoignages') {
+function selectTab(tab: 'pour_vous' | 'populaire') {
     activeTab.value = tab;
     activeIndex.value = 0;
     isPaused.value = false;
@@ -191,37 +194,26 @@ function selectTab(tab: 'predication' | 'prieres' | 'temoignages') {
             <!-- Tabs buttons -->
             <div class="flex items-center gap-6 text-sm font-semibold tracking-wide backdrop-blur-md bg-slate-900/30 px-4 py-1.5 rounded-full border border-white/5">
                 <button
-                    @click="selectTab('predication')"
+                    @click="selectTab('pour_vous')"
                     class="pb-1 transition duration-300"
                     :class="[
-                        activeTab === 'predication'
+                        activeTab === 'pour_vous'
                             ? 'text-amber-400 border-b-2 border-amber-400 font-bold'
                             : 'text-slate-400 hover:text-slate-200',
                     ]"
                 >
-                    Prédications
+                    Pour vous
                 </button>
                 <button
-                    @click="selectTab('prieres')"
+                    @click="selectTab('populaire')"
                     class="pb-1 transition duration-300"
                     :class="[
-                        activeTab === 'prieres'
+                        activeTab === 'populaire'
                             ? 'text-amber-400 border-b-2 border-amber-400 font-bold'
                             : 'text-slate-400 hover:text-slate-200',
                     ]"
                 >
-                    Prières
-                </button>
-                <button
-                    @click="selectTab('temoignages')"
-                    class="pb-1 transition duration-300"
-                    :class="[
-                        activeTab === 'temoignages'
-                            ? 'text-amber-400 border-b-2 border-amber-400 font-bold'
-                            : 'text-slate-400 hover:text-slate-200',
-                    ]"
-                >
-                    Témoignages
+                    Populaire
                 </button>
             </div>
         </header>

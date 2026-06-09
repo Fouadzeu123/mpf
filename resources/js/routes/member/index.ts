@@ -1,6 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 import loginDf2c2a from './login'
 import payment44796b from './payment'
+import events from './events'
 /**
 * @see \App\Http\Controllers\Auth\MemberAuthController::login
  * @see app/Http/Controllers/Auth/MemberAuthController.php:15
@@ -374,6 +375,7 @@ logout: Object.assign(logout, logout),
 portal: Object.assign(portal, portal),
 payment: Object.assign(payment, payment44796b),
 feed: Object.assign(feed, feed),
+events: Object.assign(events, events),
 }
 
 export default member

@@ -29,7 +29,7 @@ class MemberService
             'member_code' => $memberCode,
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'age' => $data['age'] ?? null,
+            'birth_date' => $data['birth_date'] ?? null,
             'gender' => $data['gender'] ?? null,
             'phone' => $data['phone'] ?? null,
             'address_description' => $data['address_description'] ?? null,

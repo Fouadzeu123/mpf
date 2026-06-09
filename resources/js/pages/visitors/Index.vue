@@ -27,7 +27,7 @@ defineProps<{
                     <Button><Plus class="mr-2 h-4 w-4" /> Ajouter</Button>
                 </Link>
             </div>
-            <div class="overflow-hidden rounded-xl border">
+            <div class="overflow-x-auto rounded-xl border">
                 <table class="w-full text-sm">
                     <thead class="bg-muted/50">
                         <tr>

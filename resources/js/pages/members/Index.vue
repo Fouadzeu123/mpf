@@ -92,7 +92,7 @@ function applyFilters() {
                 >
             </div>
 
-            <div class="overflow-hidden rounded-xl border bg-card">
+            <div class="overflow-x-auto rounded-xl border bg-card">
                 <table class="w-full text-sm">
                     <thead class="bg-muted/50">
                         <tr>

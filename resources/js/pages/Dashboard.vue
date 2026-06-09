@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import {
+    Calendar,
     CreditCard,
     IdCard,
     MapPinned,
@@ -39,6 +40,26 @@ const props = defineProps<{
         created_at: string;
     }>;
     attendanceChart: Array<{ date: string; total: number }>;
+    upcomingEvents: Array<{
+        id: number;
+        title: string;
+        description: string | null;
+        location: string | null;
+        start_date: string;
+        end_date: string | null;
+        banner_url: string | null;
+        total_contributions: number;
+    }>;
+    pastEvents: Array<{
+        id: number;
+        title: string;
+        description: string | null;
+        location: string | null;
+        start_date: string;
+        end_date: string | null;
+        banner_url: string | null;
+        total_contributions: number;
+    }>;
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -61,11 +82,18 @@ const quickActions = [
         roles: ['admin', 'protocole', 'ancienne', 'secretaire'],
     },
     {
-        title: 'PDF cartes A4',
+        title: 'Impression A4',
         href: '/impression',
         icon: IdCard,
         tone: 'bg-white text-slate-950',
         roles: ['admin', 'secretaire'],
+    },
+    {
+        title: 'Événements',
+        href: '/admin-events',
+        icon: Calendar,
+        tone: 'bg-white text-slate-950',
+        roles: ['admin'],
     },
     {
         title: 'Profils membres',
@@ -169,6 +197,74 @@ const visibleStats = computed(() => {
                     :value="stat.value"
                     :icon="stat.icon"
                 />
+            </div>
+
+            <!-- Events section for Admin -->
+            <div v-if="role === 'admin'" class="rounded-xl border bg-card p-5 shadow-sm">
+                <div class="flex items-center justify-between border-b pb-3 mb-4">
+                    <h2 class="flex items-center gap-2 font-semibold text-base">
+                        <Calendar class="h-5 w-5 text-blue-500" />
+                        Événements de l'église
+                    </h2>
+                    <a href="/admin-events">
+                        <Button variant="outline" size="sm">Gérer les événements</Button>
+                    </a>
+                </div>
+                
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- Upcoming Events -->
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                            <span class="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+                            À venir
+                        </h3>
+                        <div class="space-y-3">
+                            <div
+                                v-for="event in upcomingEvents"
+                                :key="event.id"
+                                class="rounded-xl border p-3 flex gap-3 hover:bg-muted/10 transition duration-200 bg-slate-50/50 dark:bg-slate-900/30"
+                            >
+                                <img
+                                    v-if="event.banner_url"
+                                    :src="event.banner_url"
+                                    class="h-12 w-20 object-cover rounded-lg border shrink-0"
+                                    alt=""
+                                />
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="font-bold truncate text-sm">{{ event.title }}</h4>
+                                    <p class="text-xs text-muted-foreground mt-0.5 truncate">{{ event.location }} · {{ event.start_date }}</p>
+                                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-1">Collecté : {{ event.total_contributions }} FCFA</p>
+                                </div>
+                            </div>
+                            <p v-if="!upcomingEvents.length" class="text-xs text-muted-foreground italic">Aucun événement à venir.</p>
+                        </div>
+                    </div>
+
+                    <!-- Past Events -->
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3 uppercase tracking-wider">Déjà passés</h3>
+                        <div class="space-y-3">
+                            <div
+                                v-for="event in pastEvents"
+                                :key="event.id"
+                                class="rounded-xl border p-3 flex gap-3 hover:bg-muted/10 transition duration-200 bg-slate-50/50 dark:bg-slate-900/30"
+                            >
+                                <img
+                                    v-if="event.banner_url"
+                                    :src="event.banner_url"
+                                    class="h-12 w-20 object-cover rounded-lg border shrink-0"
+                                    alt=""
+                                />
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="font-bold truncate text-sm">{{ event.title }}</h4>
+                                    <p class="text-xs text-muted-foreground mt-0.5 truncate">{{ event.location }} · {{ event.start_date }}</p>
+                                    <p class="text-xs text-slate-500 font-semibold mt-1">Total collecté : {{ event.total_contributions }} FCFA</p>
+                                </div>
+                            </div>
+                            <p v-if="!pastEvents.length" class="text-xs text-muted-foreground italic">Aucun événement passé.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div v-if="role === 'admin'" class="grid gap-6 lg:grid-cols-2">

@@ -19,7 +19,7 @@ class StoreMemberRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
-            'age' => ['nullable', 'integer', 'min:1', 'max:120'],
+            'birth_date' => ['nullable', 'date', 'before_or_equal:today'],
             'gender' => ['nullable', 'string', 'max:20'],
             'phone' => ['nullable', 'string', 'max:30'],
             'address_description' => ['nullable', 'string'],

@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('scanner/scan', [ScannerController::class, 'scan'])->middleware('role:protocole,ancienne,secretaire')->name('scanner.scan');
 
     Route::get('presences', [AttendanceController::class, 'index'])->middleware('role:admin')->name('attendances.index');
+    Route::delete('presences/{attendance}', [AttendanceController::class, 'destroy'])->middleware('role:admin')->name('attendances.destroy');
     Route::get('sainte-cene', [CommunionController::class, 'index'])->middleware('role:admin')->name('communion.index');
 
     Route::get('impression', [PrintController::class, 'index'])->middleware('role:secretaire')->name('print.index');

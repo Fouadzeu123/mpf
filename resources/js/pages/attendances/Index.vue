@@ -3,6 +3,7 @@ import { Head, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { Trash2 } from 'lucide-vue-next';
 
 const props = defineProps<{
     attendances: {
@@ -30,6 +31,12 @@ function filter() {
         service_type: serviceType.value || undefined,
     });
 }
+
+function deleteAttendance(id: number) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cette présence ?")) {
+        router.delete(`/presences/${id}`);
+    }
+}
 </script>
 
 <template>
@@ -52,23 +59,34 @@ function filter() {
                             <th class="px-4 py-3 text-left">Membre</th>
                             <th class="px-4 py-3 text-left">Service</th>
                             <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
                             v-for="a in attendances.data"
                             :key="a.id"
-                            class="border-t"
+                            class="border-t hover:bg-muted/10"
                         >
                             <td class="px-4 py-3">
                                 {{ a.member.first_name }}
                                 {{ a.member.last_name }}
-                                <span class="text-xs text-muted-foreground">{{
+                                <span class="text-xs text-muted-foreground ml-1">({{
                                     a.member.member_code
-                                }}</span>
+                                }})</span>
                             </td>
                             <td class="px-4 py-3">{{ a.service_type }}</td>
                             <td class="px-4 py-3">{{ a.scanned_at }}</td>
+                            <td class="px-4 py-3 text-right">
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    class="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20"
+                                    @click="deleteAttendance(a.id)"
+                                >
+                                    <Trash2 class="h-4 w-4" />
+                                </Button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

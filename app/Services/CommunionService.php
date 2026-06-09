@@ -63,6 +63,18 @@ class CommunionService
 
     public function isPreparationDay(): bool
     {
+        if (auth()->check() && in_array(auth()->user()->role->value ?? auth()->user()->role, [
+            'admin',
+            'secretaire',
+            'ancienne'
+        ], true)) {
+            return true;
+        }
+
+        if (app()->environment('local') || config('app.debug')) {
+            return true;
+        }
+
         $today = now();
 
         return $today->isSaturday()

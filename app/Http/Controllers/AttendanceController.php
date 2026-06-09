@@ -23,4 +23,11 @@ class AttendanceController extends Controller
             'filters' => $request->only(['date', 'service_type']),
         ]);
     }
+
+    public function destroy(Attendance $attendance): \Illuminate\Http\RedirectResponse
+    {
+        $attendance->delete();
+
+        return back()->with('toast', ['type' => 'success', 'message' => 'Présence supprimée avec succès.']);
+    }
 }

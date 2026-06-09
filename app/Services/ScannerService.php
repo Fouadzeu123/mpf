@@ -35,6 +35,15 @@ class ScannerService
             ];
         }
 
+        if ($mode === ScanMode::Attendance && ($serviceType ?? ServiceType::CulteDimanche) === ServiceType::CulteDimanche) {
+            if (! now()->isSunday()) {
+                return [
+                    'success' => false,
+                    'message' => 'Le scan pour le culte du dimanche est possible uniquement le dimanche.',
+                ];
+            }
+        }
+
         return match ($mode) {
             ScanMode::Profile => [
                 'success' => true,

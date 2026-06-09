@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import { FileText, MapPin, Pencil, Printer } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { FileText, MapPin, Pencil, Printer, Trash2 } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
 import MemberCardPreview from '@/components/church/MemberCardPreview.vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -123,6 +123,15 @@ function getAppUrl(path: string): string {
     const baseUrl = meta?.content ? meta.content.replace(/\/$/, '') : '';
     return `${baseUrl}/${path.replace(/^\//, '')}`;
 }
+
+const page = usePage();
+const userRole = computed(() => page.props.auth?.user?.role as string | undefined);
+
+function deleteMember() {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce membre définitivement ?\n\nCette action supprimera également toutes ses contributions et présences.")) {
+        router.delete(`/members/${props.member.id}`);
+    }
+}
 </script>
 
 <template>
@@ -174,6 +183,14 @@ function getAppUrl(path: string): string {
                             @click="printProfile"
                         >
                             <FileText class="mr-1 h-4 w-4" /> Fiche A4
+                        </Button>
+                        <Button
+                            v-if="['admin', 'secretaire'].includes(userRole)"
+                            variant="destructive"
+                            size="sm"
+                            @click="deleteMember"
+                        >
+                            <Trash2 class="mr-1 h-4 w-4" /> Supprimer
                         </Button>
                     </div>
                 </div>

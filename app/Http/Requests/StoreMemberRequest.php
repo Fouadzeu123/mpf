@@ -21,6 +21,7 @@ class StoreMemberRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:100'],
             'birth_date' => ['nullable', 'date', 'before_or_equal:today'],
             'gender' => ['nullable', 'string', 'max:20'],
+            'profession' => ['required', 'string', 'max:100'],
             'phone' => ['nullable', 'string', 'max:30'],
             'address_description' => ['nullable', 'string'],
             'department' => ['nullable', 'string', 'max:100'],

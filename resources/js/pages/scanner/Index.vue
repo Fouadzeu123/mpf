@@ -246,7 +246,7 @@ onUnmounted(() => stopScanner());
 
             <div
                 id="qr-reader"
-                class="mx-auto max-w-md overflow-hidden rounded-xl border"
+                class="mx-auto w-full max-w-md border border-slate-200 dark:border-slate-800 bg-black min-h-[280px]"
             />
 
             <p v-if="error" class="text-center text-sm text-destructive">
@@ -362,3 +362,13 @@ onUnmounted(() => stopScanner());
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+#qr-reader :deep(video) {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 400px !important;
+    object-fit: cover !important;
+    border-radius: 0px !important;
+}
+</style>

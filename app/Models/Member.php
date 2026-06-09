@@ -21,6 +21,7 @@ class Member extends Authenticatable
         'photo',
         'birth_date',
         'gender',
+        'profession',
         'phone',
         'address_description',
         'department',

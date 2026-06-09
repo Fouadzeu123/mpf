@@ -13,6 +13,7 @@ const props = defineProps<{
         last_name: string;
         birth_date: string | null;
         gender: string | null;
+        profession: string | null;
         phone: string | null;
         address_description: string | null;
         department: string | null;
@@ -30,6 +31,7 @@ const form = useForm({
     last_name: props.member.last_name,
     birth_date: props.member.birth_date ?? '',
     gender: props.member.gender ?? '',
+    profession: props.member.profession ?? '',
     phone: props.member.phone ?? '',
     address_description: props.member.address_description ?? '',
     department: props.member.department ?? '',
@@ -113,12 +115,24 @@ function submit() {
                     </select>
                 </div>
             </div>
-            <div>
-                <label class="text-sm font-medium">Téléphone</label>
-                <input
-                    v-model="form.phone"
-                    class="mt-1 w-full rounded-lg border px-3 py-2"
-                />
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                    <label class="text-sm font-medium">Téléphone</label>
+                    <input
+                        v-model="form.phone"
+                        class="mt-1 w-full rounded-lg border px-3 py-2"
+                    />
+                </div>
+                <div>
+                    <label class="text-sm font-medium">Profession *</label>
+                    <input
+                        v-model="form.profession"
+                        required
+                        class="mt-1 w-full rounded-lg border px-3 py-2"
+                        placeholder="Ex: Enseignant, Commerçant"
+                    />
+                    <InputError :message="form.errors.profession" />
+                </div>
             </div>
             <div>
                 <label class="text-sm font-medium">Adresse</label>

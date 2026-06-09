@@ -16,6 +16,7 @@ const props = defineProps<{
         photo_url: string | null;
         birth_date: string | null;
         gender: string | null;
+        profession: string | null;
         phone: string | null;
         department: string | null;
         address_description: string | null;
@@ -170,6 +171,10 @@ function formatDate(dateStr: string | null): string {
                         <p>
                             <span class="font-medium">Sexe :</span>
                             {{ member.gender || 'Non renseigné' }}
+                        </p>
+                        <p>
+                            <span class="font-medium">Profession :</span>
+                            {{ member.profession || 'Non renseignée' }}
                         </p>
                         <p>
                             <span class="font-medium">Date de naissance :</span>
@@ -442,6 +447,16 @@ function formatDate(dateStr: string | null): string {
                                 </p>
                                 <p class="mt-1 text-lg font-bold">
                                     {{ formatDate(member.birth_date) }}
+                                </p>
+                            </div>
+                            <div class="rounded-xl border p-4">
+                                <p
+                                    class="text-xs font-bold text-slate-500 uppercase"
+                                >
+                                    Profession
+                                </p>
+                                <p class="mt-1 text-lg font-bold">
+                                    {{ member.profession || 'Non renseignée' }}
                                 </p>
                             </div>
                             <div class="rounded-xl border p-4">

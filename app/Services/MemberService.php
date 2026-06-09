@@ -31,6 +31,7 @@ class MemberService
             'last_name' => $data['last_name'],
             'birth_date' => $data['birth_date'] ?? null,
             'gender' => $data['gender'] ?? null,
+            'profession' => $data['profession'] ?? null,
             'phone' => $data['phone'] ?? null,
             'address_description' => $data['address_description'] ?? null,
             'department' => $data['department'] ?? null,

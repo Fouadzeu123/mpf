@@ -1,7 +1,8 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
+import settings from './settings'
 /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +17,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +26,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +55,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +64,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\CommunionController::index
- * @see app/Http/Controllers/CommunionController.php:12
+ * @see app/Http/Controllers/CommunionController.php:13
  * @route '/sainte-cene'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,6 +80,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 const communion = {
     index: Object.assign(index, index),
+settings: Object.assign(settings, settings),
 }
 
 export default communion

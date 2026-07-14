@@ -35,16 +35,28 @@ class MemberController extends Controller
                         ->orWhere('phone', 'like', "%{$s}%");
                 });
             })
-            ->when($request->department, fn ($q) => $q->where('department', $request->department))
+            ->when($request->department, fn ($q) => $q->where('department', 'like', "%{$request->department}%"))
             ->when($request->status, fn ($q) => $q->where('status', $request->status))
+            ->when($request->gender, fn ($q) => $q->where('gender', $request->gender))
+            ->when($request->profession, fn ($q) => $q->where('profession', $request->profession))
             ->latest()
             ->paginate(15)
             ->withQueryString();
 
+        $departments = Member::pluck('department')
+            ->flatMap(fn ($d) => explode(',', $d ?? ''))
+            ->map(fn ($d) => trim($d))
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+
         return Inertia::render('members/Index', [
             'members' => $members,
-            'filters' => $request->only(['search', 'department', 'status']),
-            'departments' => Member::distinct()->pluck('department')->filter()->values(),
+            'filters' => $request->only(['search', 'department', 'status', 'gender', 'profession']),
+            'departments' => $departments,
+            'professions' => Member::whereNotNull('profession')->where('profession', '<>', '')->distinct()->pluck('profession')->values(),
+            'genders' => Member::whereNotNull('gender')->where('gender', '<>', '')->distinct()->pluck('gender')->values(),
         ]);
     }
 

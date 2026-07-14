@@ -21,7 +21,27 @@ const props = defineProps<{
 }>();
 
 const selectedMembers = ref<number[]>([]);
-const tab = ref<'members' | 'visitors'>('members');
+const tab = ref<'members' | 'visitors' | 'reports'>('members');
+
+const reportMonth = ref(new Date().toISOString().substring(0, 7));
+const communionMonth = ref(new Date().toISOString().substring(0, 7));
+const communionDate = ref('');
+
+function downloadMembersList() {
+    window.open('/impression/liste-membres', '_blank');
+}
+
+function downloadPresences() {
+    window.open(`/impression/presences-mois?month=${reportMonth.value}`, '_blank');
+}
+
+function downloadCommunion() {
+    let url = `/impression/communion-prepares?month=${communionMonth.value}`;
+    if (communionDate.value) {
+        url += `&date=${communionDate.value}`;
+    }
+    window.open(url, '_blank');
+}
 
 function toggleMember(id: number) {
     const i = selectedMembers.value.indexOf(id);
@@ -110,6 +130,15 @@ function printMembers() {
                 >
                     Visiteurs
                 </button>
+                <button
+                    class="px-4 py-2 text-sm font-medium"
+                    :class="
+                        tab === 'reports' ? 'border-b-2 border-primary' : ''
+                    "
+                    @click="tab = 'reports'"
+                >
+                    Listes & Rapports
+                </button>
             </div>
 
             <div
@@ -155,6 +184,86 @@ function printMembers() {
                             m.member_code
                         }}</span>
                     </label>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div
+                v-if="tab === 'reports'"
+                class="rounded-3xl border bg-card p-6 shadow-sm space-y-6"
+            >
+                <div>
+                    <h2 class="text-xl font-bold">Impression de Listes & Rapports</h2>
+                    <p class="text-sm text-muted-foreground mt-1">
+                        Générez et téléchargez des rapports au format PDF paysage, conçus de manière très compacte pour tenir sur une seule ligne par membre.
+                    </p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    <!-- Report 1: Members List -->
+                    <div class="rounded-2xl border bg-background p-5 flex flex-col justify-between min-h-[12rem]">
+                        <div>
+                            <h3 class="font-bold text-base text-slate-800 dark:text-slate-200">Liste des Membres</h3>
+                            <p class="text-xs text-muted-foreground mt-2">
+                                Exporte la liste complète de tous les membres de l'église avec leurs informations détaillées.
+                            </p>
+                        </div>
+                        <Button class="w-full mt-4" @click="downloadMembersList">
+                            <Printer class="mr-2 h-4 w-4" />
+                            Imprimer la Liste
+                        </Button>
+                    </div>
+
+                    <!-- Report 2: Monthly Attendances -->
+                    <div class="rounded-2xl border bg-background p-5 flex flex-col justify-between min-h-[12rem]">
+                        <div>
+                            <h3 class="font-bold text-base text-slate-800 dark:text-slate-200">Présences du Mois</h3>
+                            <p class="text-xs text-muted-foreground mt-2">
+                                Exporte la liste des présences enregistrées pour le mois sélectionné.
+                            </p>
+                            <input
+                                type="month"
+                                v-model="reportMonth"
+                                class="mt-3 w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                            />
+                        </div>
+                        <Button class="w-full mt-4" @click="downloadPresences">
+                            <Printer class="mr-2 h-4 w-4" />
+                            Imprimer les Présences
+                        </Button>
+                    </div>
+
+                    <!-- Report 3: Communion Preparation -->
+                    <div class="rounded-2xl border bg-background p-5 flex flex-col justify-between min-h-[12rem]">
+                        <div>
+                            <h3 class="font-bold text-base text-slate-800 dark:text-slate-200">Membres Sainte Cène</h3>
+                            <p class="text-xs text-muted-foreground mt-2">
+                                Exporte la liste des membres ayant préparé la Sainte Cène pour un mois ou une date spécifique.
+                            </p>
+                            <div class="space-y-2 mt-2">
+                                <div class="flex flex-col gap-0.5">
+                                    <label class="text-[10px] text-slate-500 font-semibold">Par Mois (requis)</label>
+                                    <input
+                                        type="month"
+                                        v-model="communionMonth"
+                                        class="w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-0.5">
+                                    <label class="text-[10px] text-slate-500 font-semibold">Par Date Spécifique (optionnel)</label>
+                                    <input
+                                        type="date"
+                                        v-model="communionDate"
+                                        class="w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <Button class="w-full mt-4" @click="downloadCommunion">
+                            <Printer class="mr-2 h-4 w-4" />
+                            Imprimer les Préparations
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

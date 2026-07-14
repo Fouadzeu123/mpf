@@ -19,13 +19,17 @@ const props = defineProps<{
         }>;
         links: unknown;
     };
-    filters: { search?: string; department?: string; status?: string };
+    filters: { search?: string; department?: string; status?: string; gender?: string; profession?: string };
     departments: string[];
+    professions: string[];
+    genders: string[];
 }>();
 
 const search = ref(props.filters.search ?? '');
 const department = ref(props.filters.department ?? '');
 const status = ref(props.filters.status ?? '');
+const gender = ref(props.filters.gender ?? '');
+const profession = ref(props.filters.profession ?? '');
 
 const sorting = ref(false);
 
@@ -59,6 +63,8 @@ function applyFilters() {
             search: search.value || undefined,
             department: department.value || undefined,
             status: status.value || undefined,
+            gender: gender.value || undefined,
+            profession: profession.value || undefined,
         },
         { preserveState: true },
     );
@@ -112,6 +118,26 @@ function applyFilters() {
                     <option value="">Tous départements</option>
                     <option v-for="d in departments" :key="d" :value="d">
                         {{ d }}
+                    </option>
+                </select>
+                <select
+                    v-model="gender"
+                    class="rounded-lg border px-3 py-2 text-sm"
+                    @change="applyFilters"
+                >
+                    <option value="">Tous genres</option>
+                    <option v-for="g in genders" :key="g" :value="g">
+                        {{ g }}
+                    </option>
+                </select>
+                <select
+                    v-model="profession"
+                    class="rounded-lg border px-3 py-2 text-sm"
+                    @change="applyFilters"
+                >
+                    <option value="">Toutes professions</option>
+                    <option v-for="p in professions" :key="p" :value="p">
+                        {{ p }}
                     </option>
                 </select>
                 <select

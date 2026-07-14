@@ -25,13 +25,13 @@
         .cell {
             display: table-cell;
             width: {{ $layout['card_width_mm'] }}mm;
-            height: {{ $layout['card_height_mm'] }}mm;
+            height: 54mm;
             vertical-align: top;
             padding: 0;
         }
         .card-inner {
             position: relative;
-            height: {{ $layout['card_height_mm'] }}mm;
+            height: 50.8mm;
             border: 0.7px solid #1e3a8a;
             border-radius: 2mm;
             padding: 1.5mm;
@@ -60,7 +60,7 @@
             text-align: right;
         }
         .logo {
-            height: 10mm;
+            height: 8.5mm;
             max-width: 14mm;
             object-fit: contain;
             background: #ffffff;
@@ -112,7 +112,7 @@
         }
         .photo {
             width: 17.5mm;
-            height: 21mm;
+            height: 19.5mm;
             object-fit: cover;
             border-radius: 1.4mm;
             border: 0.7px solid #1e3a8a;
@@ -120,7 +120,7 @@
         }
         .photo-empty {
             width: 17.5mm;
-            height: 21mm;
+            height: 19.5mm;
             background: #eff6ff;
             border-radius: 1.4mm;
             border: 0.7px dashed #1e3a8a;
@@ -167,8 +167,8 @@
             margin-top: 0.3mm;
         }
         .qr-col img {
-            width: 19mm;
-            height: 19mm;
+            width: 17.5mm;
+            height: 17.5mm;
             border: 0.5px solid #cbd5e1;
             border-radius: 1mm;
             background: #ffffff;
@@ -278,37 +278,41 @@
         .theme-pasteur .photo, .theme-dirigeant .photo { border-color: #d97706 !important; }
         .theme-pasteur .photo-empty, .theme-dirigeant .photo-empty { border-color: #d97706 !important; }
 
-        /* 3. Évangéliste: Cobalt Blue */
+        /* 3. Évangéliste: Emerald Green & Gold */
         .theme-evangeliste {
-            border-color: #2563eb !important;
+            border-color: #059669 !important;
         }
         .theme-evangeliste .card-top {
-            background: #1d4ed8 !important;
+            background: #064e3b !important;
+            border-bottom: 0.5px solid #fbbf24 !important;
         }
         .theme-evangeliste .member-badge {
-            background: #2563eb !important;
+            background: #fbbf24 !important;
+            color: #064e3b !important;
         }
         .theme-evangeliste .label {
-            color: #1d4ed8 !important;
+            color: #059669 !important;
         }
         .theme-evangeliste .first-name {
-            color: #2563eb !important;
+            color: #047857 !important;
         }
         .theme-evangeliste .code {
-            background: #1d4ed8 !important;
+            background: #064e3b !important;
+            border: 0.3px solid #fbbf24 !important;
+            color: #fbbf24 !important;
         }
         .theme-evangeliste .qr-label {
-            color: #1d4ed8 !important;
+            color: #059669 !important;
         }
         .theme-evangeliste .bible-verse {
-            color: #1e40af !important;
+            color: #065f46 !important;
         }
         .theme-evangeliste .card-footer {
-            border-top-color: #bfdbfe !important;
-            color: #1d4ed8 !important;
+            border-top-color: #a7f3d0 !important;
+            color: #059669 !important;
         }
-        .theme-evangeliste .photo { border-color: #2563eb !important; }
-        .theme-evangeliste .photo-empty { border-color: #2563eb !important; }
+        .theme-evangeliste .photo { border-color: #059669 !important; }
+        .theme-evangeliste .photo-empty { border-color: #059669 !important; }
 
         /* 4. Anciens: Bronze / Amber */
         .theme-ancien {

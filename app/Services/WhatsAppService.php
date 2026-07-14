@@ -58,9 +58,13 @@ class WhatsAppService
     {
         $sid = config('services.whatsapp.twilio_sid');
         $token = config('services.whatsapp.twilio_token');
-        $from = config('services.whatsapp.twilio_from');
+        $from = config('services.whatsapp.twilio_from') ?: 'whatsapp:+237691051864';
 
-        if (! $sid || ! $token || ! $from) {
+        if (! str_starts_with($from, 'whatsapp:')) {
+            $from = 'whatsapp:'.$from;
+        }
+
+        if (! $sid || ! $token) {
             return $this->logMessage($phone, $message);
         }
 

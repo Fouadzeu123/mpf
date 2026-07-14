@@ -60,10 +60,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('presences', [AttendanceController::class, 'index'])->middleware('role:admin')->name('attendances.index');
     Route::delete('presences/{attendance}', [AttendanceController::class, 'destroy'])->middleware('role:admin')->name('attendances.destroy');
     Route::get('sainte-cene', [CommunionController::class, 'index'])->middleware('role:admin')->name('communion.index');
+    Route::post('sainte-cene/configurer', [CommunionController::class, 'updateSettings'])->middleware('role:admin')->name('communion.settings.update');
 
     Route::get('impression', [PrintController::class, 'index'])->middleware('role:secretaire')->name('print.index');
     Route::post('impression/membres', [PrintController::class, 'members'])->middleware('role:secretaire')->name('print.members');
     Route::post('impression/visiteurs', [PrintController::class, 'visitors'])->middleware('role:secretaire')->name('print.visitors');
+    Route::get('impression/liste-membres', [PrintController::class, 'printMembersList'])->middleware('role:secretaire')->name('print.members-list');
+    Route::get('impression/presences-mois', [PrintController::class, 'printMonthlyAttendances'])->middleware('role:secretaire')->name('print.monthly-attendances');
+    Route::get('impression/communion-prepares', [PrintController::class, 'printCommunionPrepared'])->middleware('role:secretaire')->name('print.communion-prepared');
 
     Route::get('paiements', [PaymentController::class, 'index'])->middleware('role:admin')->name('payments.index');
     Route::get('flux', [\App\Http\Controllers\FeedController::class, 'index'])->name('admin.feed');

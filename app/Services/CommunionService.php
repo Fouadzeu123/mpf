@@ -20,7 +20,7 @@ class CommunionService
     {
         if (! $this->isPreparationDay()) {
             throw ValidationException::withMessages([
-                'preparation' => 'La préparation se fait uniquement le deuxième samedi du mois.',
+                'preparation' => 'La préparation se fait uniquement le jour défini pour la préparation à la Sainte Cène.',
             ]);
         }
 
@@ -73,6 +73,11 @@ class CommunionService
 
         if (app()->environment('local') || config('app.debug')) {
             return true;
+        }
+
+        $customDate = \App\Models\Setting::where('key', 'communion_preparation_date')->value('value');
+        if ($customDate) {
+            return now()->toDateString() === $customDate;
         }
 
         $today = now();

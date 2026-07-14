@@ -7,7 +7,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 7px;
+            font-size: 8px;
             color: #1e293b;
             background: #fff;
         }
@@ -68,14 +68,14 @@
             padding: 0.3mm;
         }
         .church-name {
-            font-size: 7.2px;
+            font-size: 8.5px;
             font-weight: bold;
             color: #ffffff;
             letter-spacing: 0.3px;
             line-height: 1.1;
         }
         .card-title {
-            font-size: 5.2px;
+            font-size: 6px;
             color: #93c5fd;
             text-transform: uppercase;
             letter-spacing: 0.6px;
@@ -83,7 +83,7 @@
         }
         .member-badge {
             display: inline-block;
-            font-size: 5.2px;
+            font-size: 6.5px;
             font-weight: bold;
             color: #ffffff;
             background: #2563eb;
@@ -126,21 +126,21 @@
             border: 0.7px dashed #1e3a8a;
         }
         .name {
-            font-size: 8.8px;
+            font-size: 10.5px;
             font-weight: bold;
             color: #0f172a;
             line-height: 1.2;
             text-transform: uppercase;
         }
         .first-name {
-            font-size: 8px;
+            font-size: 9.5px;
             font-weight: bold;
             color: #1d4ed8;
             line-height: 1.2;
             margin-bottom: 0.4mm;
         }
         .meta {
-            font-size: 6px;
+            font-size: 7px;
             color: #334155;
             line-height: 1.25;
         }
@@ -150,7 +150,7 @@
             border-bottom: 0.2px solid #cbd5e1;
         }
         .label {
-            font-size: 5px;
+            font-size: 6px;
             font-weight: bold;
             color: #1e3a8a;
             text-transform: uppercase;
@@ -158,7 +158,7 @@
         }
         .code {
             display: inline-block;
-            font-size: 6px;
+            font-size: 7px;
             font-weight: bold;
             color: #ffffff;
             background: #172554;
@@ -175,14 +175,14 @@
             padding: 0.8mm;
         }
         .qr-label {
-            font-size: 4.8px;
+            font-size: 5.5px;
             font-weight: bold;
             color: #1e3a8a;
             margin-top: 0.3mm;
             text-transform: uppercase;
         }
         .programs {
-            font-size: 5px;
+            font-size: 5.8px;
             color: #475569;
             text-align: left;
             margin-top: 0.6mm;
@@ -412,10 +412,10 @@
 
         /* Added fields styling */
         .church-supername {
-            font-size: 5.8px;
+            font-size: 5.2px;
             font-weight: normal;
             color: #93c5fd;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.3px;
             line-height: 1;
             text-transform: uppercase;
             margin-bottom: 0.1mm;
@@ -424,7 +424,7 @@
             color: #fbbf24;
         }
         .bible-verse {
-            font-size: 5.2px;
+            font-size: 6px;
             color: #475569;
             font-style: italic;
             text-align: center;
@@ -436,7 +436,7 @@
             padding-top: 0.4mm;
             border-top: 0.2px solid #cbd5e1;
             text-align: center;
-            font-size: 4.8px;
+            font-size: 5.5px;
             font-weight: bold;
             color: #64748b;
         }
@@ -568,8 +568,8 @@
                                         <div class="brand-logo"><img src="{{ $logoDataUri }}" class="logo" alt=""></div>
                                     @endif
                                     <div class="brand-text">
-                                        <div class="church-supername">(Eglise du Christ)</div>
-                                        <div class="church-name">{{ $churchName }}</div>
+                                        <div class="church-name">EGLISE DU CHRIST</div>
+                                        <div class="church-supername">Decret No 71/DF/619 DU 14 DEC 1971</div>
                                         <div class="card-title">Carte d'identification</div>
                                     </div>
                                     <div class="brand-badge">

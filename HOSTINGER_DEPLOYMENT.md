@@ -138,10 +138,26 @@ Pour finaliser le déploiement, vous devez exécuter les migrations de base de d
 
 ## ⚠️ Éviter la suppression des photos de membres lors des déploiements
 
-Sur Hostinger (ou tout autre serveur de production), les photos des membres sont téléversées et stockées dans le dossier dynamique :
-`/home/u123456789/bibleStory/storage/app/public/members/`
+Pour éviter que vos images téléversées (photos de membres, bannières d'événements, vidéos) soient supprimées lors des redéploiements sur Hostinger, vous devez les stocker dans un dossier persistant situé en dehors du répertoire de déploiement de l'application.
 
-Lors de la mise à jour ou du redéploiement de votre code, ces fichiers peuvent être accidentellement supprimés si vous écrasez les dossiers. Voici les règles d'or pour l'éviter :
+### 🌟 Solution Automatique (Recommandée) : Dossier Persistant Externe
+Cette méthode déporte le stockage de vos fichiers publics dans un répertoire indépendant sur votre serveur Hostinger (par exemple, `/home/u123456789/shared_storage`).
+
+1. **Configurer la variable d'environnement** :
+   Dans le fichier `.env` de production sur Hostinger, ajoutez la ligne suivante pointant vers le dossier absolu externe de votre choix :
+   ```env
+   PUBLIC_STORAGE_PATH=/home/u123456789/shared_storage
+   ```
+2. **Générer le lien symbolique** :
+   Accédez à l'URL de votre script de déploiement `symlink.php` :
+   `https://votre-nom-de-domaine.com/symlink.php?key=VOTRE_CLE&action=symlink`
+   Le script va automatiquement créer le dossier `shared_storage` sur Hostinger s'il n'existe pas, puis créer le lien symbolique reliant `public_html/storage` à votre dossier persistant `/home/u123456789/shared_storage`.
+
+À partir de ce moment, tous vos téléversements seront sécurisés à l'extérieur du répertoire de l'application et ne seront plus jamais écrasés ou supprimés lors de vos déploiements !
+
+---
+
+### Méthodes manuelles classiques :
 
 ### 1. Si vous déployez par Archive ZIP (File Manager Hostinger) :
 - **Ne mettez jamais le dossier `storage` dans votre fichier `.zip` local** que vous uploadez. Excluez-le de l'archive avant de l'envoyer.
@@ -155,4 +171,4 @@ Lors de la mise à jour ou du redéploiement de votre code, ces fichiers peuvent
 
 > [!TIP]
 > **Bonne pratique de sauvegarde** :
-> Avant chaque mise à jour de code en production, téléchargez et sauvegardez toujours le dossier `storage/app/public/members/` de votre serveur Hostinger vers votre ordinateur local. Ainsi, en cas d'erreur de manipulation, vous pourrez restaurer toutes les photos instantanément.
+> Avant chaque mise à jour de code en production, téléchargez et sauvegardez toujours le dossier `storage/app/public/members/` (ou votre dossier `shared_storage` externe) de votre serveur Hostinger vers votre ordinateur local. Ainsi, en cas d'erreur de manipulation, vous pourrez restaurer toutes les photos instantanément.

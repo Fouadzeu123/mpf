@@ -53,8 +53,17 @@ if ($key !== SECRET_KEY) {
             case 'symlink':
                 // Custom symlink creation to handle Hostinger-specific symlink setups
                 $publicPath = __DIR__;
-                $storagePath = $laravelPath . '/storage/app/public';
+                $storagePath = config('filesystems.disks.public.root');
                 $linkPath = $publicPath . '/storage';
+
+                // Auto-create storage path directory if it does not exist
+                if (!file_exists($storagePath)) {
+                    if (mkdir($storagePath, 0755, true)) {
+                        $output .= "Dossier de stockage créé avec succès : {$storagePath}\n";
+                    } else {
+                        $output .= "Erreur lors de la création du dossier de stockage : {$storagePath}\n";
+                    }
+                }
 
                 if (file_exists($linkPath)) {
                     if (is_link($linkPath)) {

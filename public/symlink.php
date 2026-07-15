@@ -51,38 +51,69 @@ if ($key !== SECRET_KEY) {
 
         switch ($action) {
             case 'symlink':
-                // Custom symlink creation to handle Hostinger-specific symlink setups
+                // Standalone symlink creation — does NOT require full Laravel bootstrap
                 $publicPath = __DIR__;
-                $storagePath = config('filesystems.disks.public.root');
-                $linkPath = $publicPath . '/storage';
+                $linkPath   = $publicPath . '/storage';
 
-                // Auto-create storage path directory if it does not exist
-                if (!file_exists($storagePath)) {
-                    if (mkdir($storagePath, 0755, true)) {
-                        $output .= "Dossier de stockage créé avec succès : {$storagePath}\n";
-                    } else {
-                        $output .= "Erreur lors de la création du dossier de stockage : {$storagePath}\n";
+                // Determine storage path from .env or fall back to default
+                $envFile  = $laravelPath . '/.env';
+                $storagePath = null;
+                if (file_exists($envFile)) {
+                    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                    foreach ($lines as $line) {
+                        if (str_starts_with($line, 'PUBLIC_STORAGE_PATH=')) {
+                            $storagePath = trim(substr($line, strlen('PUBLIC_STORAGE_PATH=')), " \t\n\r\"'");
+                            break;
+                        }
                     }
                 }
-                if (is_link($linkPath) || file_exists($linkPath)) {
-                    if (is_link($linkPath)) {
-                        unlink($linkPath);
-                        $output .= "Ancien lien symbolique supprimé.\n";
+                if (!$storagePath) {
+                    $storagePath = $laravelPath . '/storage/app/public';
+                }
+
+                // Ensure all required framework directories exist
+                $requiredDirs = [
+                    $laravelPath . '/bootstrap/cache',
+                    $storagePath,
+                    $storagePath . '/members',
+                    $laravelPath . '/storage/framework',
+                    $laravelPath . '/storage/framework/views',
+                    $laravelPath . '/storage/framework/cache',
+                    $laravelPath . '/storage/framework/cache/data',
+                    $laravelPath . '/storage/framework/sessions',
+                    $laravelPath . '/storage/logs',
+                ];
+                foreach ($requiredDirs as $dir) {
+                    if (!file_exists($dir)) {
+                        if (mkdir($dir, 0755, true)) {
+                            $output .= "✅ Dossier créé : {$dir}\n";
+                        } else {
+                            $output .= "❌ Impossible de créer : {$dir}\n";
+                        }
                     } else {
-                        // It's a directory, rename it as backup
-                        rename($linkPath, $linkPath . '_backup_' . time());
-                        $output .= "Dossier existant renommé en backup.\n";
+                        $output .= "ℹ️  Existe déjà : {$dir}\n";
                     }
                 }
 
+                // Remove old link/directory if present (handles broken symlinks too)
+                if (is_link($linkPath)) {
+                    unlink($linkPath);
+                    $output .= "🗑️  Ancien lien symbolique supprimé.\n";
+                } elseif (file_exists($linkPath)) {
+                    rename($linkPath, $linkPath . '_backup_' . time());
+                    $output .= "🗑️  Dossier existant renommé en backup.\n";
+                }
+
+                // Create the new symlink
                 if (symlink($storagePath, $linkPath)) {
-                    $output .= "Lien symbolique créé avec succès de : \n{$storagePath} \nvers\n{$linkPath}\n";
+                    $output .= "✅ Lien symbolique créé avec succès :\n  {$storagePath}\n  → {$linkPath}\n";
                     $status = 'success';
                 } else {
-                    $output .= "Échec de création du lien symbolique via php symlink(). Tentative avec Artisan...\n";
-                    $exitCode = Illuminate\Support\Facades\Artisan::call('storage:link');
-                    $output .= Illuminate\Support\Facades\Artisan::output();
-                    $status = $exitCode === 0 ? 'success' : 'error';
+                    $output .= "❌ Échec de création du lien symbolique.\n";
+                    $output .= "   Source : {$storagePath}\n";
+                    $output .= "   Cible  : {$linkPath}\n";
+                    $output .= "   (Vérifiez que PHP a les droits d'écriture sur public_html)\n";
+                    $status = 'error';
                 }
                 break;
 

@@ -64,8 +64,7 @@ if ($key !== SECRET_KEY) {
                         $output .= "Erreur lors de la création du dossier de stockage : {$storagePath}\n";
                     }
                 }
-
-                if (file_exists($linkPath)) {
+                if (is_link($linkPath) || file_exists($linkPath)) {
                     if (is_link($linkPath)) {
                         unlink($linkPath);
                         $output .= "Ancien lien symbolique supprimé.\n";

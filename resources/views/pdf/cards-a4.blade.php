@@ -564,9 +564,6 @@
                         @if ($card)
                             <div class="card-inner {{ $themeClass }}">
                                 <div class="card-top">
-                                    @if (!empty($logoDataUri))
-                                        <div class="brand-logo"><img src="{{ $logoDataUri }}" class="logo" alt=""></div>
-                                    @endif
                                     <div class="brand-text">
                                         <div class="church-name">EGLISE DU CHRIST</div>
                                         <div class="church-supername">Decret No 71/DF/619 DU 14 DEC 1971</div>

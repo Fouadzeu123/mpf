@@ -111,7 +111,8 @@ function printProfile() {
 
 function formatDate(dateStr: string | null): string {
     if (!dateStr) return 'Non renseigné';
-    const parts = dateStr.split('-');
+    const dateOnly = dateStr.substring(0, 10);
+    const parts = dateOnly.split('-');
     if (parts.length === 3) {
         return `${parts[2]}/${parts[1]}/${parts[0]}`;
     }

@@ -421,6 +421,162 @@ communionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
         })
     
     communionPrepared.form = communionPreparedForm
+/**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+export const absentsCulte = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: absentsCulte.url(options),
+    method: 'get',
+})
+
+absentsCulte.definition = {
+    methods: ["get","head"],
+    url: '/impression/absents-culte',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+absentsCulte.url = (options?: RouteQueryOptions) => {
+    return absentsCulte.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+absentsCulte.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: absentsCulte.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+absentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: absentsCulte.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+    const absentsCulteForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: absentsCulte.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+        absentsCulteForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: absentsCulte.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PrintController::absentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+        absentsCulteForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: absentsCulte.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    absentsCulte.form = absentsCulteForm
+/**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+export const communionNonPrepared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: communionNonPrepared.url(options),
+    method: 'get',
+})
+
+communionNonPrepared.definition = {
+    methods: ["get","head"],
+    url: '/impression/communion-non-prepares',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+communionNonPrepared.url = (options?: RouteQueryOptions) => {
+    return communionNonPrepared.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+communionNonPrepared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: communionNonPrepared.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+communionNonPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: communionNonPrepared.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+    const communionNonPreparedForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: communionNonPrepared.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+        communionNonPreparedForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: communionNonPrepared.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PrintController::communionNonPrepared
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+        communionNonPreparedForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: communionNonPrepared.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    communionNonPrepared.form = communionNonPreparedForm
 const print = {
     index: Object.assign(index, index),
 members: Object.assign(members, members),
@@ -428,6 +584,8 @@ visitors: Object.assign(visitors, visitors),
 membersList: Object.assign(membersList, membersList),
 monthlyAttendances: Object.assign(monthlyAttendances, monthlyAttendances),
 communionPrepared: Object.assign(communionPrepared, communionPrepared),
+absentsCulte: Object.assign(absentsCulte, absentsCulte),
+communionNonPrepared: Object.assign(communionNonPrepared, communionNonPrepared),
 }
 
 export default print

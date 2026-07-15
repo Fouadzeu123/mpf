@@ -131,7 +131,7 @@
 
     <table class="report-table">
         <thead>
-            @if($type === 'members')
+            @if($type === 'members' || $type === 'absents_cultes' || $type === 'not_prepared_communion')
                 <tr>
                     <th style="width: 10%;">Code</th>
                     <th style="width: 22%;">Nom & Prénom</th>
@@ -164,7 +164,7 @@
         </thead>
         <tbody>
             @forelse($items as $item)
-                @if($type === 'members')
+                @if($type === 'members' || $type === 'absents_cultes' || $type === 'not_prepared_communion')
                     <tr>
                         <td style="font-family: monospace;">{{ $item->member_code }}</td>
                         <td style="font-weight: bold; text-transform: uppercase;">{{ $item->full_name }}</td>

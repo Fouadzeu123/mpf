@@ -26,6 +26,10 @@ const tab = ref<'members' | 'visitors' | 'reports'>('members');
 const reportMonth = ref(new Date().toISOString().substring(0, 7));
 const communionMonth = ref(new Date().toISOString().substring(0, 7));
 const communionDate = ref('');
+const absentMonth = ref(new Date().toISOString().substring(0, 7));
+const absentDate = ref('');
+const nonPreparedMonth = ref(new Date().toISOString().substring(0, 7));
+const nonPreparedDate = ref('');
 
 function downloadMembersList() {
     window.open('/impression/liste-membres', '_blank');
@@ -39,6 +43,22 @@ function downloadCommunion() {
     let url = `/impression/communion-prepares?month=${communionMonth.value}`;
     if (communionDate.value) {
         url += `&date=${communionDate.value}`;
+    }
+    window.open(url, '_blank');
+}
+
+function downloadAbsents() {
+    let url = `/impression/absents-culte?month=${absentMonth.value}`;
+    if (absentDate.value) {
+        url += `&date=${absentDate.value}`;
+    }
+    window.open(url, '_blank');
+}
+
+function downloadNonPrepared() {
+    let url = `/impression/communion-non-prepares?month=${nonPreparedMonth.value}`;
+    if (nonPreparedDate.value) {
+        url += `&date=${nonPreparedDate.value}`;
     }
     window.open(url, '_blank');
 }
@@ -262,6 +282,70 @@ function printMembers() {
                         <Button class="w-full mt-4" @click="downloadCommunion">
                             <Printer class="mr-2 h-4 w-4" />
                             Imprimer les Préparations
+                        </Button>
+                    </div>
+
+                    <!-- Report 4: Absents du Culte -->
+                    <div class="rounded-2xl border bg-background p-5 flex flex-col justify-between min-h-[12rem]">
+                        <div>
+                            <h3 class="font-bold text-base text-slate-800 dark:text-slate-200">Absents aux Cultes</h3>
+                            <p class="text-xs text-muted-foreground mt-2">
+                                Exporte la liste des membres actifs n'ayant aucune présence enregistrée pour un mois ou un jour.
+                            </p>
+                            <div class="space-y-2 mt-2">
+                                <div class="flex flex-col gap-0.5">
+                                    <label class="text-[10px] text-slate-500 font-semibold">Par Mois (requis)</label>
+                                    <input
+                                        type="month"
+                                        v-model="absentMonth"
+                                        class="w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-0.5">
+                                    <label class="text-[10px] text-slate-500 font-semibold">Par Date Spécifique (optionnel)</label>
+                                    <input
+                                        type="date"
+                                        v-model="absentDate"
+                                        class="w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <Button class="w-full mt-4" @click="downloadAbsents">
+                            <Printer class="mr-2 h-4 w-4" />
+                            Imprimer les Absents
+                        </Button>
+                    </div>
+
+                    <!-- Report 5: Non-préparés Sainte Cène -->
+                    <div class="rounded-2xl border bg-background p-5 flex flex-col justify-between min-h-[12rem]">
+                        <div>
+                            <h3 class="font-bold text-base text-slate-800 dark:text-slate-200">Membres sans Préparation</h3>
+                            <p class="text-xs text-muted-foreground mt-2">
+                                Exporte la liste des membres actifs n'ayant pas préparé la Sainte Cène pour un mois ou un jour.
+                            </p>
+                            <div class="space-y-2 mt-2">
+                                <div class="flex flex-col gap-0.5">
+                                    <label class="text-[10px] text-slate-500 font-semibold">Par Mois (requis)</label>
+                                    <input
+                                        type="month"
+                                        v-model="nonPreparedMonth"
+                                        class="w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-0.5">
+                                    <label class="text-[10px] text-slate-500 font-semibold">Par Date Spécifique (optionnel)</label>
+                                    <input
+                                        type="date"
+                                        v-model="nonPreparedDate"
+                                        class="w-full rounded-lg border px-3 py-1.5 text-sm bg-background"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <Button class="w-full mt-4" @click="downloadNonPrepared">
+                            <Printer class="mr-2 h-4 w-4" />
+                            Imprimer les Non-préparés
                         </Button>
                     </div>
                 </div>

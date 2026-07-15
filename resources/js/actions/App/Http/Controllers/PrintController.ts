@@ -421,6 +421,162 @@ printCommunionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'he
         })
     
     printCommunionPrepared.form = printCommunionPreparedForm
-const PrintController = { index, members, visitors, printMembersList, printMonthlyAttendances, printCommunionPrepared }
+/**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+export const printAbsentsCulte = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: printAbsentsCulte.url(options),
+    method: 'get',
+})
+
+printAbsentsCulte.definition = {
+    methods: ["get","head"],
+    url: '/impression/absents-culte',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+printAbsentsCulte.url = (options?: RouteQueryOptions) => {
+    return printAbsentsCulte.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+printAbsentsCulte.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: printAbsentsCulte.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+printAbsentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: printAbsentsCulte.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+    const printAbsentsCulteForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: printAbsentsCulte.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+        printAbsentsCulteForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: printAbsentsCulte.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PrintController::printAbsentsCulte
+ * @see app/Http/Controllers/PrintController.php:122
+ * @route '/impression/absents-culte'
+ */
+        printAbsentsCulteForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: printAbsentsCulte.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    printAbsentsCulte.form = printAbsentsCulteForm
+/**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+export const printNotPreparedCommunion = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: printNotPreparedCommunion.url(options),
+    method: 'get',
+})
+
+printNotPreparedCommunion.definition = {
+    methods: ["get","head"],
+    url: '/impression/communion-non-prepares',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+printNotPreparedCommunion.url = (options?: RouteQueryOptions) => {
+    return printNotPreparedCommunion.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+printNotPreparedCommunion.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: printNotPreparedCommunion.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+printNotPreparedCommunion.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: printNotPreparedCommunion.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+    const printNotPreparedCommunionForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: printNotPreparedCommunion.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+        printNotPreparedCommunionForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: printNotPreparedCommunion.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
+ * @see app/Http/Controllers/PrintController.php:164
+ * @route '/impression/communion-non-prepares'
+ */
+        printNotPreparedCommunionForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: printNotPreparedCommunion.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    printNotPreparedCommunion.form = printNotPreparedCommunionForm
+const PrintController = { index, members, visitors, printMembersList, printMonthlyAttendances, printCommunionPrepared, printAbsentsCulte, printNotPreparedCommunion }
 
 export default PrintController

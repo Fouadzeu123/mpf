@@ -68,6 +68,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('impression/liste-membres', [PrintController::class, 'printMembersList'])->middleware('role:secretaire')->name('print.members-list');
     Route::get('impression/presences-mois', [PrintController::class, 'printMonthlyAttendances'])->middleware('role:secretaire')->name('print.monthly-attendances');
     Route::get('impression/communion-prepares', [PrintController::class, 'printCommunionPrepared'])->middleware('role:secretaire')->name('print.communion-prepared');
+    Route::get('impression/absents-culte', [PrintController::class, 'printAbsentsCulte'])->middleware('role:secretaire')->name('print.absents-culte');
+    Route::get('impression/communion-non-prepares', [PrintController::class, 'printNotPreparedCommunion'])->middleware('role:secretaire')->name('print.communion-non-prepared');
 
     Route::get('paiements', [PaymentController::class, 'index'])->middleware('role:admin')->name('payments.index');
     Route::get('flux', [\App\Http\Controllers\FeedController::class, 'index'])->name('admin.feed');

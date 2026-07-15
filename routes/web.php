@@ -79,3 +79,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__.'/settings.php';
+
+Route::get('storage/{path}', function ($path) {
+    $disk = \Illuminate\Support\Facades\Storage::disk('public');
+    if (!$disk->exists($path)) {
+        abort(404);
+    }
+    return response()->file($disk->path($path), [
+        'Cache-Control' => 'public, max-age=31536000',
+    ]);
+})->where('path', '.*');

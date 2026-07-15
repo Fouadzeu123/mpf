@@ -474,12 +474,12 @@
                         if ($card && ($card['type'] ?? '') === 'member') {
                             $normalize = function($str) {
                                 if (!$str) return '';
-                                $str = strtolower(trim($str));
-                                $str = str_replace(['é', 'è', 'ê', 'ë'], 'e', $str);
-                                $str = str_replace(['à', 'â', 'ä'], 'a', $str);
-                                $str = str_replace(['ô', 'ö'], 'o', $str);
-                                $str = str_replace(['û', 'ü'], 'u', $str);
-                                $str = str_replace(['ç'], 'c', $str);
+                                $str = mb_strtolower(trim($str), 'UTF-8');
+                                $str = str_replace(['é', 'è', 'ê', 'ë', 'É', 'È', 'Ê', 'Ë'], 'e', $str);
+                                $str = str_replace(['à', 'â', 'ä', 'À', 'Â', 'Ä'], 'a', $str);
+                                $str = str_replace(['ô', 'ö', 'Ô', 'Ö'], 'o', $str);
+                                $str = str_replace(['û', 'ü', 'Û', 'Ü'], 'u', $str);
+                                $str = str_replace(['ç', 'Ç'], 'c', $str);
                                 return $str;
                             };
                             

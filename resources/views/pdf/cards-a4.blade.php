@@ -3,7 +3,13 @@
 <head>
     <meta charset="utf-8">
     <style>
-        @page { margin: {{ $layout['margin_mm'] ?? 6 }}mm 10mm; size: a4 portrait; }
+        @page {
+            size: 210mm 297mm;
+            margin-top: {{ $layout['margin_v_mm'] ?? 9.75 }}mm;
+            margin-bottom: {{ $layout['margin_v_mm'] ?? 9.75 }}mm;
+            margin-left: {{ $layout['margin_h_mm'] ?? 17.0 }}mm;
+            margin-right: {{ $layout['margin_h_mm'] ?? 17.0 }}mm;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: DejaVu Sans, sans-serif;
@@ -14,7 +20,7 @@
         }
         .grid {
             display: table;
-            width: 170mm;
+            width: 176mm;
             margin: 0 auto;
             border-collapse: collapse;
             page-break-inside: avoid;
@@ -25,17 +31,17 @@
         }
         .cell {
             display: table-cell;
-            width: 85mm;
-            height: 54.5mm;
+            width: 88mm;
+            height: 55.5mm;
             vertical-align: middle;
             text-align: center;
-            padding: 0.3mm;
+            padding: 1mm 1.5mm;
             position: relative;
             box-sizing: border-box;
         }
         .card-bleed-box {
-            width: 84.5mm;
-            height: 54mm;
+            width: 85mm;
+            height: 53.5mm;
             position: relative;
             box-sizing: border-box;
             background: #ffffff;
@@ -43,8 +49,8 @@
         }
         .card-inner {
             position: relative;
-            width: 84.5mm;
-            height: 54mm;
+            width: 85mm;
+            height: 53.5mm;
             border: 0.8px solid #1e3a8a;
             border-radius: 1.5mm;
             padding: 1.2mm 1.4mm;
@@ -52,6 +58,7 @@
             overflow: hidden;
             box-sizing: border-box;
             text-align: left;
+            margin: 0 auto;
         }
         .card-top {
             display: table;

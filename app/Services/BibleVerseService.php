@@ -57,6 +57,15 @@ class BibleVerseService
      * Get a random Bible verse
      * @return array{reference: string, text: string, book: string, chapter: int, verse: int}
      */
+    public function getRandomVerse(): array
+    {
+        return $this->randomVerse();
+    }
+
+    /**
+     * Get a random Bible verse
+     * @return array{reference: string, text: string, book: string, chapter: int, verse: int}
+     */
     public function randomVerse(): array
     {
         $structure = config('bible_structure');

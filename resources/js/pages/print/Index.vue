@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import { Printer } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { Printer, Camera, CheckSquare, Square } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 
@@ -11,6 +11,8 @@ const props = defineProps<{
         first_name: string;
         last_name: string;
         member_code: string;
+        has_photo?: boolean;
+        photo_url?: string | null;
     }>;
     visitors: Array<{
         id: number;
@@ -19,6 +21,10 @@ const props = defineProps<{
         qr_code: string;
     }>;
 }>();
+
+const membersWithPhotoCount = computed(
+    () => props.members.filter((m) => m.has_photo).length,
+);
 
 const selectedMembers = ref<number[]>([]);
 const tab = ref<'members' | 'visitors' | 'reports'>('members');
@@ -77,6 +83,16 @@ function selectAllMembers() {
     selectedMembers.value = props.members.map((m) => m.id);
 }
 
+function selectMembersWithPhoto() {
+    selectedMembers.value = props.members
+        .filter((m) => m.has_photo)
+        .map((m) => m.id);
+}
+
+function deselectAllMembers() {
+    selectedMembers.value = [];
+}
+
 function printMembers() {
     if (!selectedMembers.value.length) {
         return;
@@ -125,9 +141,9 @@ function printMembers() {
                 </p>
                 <h1 class="mt-2 text-3xl font-black">Cartes membres A4</h1>
                 <p class="mt-2 max-w-2xl text-sm text-slate-300">
-                    Sélectionnez les membres puis téléchargez un seul PDF. Le
-                    document place les cartes normalement sur A4 en 2 colonnes
-                    et 5 lignes.
+                    Sélectionnez les membres puis téléchargez le fichier PDF. Le
+                    document génère une planche A4 de 10 cartes (2 colonnes × 5 rangées,
+                    format standard 85×55 mm avec marge de sécurité et découpe massicot).
                 </p>
             </div>
 
@@ -165,44 +181,94 @@ function printMembers() {
                 v-if="tab === 'members'"
                 class="rounded-3xl border bg-card p-4 shadow-sm"
             >
-                <div class="mb-4 flex flex-wrap gap-2">
+                <div class="mb-4 flex flex-wrap items-center gap-2">
                     <Button
                         variant="outline"
                         size="sm"
                         @click="selectAllMembers"
-                        >Tout sélectionner</Button
                     >
-                    <Button
-                        :disabled="!selectedMembers.length"
-                        @click="printMembers"
-                    >
-                        <Printer class="mr-2 h-4 w-4" />
-                        Télécharger PDF A4 ({{ selectedMembers.length }})
+                        <CheckSquare class="mr-1.5 h-4 w-4" />
+                        Tout sélectionner ({{ members.length }})
                     </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        class="border-emerald-500/40 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/30"
+                        @click="selectMembersWithPhoto"
+                    >
+                        <Camera class="mr-1.5 h-4 w-4 text-emerald-600" />
+                        Sélectionner avec photo ({{ membersWithPhotoCount }})
+                    </Button>
+                    <Button
+                        v-if="selectedMembers.length"
+                        variant="ghost"
+                        size="sm"
+                        @click="deselectAllMembers"
+                    >
+                        Tout désélectionner
+                    </Button>
+                    <div class="ml-auto">
+                        <Button
+                            :disabled="!selectedMembers.length"
+                            @click="printMembers"
+                        >
+                            <Printer class="mr-2 h-4 w-4" />
+                            Télécharger PDF A4 ({{ selectedMembers.length }})
+                        </Button>
+                    </div>
                 </div>
-                <p class="mb-3 text-sm text-muted-foreground">
-                    Exemple : sélectionnez 10 membres pour obtenir une page A4
-                    complète avec 2 cartes par ligne et 5 cartes par colonne.
-                </p>
+                <div class="mb-3 flex items-center justify-between text-xs text-muted-foreground">
+                    <p>
+                        Format fini des cartes : <strong>85 × 55 mm</strong> avec <strong>3 mm de fond perdu</strong> (91 × 61 mm). Disposées à raison de <strong>8 cartes par page A4</strong> (2 colonnes × 4 lignes).
+                    </p>
+                    <span class="font-medium text-slate-700 dark:text-slate-300">
+                        {{ selectedMembers.length }} sélectionné(s) / {{ members.length }} membres
+                    </span>
+                </div>
                 <div
                     class="grid max-h-[32rem] gap-2 overflow-y-auto sm:grid-cols-2 xl:grid-cols-3"
                 >
                     <label
                         v-for="m in members"
                         :key="m.id"
-                        class="flex cursor-pointer items-center gap-3 rounded-2xl border bg-background p-3 hover:bg-muted/50"
+                        class="flex cursor-pointer items-center gap-3 rounded-2xl border bg-background p-3 transition hover:bg-muted/50"
+                        :class="selectedMembers.includes(m.id) ? 'border-primary/50 bg-primary/5' : ''"
                     >
                         <input
                             type="checkbox"
                             :checked="selectedMembers.includes(m.id)"
+                            class="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
                             @change="toggleMember(m.id)"
                         />
-                        <span class="text-sm"
-                            >{{ m.first_name }} {{ m.last_name }}</span
-                        >
-                        <span class="text-xs text-muted-foreground">{{
-                            m.member_code
-                        }}</span>
+                        <div class="relative shrink-0">
+                            <img
+                                v-if="m.photo_url"
+                                :src="m.photo_url"
+                                class="h-10 w-10 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                                alt=""
+                            />
+                            <div
+                                v-else
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300"
+                            >
+                                {{ m.first_name[0] }}{{ m.last_name[0] }}
+                            </div>
+                            <span
+                                v-if="m.has_photo"
+                                class="absolute -bottom-0.5 -right-0.5 rounded-full bg-emerald-500 p-0.5 text-white ring-2 ring-white dark:ring-slate-900"
+                                title="Photo disponible"
+                            >
+                                <Camera class="h-2.5 w-2.5" />
+                            </span>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                                {{ m.first_name }} {{ m.last_name }}
+                            </p>
+                            <p class="font-mono text-xs text-muted-foreground">
+                                {{ m.member_code }}
+                            </p>
+                        </div>
                     </label>
                 </div>
             </div>

@@ -14,7 +14,33 @@ class WhatsAppService
             return false;
         }
 
-        $message = $this->buildMessage($member->first_name, $reference, $text);
+        $message = "Bonjour {$member->first_name},\n\n"
+            ."Votre préparation pour la Sainte Cène a bien été enregistrée.\n\n"
+            ."Voici votre verset biblique du jour :\n\n"
+            ."📖 {$reference}\n"
+            ."« {$text} »\n\n"
+            ."Que le Seigneur vous bénisse abondamment !";
+
+        return match (config('services.whatsapp.driver')) {
+            'twilio' => $this->sendViaTwilio($member->phone, $message),
+            'business' => $this->sendViaBusinessApi($member->phone, $message),
+            default => $this->logMessage($member->phone, $message),
+        };
+    }
+
+    public function sendAttendanceVerse(Member $member, string $reference, string $text, ?string $time = null): bool
+    {
+        if (! $member->phone) {
+            return false;
+        }
+
+        $timeStr = $time ? " à {$time}" : "";
+        $message = "Bonjour {$member->first_name},\n\n"
+            ."Votre présence au culte a bien été enregistrée{$timeStr}.\n\n"
+            ."Voici votre verset biblique du jour :\n\n"
+            ."📖 {$reference}\n"
+            ."« {$text} »\n\n"
+            ."Que le Seigneur vous bénisse abondamment !";
 
         return match (config('services.whatsapp.driver')) {
             'twilio' => $this->sendViaTwilio($member->phone, $message),

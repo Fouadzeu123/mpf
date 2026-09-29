@@ -190,6 +190,33 @@ class MemberController extends Controller
         return back()->with('toast', ['type' => 'success', 'message' => 'Localisation enregistrée.']);
     }
 
+    public function photo(Member $member)
+    {
+        if (! $member->photo) {
+            abort(404);
+        }
+
+        $photoPath = $member->photo;
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+
+        if (! $disk->exists($photoPath)) {
+            $rawPath = storage_path('app/public/' . ltrim($photoPath, '/'));
+            if (! file_exists($rawPath)) {
+                abort(404);
+            }
+            $fullPath = $rawPath;
+        } else {
+            $fullPath = $disk->path($photoPath);
+        }
+
+        $mimeType = @mime_content_type($fullPath) ?: 'image/jpeg';
+
+        return response()->file($fullPath, [
+            'Content-Type' => $mimeType,
+            'Cache-Control' => 'public, max-age=86400',
+        ]);
+    }
+
     public function uploadPhoto(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
@@ -200,9 +227,10 @@ class MemberController extends Controller
 
         return response()->json([
             'path' => $path,
-            'url' => asset('storage/' . $path),
+            'url' => url('/storage/' . $path),
         ]);
     }
+
 
     public function reorderCodes(Request $request): RedirectResponse
     {

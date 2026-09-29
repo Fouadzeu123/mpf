@@ -14,6 +14,7 @@ class CommunionService
     public function __construct(
         protected BibleVerseService $bibleVerseService,
         protected ActivityLogService $activityLogService,
+        protected WhatsAppService $whatsAppService,
     ) {}
 
     public function prepare(Member $member, bool $remote = false, ?string $paymentReference = null): CommunionPreparation
@@ -42,8 +43,24 @@ class CommunionService
             'verse_text' => $verse['text'],
         ]);
 
-        // Send verse asynchronously via queue
-        SendBibleVerseJob::dispatch($member, $verse['reference']);
+        // Send verse directly via WhatsApp to member
+        if (! empty($member->phone)) {
+            try {
+                $sent = $this->whatsAppService->sendCommunionVerse($member, $verse['reference'], $verse['text']);
+                if ($sent) {
+                    $preparation->update(['whatsapp_sent' => true]);
+                }
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error('Communion direct WhatsApp error: ' . $e->getMessage());
+            }
+        }
+
+        // Also dispatch job for queue fallback if needed
+        try {
+            SendBibleVerseJob::dispatch($member, $verse['reference'])->afterResponse();
+        } catch (\Throwable $e) {
+            //
+        }
 
         $this->activityLogService->log('communion_prepared', meta: [
             'member_id' => $member->id,

@@ -212,7 +212,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\MemberController::uploadPhoto
- * @see app/Http/Controllers/MemberController.php:193
+ * @see app/Http/Controllers/MemberController.php:220
  * @route '/members/upload-photo'
  */
 export const uploadPhoto = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -227,7 +227,7 @@ uploadPhoto.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::uploadPhoto
- * @see app/Http/Controllers/MemberController.php:193
+ * @see app/Http/Controllers/MemberController.php:220
  * @route '/members/upload-photo'
  */
 uploadPhoto.url = (options?: RouteQueryOptions) => {
@@ -236,7 +236,7 @@ uploadPhoto.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\MemberController::uploadPhoto
- * @see app/Http/Controllers/MemberController.php:193
+ * @see app/Http/Controllers/MemberController.php:220
  * @route '/members/upload-photo'
  */
 uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -246,7 +246,7 @@ uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\MemberController::uploadPhoto
- * @see app/Http/Controllers/MemberController.php:193
+ * @see app/Http/Controllers/MemberController.php:220
  * @route '/members/upload-photo'
  */
     const uploadPhotoForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -256,7 +256,7 @@ uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\MemberController::uploadPhoto
- * @see app/Http/Controllers/MemberController.php:193
+ * @see app/Http/Controllers/MemberController.php:220
  * @route '/members/upload-photo'
  */
         uploadPhotoForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -267,7 +267,7 @@ uploadPhoto.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     uploadPhoto.form = uploadPhotoForm
 /**
 * @see \App\Http\Controllers\MemberController::reorderCodes
- * @see app/Http/Controllers/MemberController.php:207
+ * @see app/Http/Controllers/MemberController.php:235
  * @route '/members/reorder-codes'
  */
 export const reorderCodes = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -282,7 +282,7 @@ reorderCodes.definition = {
 
 /**
 * @see \App\Http\Controllers\MemberController::reorderCodes
- * @see app/Http/Controllers/MemberController.php:207
+ * @see app/Http/Controllers/MemberController.php:235
  * @route '/members/reorder-codes'
  */
 reorderCodes.url = (options?: RouteQueryOptions) => {
@@ -291,7 +291,7 @@ reorderCodes.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\MemberController::reorderCodes
- * @see app/Http/Controllers/MemberController.php:207
+ * @see app/Http/Controllers/MemberController.php:235
  * @route '/members/reorder-codes'
  */
 reorderCodes.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -301,7 +301,7 @@ reorderCodes.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\MemberController::reorderCodes
- * @see app/Http/Controllers/MemberController.php:207
+ * @see app/Http/Controllers/MemberController.php:235
  * @route '/members/reorder-codes'
  */
     const reorderCodesForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -311,7 +311,7 @@ reorderCodes.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\MemberController::reorderCodes
- * @see app/Http/Controllers/MemberController.php:207
+ * @see app/Http/Controllers/MemberController.php:235
  * @route '/members/reorder-codes'
  */
         reorderCodesForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -883,6 +883,108 @@ card.head = (args: { member: number | { id: number } } | [member: number | { id:
         })
     
     card.form = cardForm
-const MemberController = { index, create, store, uploadPhoto, reorderCodes, show, edit, update, destroy, updateGps, card }
+/**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+export const photo = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: photo.url(args, options),
+    method: 'get',
+})
+
+photo.definition = {
+    methods: ["get","head"],
+    url: '/members/{member}/photo',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+photo.url = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { member: args }
+    }
+
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { member: args.id }
+        }
+    
+    if (Array.isArray(args)) {
+        args = {
+                    member: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        member: typeof args.member === 'object'
+                ? args.member.id
+                : args.member,
+                }
+
+    return photo.definition.url
+            .replace('{member}', parsedArgs.member.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+photo.get = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: photo.url(args, options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+photo.head = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: photo.url(args, options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+    const photoForm = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: photo.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+        photoForm.get = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: photo.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\MemberController::photo
+ * @see app/Http/Controllers/MemberController.php:193
+ * @route '/members/{member}/photo'
+ */
+        photoForm.head = (args: { member: number | { id: number } } | [member: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: photo.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    photo.form = photoForm
+const MemberController = { index, create, store, uploadPhoto, reorderCodes, show, edit, update, destroy, updateGps, card, photo }
 
 export default MemberController

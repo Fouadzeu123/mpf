@@ -156,13 +156,27 @@ function deleteMember() {
             <!-- Details Column (Bottom on mobile, Left on desktop) -->
             <div class="space-y-6 lg:col-span-2 order-2 lg:order-1">
                 <div class="flex flex-wrap items-start justify-between gap-4">
-                    <div>
-                        <h1 class="text-2xl font-bold">
-                            {{ member.first_name }} {{ member.last_name }}
-                        </h1>
-                        <p class="font-mono text-sm text-muted-foreground">
-                            {{ member.member_code }}
-                        </p>
+                    <div class="flex items-center gap-4">
+                        <img
+                            v-if="member.photo_url"
+                            :src="member.photo_url"
+                            class="h-16 w-16 rounded-full object-cover border-2 border-primary shadow-sm"
+                            alt=""
+                        />
+                        <div
+                            v-else
+                            class="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-lg font-bold text-slate-700 dark:text-slate-200 border-2 border-slate-300 dark:border-slate-700"
+                        >
+                            {{ member.first_name[0] }}{{ member.last_name[0] }}
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold">
+                                {{ member.first_name }} {{ member.last_name }}
+                            </h1>
+                            <p class="font-mono text-sm text-muted-foreground">
+                                {{ member.member_code }}
+                            </p>
+                        </div>
                     </div>
                     <div class="flex gap-2">
                         <Link :href="`/members/${member.id}/edit`">

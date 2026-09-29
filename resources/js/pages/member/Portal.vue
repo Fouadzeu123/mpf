@@ -25,6 +25,7 @@ const props = defineProps<{
         gender: string | null;
         phone: string | null;
         department: string | null;
+        photo_url?: string | null;
         verse_history: Array<{
             verse_reference: string;
             verse_text: string;

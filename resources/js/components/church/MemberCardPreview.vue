@@ -59,6 +59,7 @@ const theme = computed(() => {
     let isAncien = false;
     let isDiacre = false;
     let isChorale = false;
+    let isCommunication = false;
 
     memberDepts.value.forEach(md => {
         const norm = normalize(md);
@@ -69,6 +70,7 @@ const theme = computed(() => {
         if (norm === 'anciens' || norm === 'ancien') isAncien = true;
         if (norm === 'diacres' || norm === 'diacre') isDiacre = true;
         if (norm === 'chorale') isChorale = true;
+        if (norm === 'communication') isCommunication = true;
     });
 
     if (isApotre) return 'apotre';
@@ -77,6 +79,7 @@ const theme = computed(() => {
     if (isAncien) return 'ancien';
     if (isDiacre) return 'diacre';
     if (isChorale) return 'chorale';
+    if (isCommunication) return 'communication';
     return 'default';
 });
 
@@ -89,6 +92,7 @@ const badgeLabel = computed(() => {
         case 'ancien': return 'ANCIEN';
         case 'diacre': return 'DIACRE';
         case 'chorale': return 'CHORALE';
+        case 'communication': return 'COMMUNICATION';
         default: return 'MEMBRE';
     }
 });
@@ -108,6 +112,7 @@ const containerClasses = computed(() => {
         case 'ancien': return 'border-amber-800 dark:border-amber-700';
         case 'diacre': return 'border-indigo-600 dark:border-indigo-500';
         case 'chorale': return 'border-sky-600 dark:border-sky-500';
+        case 'communication': return 'border-red-700 dark:border-red-600';
         default: return 'border-blue-900 dark:border-blue-700';
     }
 });
@@ -121,6 +126,7 @@ const headerClasses = computed(() => {
         case 'ancien': return 'bg-amber-950 text-white';
         case 'diacre': return 'bg-indigo-950 text-white';
         case 'chorale': return 'bg-sky-800 text-white';
+        case 'communication': return 'bg-red-950 border-b border-red-500 text-white';
         default: return 'bg-blue-950 text-white dark:bg-blue-900';
     }
 });
@@ -134,6 +140,7 @@ const badgeClasses = computed(() => {
         case 'ancien': return 'bg-amber-700 text-white';
         case 'diacre': return 'bg-indigo-600 text-white';
         case 'chorale': return 'bg-sky-600 text-white';
+        case 'communication': return 'bg-red-600 text-white';
         default: return 'bg-blue-600 text-white';
     }
 });
@@ -141,6 +148,9 @@ const badgeClasses = computed(() => {
 const headerSubtitleClasses = computed(() => {
     if (['apotre', 'pasteur', 'dirigeant'].includes(theme.value)) {
         return 'text-[9px] font-bold tracking-widest text-amber-400 uppercase';
+    }
+    if (theme.value === 'communication') {
+        return 'text-[9px] font-bold tracking-widest text-red-300 uppercase';
     }
     return 'text-[9px] font-bold tracking-widest text-blue-300 uppercase';
 });
@@ -154,6 +164,7 @@ const borderClasses = computed(() => {
         case 'ancien': return 'border-amber-800 dark:border-amber-700';
         case 'diacre': return 'border-indigo-600 dark:border-indigo-500';
         case 'chorale': return 'border-sky-600 dark:border-sky-500';
+        case 'communication': return 'border-red-700 dark:border-red-600';
         default: return 'border-blue-900 dark:border-blue-700';
     }
 });
@@ -167,6 +178,7 @@ const firstNameClasses = computed(() => {
         case 'ancien': return 'text-amber-700 dark:text-amber-400';
         case 'diacre': return 'text-indigo-600 dark:text-indigo-400';
         case 'chorale': return 'text-sky-600 dark:text-sky-400';
+        case 'communication': return 'text-red-600 dark:text-red-400';
         default: return 'text-blue-700 dark:text-blue-400';
     }
 });
@@ -180,6 +192,7 @@ const labelHighlightClasses = computed(() => {
         case 'ancien': return 'text-amber-900 dark:text-amber-400';
         case 'diacre': return 'text-indigo-950 dark:text-indigo-300';
         case 'chorale': return 'text-sky-950 dark:text-sky-300';
+        case 'communication': return 'text-red-950 dark:text-red-300';
         default: return 'text-blue-900 dark:text-blue-300';
     }
 });
@@ -193,6 +206,7 @@ const codeClasses = computed(() => {
         case 'ancien': return 'bg-amber-950 text-white';
         case 'diacre': return 'bg-indigo-950 text-white';
         case 'chorale': return 'bg-sky-800 text-white';
+        case 'communication': return 'bg-red-950 border border-red-600 text-red-300';
         default: return 'bg-blue-950 text-white';
     }
 });

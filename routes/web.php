@@ -80,12 +80,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__.'/settings.php';
 
+Route::get('members/{member}/photo', [MemberController::class, 'photo'])->name('members.photo');
+
 Route::get('storage/{path}', function ($path) {
     $disk = \Illuminate\Support\Facades\Storage::disk('public');
-    if (!$disk->exists($path)) {
-        abort(404);
+    if (! $disk->exists($path)) {
+        $rawPath = storage_path('app/public/' . ltrim($path, '/'));
+        if (! file_exists($rawPath)) {
+            abort(404);
+        }
+        $fullPath = $rawPath;
+    } else {
+        $fullPath = $disk->path($path);
     }
-    return response()->file($disk->path($path), [
+
+    $mimeType = @mime_content_type($fullPath) ?: 'image/jpeg';
+
+    return response()->file($fullPath, [
+        'Content-Type' => $mimeType,
         'Cache-Control' => 'public, max-age=31536000',
     ]);
 })->where('path', '.*');
+

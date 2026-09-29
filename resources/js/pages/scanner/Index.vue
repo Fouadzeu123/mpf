@@ -9,6 +9,9 @@ import {
     User,
     Calendar,
     Link as LinkIcon,
+    AlertTriangle,
+    CheckCircle,
+    MessageCircle,
 } from 'lucide-vue-next';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { Button } from '@/components/ui/button';
@@ -162,32 +165,45 @@ function getAppUrl(path: string): string {
     return `${baseUrl}/${path.replace(/^\//, '')}`;
 }
 
+const isProcessing = ref(false);
+
 async function onScan(code: string) {
-    const csrf = document.querySelector<HTMLMetaElement>(
-        'meta[name="csrf-token"]',
-    )?.content;
+    if (isProcessing.value) {
+        return;
+    }
+    isProcessing.value = true;
+    await stopScanner();
 
-    const res = await fetch(getAppUrl('/scanner/scan'), {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            'X-CSRF-TOKEN': csrf ?? '',
-        },
-        body: JSON.stringify({
-            code,
-            mode: currentMode.value,
-            service_type: currentService.value,
-        }),
-        credentials: 'same-origin',
-    });
+    try {
+        const csrf = document.querySelector<HTMLMetaElement>(
+            'meta[name="csrf-token"]',
+        )?.content;
 
-    const data = await res.json();
-    result.value = data;
+        const res = await fetch(getAppUrl('/scanner/scan'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'X-CSRF-TOKEN': csrf ?? '',
+            },
+            body: JSON.stringify({
+                code,
+                mode: currentMode.value,
+                service_type: currentService.value,
+            }),
+            credentials: 'same-origin',
+        });
 
-    if (data.success) {
-        playBeep();
-        await stopScanner();
+        const data = await res.json();
+        result.value = data;
+
+        if (data.success) {
+            playBeep();
+        }
+    } catch (err: any) {
+        error.value = "Erreur de connexion au serveur.";
+    } finally {
+        isProcessing.value = false;
     }
 }
 
@@ -261,14 +277,46 @@ onUnmounted(() => stopScanner());
 
             <div
                 v-if="result"
-                class="mx-auto max-w-md rounded-xl border p-4 text-center transition"
+                class="mx-auto max-w-md rounded-2xl border p-5 text-center transition shadow-md"
                 :class="
-                    result.success
-                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950'
-                        : 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/20'
+                    result.duplicate
+                        ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/30'
+                        : result.success
+                          ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30'
+                          : 'border-rose-500 bg-rose-50/50 dark:bg-rose-950/20'
                 "
             >
-                <p class="text-lg font-semibold">{{ result.message }}</p>
+                <!-- Status Badge -->
+                <div v-if="result.duplicate" class="mb-3 inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800 dark:bg-amber-900/60 dark:text-amber-200">
+                    <AlertTriangle class="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                    Doublon détecté & évité
+                </div>
+                <div v-else-if="result.success" class="mb-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200">
+                    <CheckCircle class="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    Scan validé avec succès
+                </div>
+
+                <p class="text-base font-bold text-slate-900 dark:text-white">{{ result.message }}</p>
+
+                <!-- WhatsApp Verse Notification Card -->
+                <div
+                    v-if="result.verse && typeof result.verse === 'object'"
+                    class="mt-3.5 rounded-xl border border-emerald-300/80 bg-white/90 p-3.5 text-left shadow-xs dark:border-emerald-700/60 dark:bg-slate-900/90"
+                >
+                    <div class="flex items-center justify-between text-xs font-bold text-emerald-800 dark:text-emerald-300">
+                        <span class="inline-flex items-center gap-1.5">
+                            <MessageCircle class="h-4 w-4 text-emerald-600" />
+                            Verset envoyé sur WhatsApp :
+                        </span>
+                        <span class="rounded bg-emerald-100 px-1.5 py-0.5 dark:bg-emerald-900/60">
+                            {{ (result.verse as any).reference }}
+                        </span>
+                    </div>
+                    <p class="mt-1.5 text-xs italic text-slate-700 dark:text-slate-300 leading-relaxed">
+                        « {{ (result.verse as any).text }} »
+                    </p>
+                </div>
+
                 <template v-if="result.member">
                     <!-- Profile mode detailed card -->
                     <template v-if="currentMode === 'profile'">
@@ -276,9 +324,15 @@ onUnmounted(() => stopScanner());
                             <img
                                 v-if="scannedMember?.photo_url"
                                 :src="scannedMember.photo_url"
-                                class="h-32 w-32 rounded-full object-cover ring-4 ring-primary"
+                                class="h-32 w-32 rounded-full object-cover ring-4 ring-primary shadow-sm"
                                 alt=""
                             />
+                            <div
+                                v-else
+                                class="flex h-32 w-32 items-center justify-center rounded-full bg-slate-100 text-3xl font-black text-slate-600 ring-4 ring-primary dark:bg-slate-800 dark:text-slate-300"
+                            >
+                                {{ scannedMember?.full_name ? scannedMember.full_name[0] : 'M' }}
+                            </div>
                             <p class="text-2xl font-bold">
                                 {{ scannedMember?.full_name }}
                             </p>
@@ -341,16 +395,22 @@ onUnmounted(() => stopScanner());
                             <img
                                 v-if="scannedMember?.photo_url"
                                 :src="scannedMember.photo_url"
-                                class="h-20 w-20 rounded-full object-cover"
+                                class="h-20 w-20 rounded-full object-cover border-2 border-primary/40 shadow-sm"
                                 alt=""
                             />
-                            <p class="font-bold">
+                            <div
+                                v-else
+                                class="flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 text-xl font-bold text-slate-600 border-2 border-slate-300 dark:bg-slate-800 dark:text-slate-300"
+                            >
+                                {{ scannedMember?.full_name ? scannedMember.full_name[0] : 'M' }}
+                            </div>
+                            <p class="font-bold text-lg">
                                 {{ scannedMember?.full_name }}
                             </p>
-                            <p class="text-sm text-muted-foreground">
-                                {{ scannedMember?.department }}
+                            <p class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                {{ scannedMember?.department || 'Aucun département' }}
                             </p>
-                            <p class="text-sm text-muted-foreground">
+                            <p class="text-xs font-mono text-muted-foreground">
                                 {{ scannedMember?.member_code }}
                             </p>
                         </div>

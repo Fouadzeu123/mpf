@@ -3,19 +3,20 @@
 <head>
     <meta charset="utf-8">
     <style>
-        @page { margin: {{ $layout['margin_mm'] }}mm; }
+        @page { margin: {{ $layout['margin_mm'] ?? 6 }}mm 10mm; size: a4 portrait; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 8px;
-            color: #1e293b;
-            background: #fff;
+            color: #0f172a;
+            background: #ffffff;
+            opacity: 1 !important;
         }
         .grid {
             display: table;
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: {{ $layout['gap_mm'] }}mm;
+            width: 170mm;
+            margin: 0 auto;
+            border-collapse: collapse;
             page-break-inside: avoid;
         }
         .row {
@@ -24,71 +25,102 @@
         }
         .cell {
             display: table-cell;
-            width: {{ $layout['card_width_mm'] }}mm;
+            width: 85mm;
+            height: 54.5mm;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0.3mm;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .card-bleed-box {
+            width: 84.5mm;
             height: 54mm;
-            vertical-align: top;
-            padding: 0;
+            position: relative;
+            box-sizing: border-box;
+            background: #ffffff;
+            margin: 0 auto;
         }
         .card-inner {
             position: relative;
-            height: 50.8mm;
-            border: 0.7px solid #1e3a8a;
-            border-radius: 2mm;
-            padding: 1.5mm;
+            width: 84.5mm;
+            height: 54mm;
+            border: 0.8px solid #1e3a8a;
+            border-radius: 1.5mm;
+            padding: 1.2mm 1.4mm;
             background: #ffffff;
             overflow: hidden;
+            box-sizing: border-box;
+            text-align: left;
         }
         .card-top {
             display: table;
             width: 100%;
-            padding: 1mm 1.2mm;
-            border-radius: 1.5mm;
-            background: #172554;
+            padding: 1mm 1.4mm;
+            border-radius: 1.2mm;
+            background: #0f172a;
             color: #ffffff;
             margin-bottom: 0.8mm;
+            opacity: 1 !important;
         }
         .brand-logo,
         .brand-text,
         .brand-badge {
             display: table-cell;
             vertical-align: middle;
+            opacity: 1 !important;
         }
-        .brand-logo { width: 15mm; }
+        .brand-logo { width: 14mm; }
         .brand-text { text-align: left; }
         .brand-badge {
-            width: 16mm;
+            width: 20mm;
             text-align: right;
         }
         .logo {
             height: 8.5mm;
-            max-width: 14mm;
+            max-width: 13mm;
             object-fit: contain;
             background: #ffffff;
             border-radius: 1mm;
             padding: 0.3mm;
         }
         .church-name {
-            font-size: 8.5px;
-            font-weight: bold;
-            color: #ffffff;
+            font-size: 9.2px;
+            font-weight: 800;
+            color: #ffffff !important;
             letter-spacing: 0.3px;
-            line-height: 1.1;
+            line-height: 1.15;
+            opacity: 1 !important;
+            text-transform: uppercase;
+        }
+        .church-supername {
+            font-size: 6.8px;
+            font-weight: 700;
+            color: #ffffff !important;
+            letter-spacing: 0.2px;
+            line-height: 1.15;
+            text-transform: uppercase;
+            margin-top: 0.2mm;
+            opacity: 1 !important;
         }
         .card-title {
-            font-size: 6px;
-            color: #93c5fd;
+            font-size: 7.5px;
+            font-weight: 800;
+            color: #fef08a !important;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
-            margin-top: 0.4mm;
+            letter-spacing: 0.5px;
+            margin-top: 0.2mm;
+            opacity: 1 !important;
         }
         .member-badge {
             display: inline-block;
-            font-size: 6.5px;
-            font-weight: bold;
-            color: #ffffff;
+            font-size: 7.8px;
+            font-weight: 800;
+            color: #ffffff !important;
             background: #2563eb;
-            border-radius: 6mm;
-            padding: 0.5mm 1mm;
+            border-radius: 4mm;
+            padding: 0.6mm 1.5mm;
+            opacity: 1 !important;
         }
         .card-body {
             display: table;
@@ -96,7 +128,7 @@
         }
         .photo-col {
             display: table-cell;
-            width: 19mm;
+            width: 18.5mm;
             vertical-align: top;
         }
         .info-col {
@@ -106,105 +138,119 @@
         }
         .qr-col {
             display: table-cell;
-            width: 21mm;
+            width: 19mm;
             vertical-align: top;
             text-align: center;
         }
         .photo {
             width: 17.5mm;
-            height: 19.5mm;
+            height: 20mm;
             object-fit: cover;
-            border-radius: 1.4mm;
-            border: 0.7px solid #1e3a8a;
+            border-radius: 1.5mm;
+            border: 0.8px solid #1e3a8a;
             background: #f8fafc;
+            opacity: 1 !important;
         }
         .photo-empty {
             width: 17.5mm;
-            height: 19.5mm;
+            height: 20mm;
             background: #eff6ff;
-            border-radius: 1.4mm;
-            border: 0.7px dashed #1e3a8a;
+            border-radius: 1.5mm;
+            border: 0.8px dashed #1e3a8a;
         }
         .name {
-            font-size: 10.5px;
-            font-weight: bold;
-            color: #0f172a;
-            line-height: 1.2;
+            font-size: 10px;
+            font-weight: 800;
+            color: #000000 !important;
+            line-height: 1.15;
             text-transform: uppercase;
+            opacity: 1 !important;
         }
         .first-name {
-            font-size: 9.5px;
-            font-weight: bold;
-            color: #1d4ed8;
-            line-height: 1.2;
-            margin-bottom: 0.4mm;
+            font-size: 9px;
+            font-weight: 800;
+            color: #1d4ed8 !important;
+            line-height: 1.15;
+            margin-bottom: 0.3mm;
+            opacity: 1 !important;
         }
         .meta {
             font-size: 7px;
-            color: #334155;
+            font-weight: 600;
+            color: #0f172a !important;
             line-height: 1.25;
+            opacity: 1 !important;
         }
         .line {
-            margin-top: 0.3mm;
-            padding-bottom: 0.2mm;
-            border-bottom: 0.2px solid #cbd5e1;
+            margin-top: 0.2mm;
+            padding-bottom: 0.15mm;
+            border-bottom: 0.25px solid #cbd5e1;
+            opacity: 1 !important;
         }
         .label {
-            font-size: 6px;
-            font-weight: bold;
-            color: #1e3a8a;
+            font-size: 6.8px;
+            font-weight: 800;
+            color: #1e3a8a !important;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
+            opacity: 1 !important;
         }
         .code {
             display: inline-block;
-            font-size: 7px;
-            font-weight: bold;
-            color: #ffffff;
-            background: #172554;
+            font-size: 7.5px;
+            font-weight: 800;
+            color: #ffffff !important;
+            background: #0f172a;
             border-radius: 4mm;
-            padding: 0.5mm 1.2mm;
+            padding: 0.4mm 1.2mm;
             margin-top: 0.3mm;
+            opacity: 1 !important;
         }
         .qr-col img {
-            width: 17.5mm;
-            height: 17.5mm;
-            border: 0.5px solid #cbd5e1;
+            width: 16.5mm;
+            height: 16.5mm;
+            border: 0.6px solid #94a3b8;
             border-radius: 1mm;
             background: #ffffff;
-            padding: 0.8mm;
+            padding: 0.4mm;
+            opacity: 1 !important;
         }
         .qr-label {
-            font-size: 5.5px;
-            font-weight: bold;
-            color: #1e3a8a;
-            margin-top: 0.3mm;
+            font-size: 6.2px;
+            font-weight: 800;
+            color: #1e3a8a !important;
+            margin-top: 0.2mm;
             text-transform: uppercase;
+            opacity: 1 !important;
         }
         .programs {
-            font-size: 5.8px;
-            color: #475569;
+            font-size: 6.2px;
+            font-weight: 600;
+            color: #1e293b !important;
             text-align: left;
-            margin-top: 0.6mm;
-            padding: 0.5mm 0.8mm;
+            margin-top: 0.4mm;
+            padding: 0.3mm 0.6mm;
             border-radius: 1mm;
             background: #f8fafc;
-            border: 0.25px solid #cbd5e1;
-            line-height: 1.25;
+            border: 0.3px solid #cbd5e1;
+            line-height: 1.2;
+            opacity: 1 !important;
         }
         .visitor-tag {
             display: inline-block;
-            font-size: 5px;
-            font-weight: bold;
-            color: #1d4ed8;
-            border: 0.5px solid #2563eb;
-            padding: 0.2mm 1mm;
+            font-size: 6px;
+            font-weight: 800;
+            color: #1d4ed8 !important;
+            border: 0.6px solid #2563eb;
+            padding: 0.3mm 1mm;
             border-radius: 0.5mm;
             margin-top: 0.5mm;
+            opacity: 1 !important;
         }
         .cut-guide {
-            border: 0.25px dashed #e2e8f0;
+            border: 0.25px dashed #cbd5e1;
         }
+
 
         /* 1. Apôtre: Royal Purple & Gold */
         .theme-apotre {
@@ -410,35 +456,70 @@
         .theme-chorale .photo { border-color: #0284c7 !important; }
         .theme-chorale .photo-empty { border-color: #0284c7 !important; }
 
-        /* Added fields styling */
-        .church-supername {
-            font-size: 5.2px;
-            font-weight: normal;
-            color: #93c5fd;
-            letter-spacing: 0.3px;
-            line-height: 1;
-            text-transform: uppercase;
-            margin-bottom: 0.1mm;
+        /* 7. Communication: Crimson / Bordeaux & Ruby */
+        .theme-communication {
+            border-color: #b91c1c !important;
         }
+        .theme-communication .card-top {
+            background: #7f1d1d !important;
+            border-bottom: 0.5px solid #f87171 !important;
+        }
+        .theme-communication .member-badge {
+            background: #dc2626 !important;
+            color: #ffffff !important;
+        }
+        .theme-communication .label {
+            color: #b91c1c !important;
+        }
+        .theme-communication .first-name {
+            color: #dc2626 !important;
+        }
+        .theme-communication .code {
+            background: #7f1d1d !important;
+            border: 0.3px solid #f87171 !important;
+            color: #fecaca !important;
+        }
+        .theme-communication .qr-label {
+            color: #b91c1c !important;
+        }
+        .theme-communication .bible-verse {
+            color: #991b1b !important;
+        }
+        .theme-communication .card-footer {
+            border-top-color: #fecaca !important;
+            color: #b91c1c !important;
+        }
+        .theme-communication .photo { border-color: #b91c1c !important; }
+        .theme-communication .photo-empty { border-color: #b91c1c !important; }
+
+        /* Added fields styling */
         .theme-apotre .church-supername, .theme-dirigeant .church-supername, .theme-pasteur .church-supername {
-            color: #fbbf24;
+            color: #fbbf24 !important;
+            opacity: 1 !important;
+        }
+        .theme-communication .church-supername {
+            color: #fecaca !important;
+            opacity: 1 !important;
         }
         .bible-verse {
-            font-size: 6px;
-            color: #475569;
+            font-size: 6.5px;
+            font-weight: 700;
+            color: #1e293b !important;
             font-style: italic;
             text-align: center;
-            margin-top: 0.6mm;
-            line-height: 1.25;
+            margin-top: 0.3mm;
+            line-height: 1.2;
+            opacity: 1 !important;
         }
         .card-footer {
-            margin-top: 0.6mm;
-            padding-top: 0.4mm;
-            border-top: 0.2px solid #cbd5e1;
+            margin-top: 0.3mm;
+            padding-top: 0.25mm;
+            border-top: 0.3px solid #94a3b8;
             text-align: center;
-            font-size: 5.5px;
-            font-weight: bold;
-            color: #64748b;
+            font-size: 6.2px;
+            font-weight: 800;
+            color: #0f172a !important;
+            opacity: 1 !important;
         }
     </style>
 </head>
@@ -465,6 +546,7 @@
                         $isAncien = false;
                         $isDiacre = false;
                         $isChorale = false;
+                        $isCommunication = false;
                         
                         $isDeptHidden = false;
                         $themeClass = '';
@@ -515,6 +597,9 @@
                                 if ($norm === 'chorale') {
                                     $isChorale = true;
                                 }
+                                if ($norm === 'communication') {
+                                    $isCommunication = true;
+                                }
                             }
                             
                             if ($isApotre) {
@@ -535,6 +620,9 @@
                             } elseif ($isChorale) {
                                 $themeClass = 'theme-chorale';
                                 $badgeLabel = 'CHORALE';
+                            } elseif ($isCommunication) {
+                                $themeClass = 'theme-communication';
+                                $badgeLabel = 'COMMUNICATION';
                             } else {
                                 $themeClass = '';
                                 $badgeLabel = 'MEMBRE';
@@ -560,9 +648,10 @@
                             $badgeLabel = 'VISITEUR';
                         }
                     @endphp
-                    <div class="cell cut-guide">
-                        @if ($card)
-                            <div class="card-inner {{ $themeClass }}">
+                    <div class="cell">
+                        <div class="card-bleed-box">
+                            @if ($card)
+                                <div class="card-inner {{ $themeClass }}">
                                 <div class="card-top">
                                     <div class="brand-text">
                                         <div class="church-name">EGLISE DU CHRIST</div>
@@ -621,8 +710,9 @@
                                 <div class="card-footer">
                                     FB : Ministère Prophétique de la Foi • Tél Église : 675028538
                                 </div>
-                            </div>
-                        @endif
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 @endfor
             </div>

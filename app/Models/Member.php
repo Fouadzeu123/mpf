@@ -82,9 +82,11 @@ class Member extends Authenticatable
             return null;
         }
 
-        return str_starts_with($this->photo, 'http')
-            ? $this->photo
-            : asset('storage/'.$this->photo);
+        if (str_starts_with($this->photo, 'http')) {
+            return $this->photo;
+        }
+
+        return url('/members/'.$this->id.'/photo');
     }
 
     public function checkPassword(string $plain): bool

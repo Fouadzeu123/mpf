@@ -22,7 +22,15 @@ class PrintController extends Controller
     public function index(): Response
     {
         return Inertia::render('print/Index', [
-            'members' => Member::orderBy('last_name')->get(['id', 'first_name', 'last_name', 'member_code']),
+            'members' => Member::orderBy('last_name')->get(['id', 'first_name', 'last_name', 'member_code', 'photo'])
+                ->map(fn ($m) => [
+                    'id' => $m->id,
+                    'first_name' => $m->first_name,
+                    'last_name' => $m->last_name,
+                    'member_code' => $m->member_code,
+                    'has_photo' => !empty($m->photo),
+                    'photo_url' => $m->photo_url,
+                ]),
             'visitors' => Visitor::where('visit_date', '>=', now()->subDays(30))
                 ->orderBy('visit_date', 'desc')
                 ->get(['id', 'first_name', 'last_name', 'qr_code', 'visit_date']),
@@ -58,7 +66,7 @@ class PrintController extends Controller
             'title' => $title,
             'dateStr' => $dateStr,
             'items' => $members,
-        ])->setPaper('a4', 'landscape');
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->download('liste-membres-'.now()->format('Y-m-d').'.pdf');
     }
@@ -84,7 +92,7 @@ class PrintController extends Controller
             'dateStr' => $dateStr,
             'items' => $attendances,
             'month' => $parsed->translatedFormat('F Y'),
-        ])->setPaper('a4', 'landscape');
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->download('presences-'.$monthInput.'-'.now()->format('Y-m-d').'.pdf');
     }
@@ -114,7 +122,7 @@ class PrintController extends Controller
             'title' => $title,
             'dateStr' => $dateStr,
             'items' => $preparations,
-        ])->setPaper('a4', 'landscape');
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->download('preparations-sainte-cene-'.now()->format('Y-m-d').'.pdf');
     }
@@ -156,7 +164,7 @@ class PrintController extends Controller
             'title' => $title,
             'dateStr' => $dateStr,
             'items' => $members,
-        ])->setPaper('a4', 'landscape');
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->download('absents-cultes-'.now()->format('Y-m-d').'.pdf');
     }
@@ -198,7 +206,7 @@ class PrintController extends Controller
             'title' => $title,
             'dateStr' => $dateStr,
             'items' => $members,
-        ])->setPaper('a4', 'landscape');
+        ])->setPaper('a4', 'portrait');
 
         return $pdf->download('non-prepares-sainte-cene-'.now()->format('Y-m-d').'.pdf');
     }

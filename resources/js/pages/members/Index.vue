@@ -16,6 +16,7 @@ const props = defineProps<{
             department: string | null;
             phone: string | null;
             status: string;
+            photo_url?: string | null;
         }>;
         links: unknown;
     };
@@ -175,7 +176,23 @@ function applyFilters() {
                                 {{ m.member_code }}
                             </td>
                             <td class="px-4 py-3">
-                                {{ m.first_name }} {{ m.last_name }}
+                                <div class="flex items-center gap-3">
+                                    <img
+                                        v-if="m.photo_url"
+                                        :src="m.photo_url"
+                                        class="h-9 w-9 shrink-0 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                                        alt=""
+                                    />
+                                    <div
+                                        v-else
+                                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+                                    >
+                                        {{ m.first_name[0] }}{{ m.last_name[0] }}
+                                    </div>
+                                    <span class="font-medium text-slate-900 dark:text-white">
+                                        {{ m.first_name }} {{ m.last_name }}
+                                    </span>
+                                </div>
                             </td>
                             <td class="px-4 py-3">{{ m.department ?? '—' }}</td>
                             <td class="px-4 py-3">{{ m.phone ?? '—' }}</td>

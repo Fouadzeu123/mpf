@@ -66,7 +66,9 @@ class ScannerService
             'type' => 'attendance',
             'member' => $this->formatMember($member),
             'message' => $result['message'],
-            'duplicate' => $result['duplicate'],
+            'duplicate' => $result['duplicate'] ?? false,
+            'verse' => $result['verse'] ?? null,
+            'whatsapp_sent' => $result['whatsapp_sent'] ?? false,
         ];
     }
 
@@ -82,7 +84,8 @@ class ScannerService
                 'success' => false,
                 'type' => 'communion',
                 'member' => $this->formatMember($member),
-                'message' => 'Préparation déjà enregistrée aujourd\'hui.',
+                'message' => 'Préparation Sainte Cène déjà enregistrée aujourd\'hui (Doublon refusé).',
+                'duplicate' => true,
             ];
         }
 
@@ -93,7 +96,13 @@ class ScannerService
             'type' => 'communion',
             'member' => $this->formatMember($member),
             'preparation' => $preparation,
-            'message' => 'Carte préparée.',
+            'verse' => [
+                'reference' => $preparation->verse_reference,
+                'text' => $preparation->verse_text,
+            ],
+            'whatsapp_sent' => $preparation->whatsapp_sent ?? false,
+            'message' => 'Carte préparée. Verset biblique envoyé sur WhatsApp (' . ($member->phone ?: 'sans numéro') . ').',
+            'duplicate' => false,
         ];
     }
 

@@ -27,6 +27,7 @@ class MemberCardPdfService
             'diacres' => 5,
             'diacre' => 5,
             'chorale' => 6,
+            'communication' => 7,
         ];
 
         $normalize = function($str) {
@@ -143,15 +144,34 @@ class MemberCardPdfService
 
     protected function memberPhotoDataUri(Member $member): string
     {
-        if (! $member->photo || str_starts_with($member->photo, 'http')) {
+        if (! $member->photo) {
             return '';
         }
 
-        $path = Storage::disk('public')->path($member->photo);
+        $photo = $member->photo;
+        if (str_starts_with($photo, 'http')) {
+            if (preg_match('/members\/(\d+)\/photo/', $photo, $m)) {
+                $target = Member::find($m[1]);
+                $photo = $target?->photo ?: '';
+            } elseif (preg_match('/storage\/(.+)$/', $photo, $m)) {
+                $photo = $m[1];
+            }
+        }
+
+        if (! $photo) {
+            return '';
+        }
+
+        $photo = ltrim(str_replace(['public/', 'storage/'], '', $photo), '/');
+        $path = Storage::disk('public')->path($photo);
 
         if (! is_file($path)) {
-            return '';
+            $path = storage_path('app/public/' . $photo);
+            if (! is_file($path)) {
+                return '';
+            }
         }
+
 
         // Try to dynamically resize large profile pictures if the GD library is available
         // to prevent Dompdf from throwing memory/time limit exceptions on multi-megabyte uploads.

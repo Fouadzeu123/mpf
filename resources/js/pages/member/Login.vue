@@ -4,6 +4,7 @@ import { IdCard, KeyRound, LogIn, Download } from 'lucide-vue-next';
 import ChurchLogo from '@/components/ChurchLogo.vue';
 import InputError from '@/components/InputError.vue';
 import ThemeToggle from '@/components/ThemeToggle.vue';
+import { getAppUrl } from '@/lib/utils';
 
 const form = useForm({
     member_code: '',
@@ -101,8 +102,8 @@ function submit() {
         <!-- Android App Download Banner -->
         <div class="mt-6 text-center">
             <a
-                href="/mpf.apk"
-                download
+                :href="getAppUrl('/telecharger-app')"
+                download="mpf.apk"
                 class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-xs font-semibold text-white backdrop-blur-sm transition hover:bg-white/10"
             >
                 <Download class="h-4 w-4 text-amber-500 animate-bounce" />

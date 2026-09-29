@@ -24,7 +24,10 @@ return [
     ],
 
     'whatsapp' => [
-        'driver' => env('WHATSAPP_DRIVER', 'log'),
+        'driver' => env('WHATSAPP_DRIVER', 'infobip'),
+        'infobip_base_url' => env('INFOBIP_BASE_URL'),
+        'infobip_api_key' => env('INFOBIP_API_KEY'),
+        'infobip_sender' => env('INFOBIP_WHATSAPP_SENDER'),
         'twilio_sid' => env('TWILIO_SID'),
         'twilio_token' => env('TWILIO_TOKEN'),
         'twilio_from' => env('TWILIO_WHATSAPP_FROM'),

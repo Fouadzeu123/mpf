@@ -15,6 +15,7 @@ import {
 } from 'lucide-vue-next';
 import MemberCardPreview from '@/components/church/MemberCardPreview.vue';
 import MemberLayout from '@/layouts/MemberLayout.vue';
+import { getAppUrl } from '@/lib/utils';
 
 const props = defineProps<{
     member: {
@@ -333,8 +334,8 @@ function submitContribution() {
                     Installez l'application mobile pour un accès rapide à votre carte membre et une navigation ultra-rapide.
                 </p>
                 <a
-                    href="/mpf.apk"
-                    download
+                    :href="getAppUrl('/telecharger-app')"
+                    download="mpf.apk"
                     class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition hover:bg-primary/90 active:scale-[0.98]"
                 >
                     <Download class="h-4 w-4" />

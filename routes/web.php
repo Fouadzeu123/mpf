@@ -102,3 +102,31 @@ Route::get('storage/{path}', function ($path) {
     ]);
 })->where('path', '.*');
 
+Route::get('telecharger-app', function () {
+    $path = public_path('mpf.apk');
+    if (! file_exists($path)) {
+        $fallback = base_path('android/app/build/outputs/apk/debug/app-debug.apk');
+        if (file_exists($fallback)) {
+            return response()->download($fallback, 'mpf.apk', [
+                'Content-Type' => 'application/vnd.android.package-archive',
+            ]);
+        }
+        abort(404, 'Fichier application introuvable');
+    }
+
+    return response()->download($path, 'mpf.apk', [
+        'Content-Type' => 'application/vnd.android.package-archive',
+    ]);
+})->name('app.download');
+
+Route::get('mpf.apk', function () {
+    $path = public_path('mpf.apk');
+    if (file_exists($path)) {
+        return response()->download($path, 'mpf.apk', [
+            'Content-Type' => 'application/vnd.android.package-archive',
+        ]);
+    }
+
+    return redirect()->route('app.download');
+});
+

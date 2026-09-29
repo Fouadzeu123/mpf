@@ -92,10 +92,10 @@
             padding: 0.3mm;
         }
         .church-name {
-            font-size: 9.2px;
-            font-weight: 800;
+            font-size: 11px;
+            font-weight: 900;
             color: #ffffff !important;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.4px;
             line-height: 1.15;
             opacity: 1 !important;
             text-transform: uppercase;
@@ -111,7 +111,7 @@
             opacity: 1 !important;
         }
         .card-title {
-            font-size: 7.5px;
+            font-size: 7.6px;
             font-weight: 800;
             color: #fef08a !important;
             text-transform: uppercase;
@@ -121,12 +121,12 @@
         }
         .member-badge {
             display: inline-block;
-            font-size: 7.8px;
+            font-size: 8.5px;
             font-weight: 800;
             color: #ffffff !important;
             background: #2563eb;
             border-radius: 4mm;
-            padding: 0.6mm 1.5mm;
+            padding: 0.7mm 1.8mm;
             opacity: 1 !important;
         }
         .card-body {
@@ -166,15 +166,15 @@
             border: 0.8px dashed #1e3a8a;
         }
         .name {
-            font-size: 10px;
-            font-weight: 800;
+            font-size: 11.5px;
+            font-weight: 900;
             color: #000000 !important;
             line-height: 1.15;
             text-transform: uppercase;
             opacity: 1 !important;
         }
         .first-name {
-            font-size: 9px;
+            font-size: 10.2px;
             font-weight: 800;
             color: #1d4ed8 !important;
             line-height: 1.15;
@@ -182,10 +182,10 @@
             opacity: 1 !important;
         }
         .meta {
-            font-size: 7px;
+            font-size: 7.8px;
             font-weight: 600;
             color: #0f172a !important;
-            line-height: 1.25;
+            line-height: 1.28;
             opacity: 1 !important;
         }
         .line {
@@ -204,12 +204,12 @@
         }
         .code {
             display: inline-block;
-            font-size: 7.5px;
+            font-size: 8.2px;
             font-weight: 800;
             color: #ffffff !important;
             background: #0f172a;
             border-radius: 4mm;
-            padding: 0.4mm 1.2mm;
+            padding: 0.5mm 1.5mm;
             margin-top: 0.3mm;
             opacity: 1 !important;
         }
@@ -231,7 +231,7 @@
             opacity: 1 !important;
         }
         .programs {
-            font-size: 6.2px;
+            font-size: 6.8px;
             font-weight: 600;
             color: #1e293b !important;
             text-align: left;
@@ -509,13 +509,13 @@
             opacity: 1 !important;
         }
         .bible-verse {
-            font-size: 6.5px;
+            font-size: 7.2px;
             font-weight: 700;
             color: #1e293b !important;
             font-style: italic;
             text-align: center;
             margin-top: 0.3mm;
-            line-height: 1.2;
+            line-height: 1.25;
             opacity: 1 !important;
         }
         .card-footer {
@@ -523,8 +523,9 @@
             padding-top: 0.25mm;
             border-top: 0.3px solid #94a3b8;
             text-align: center;
-            font-size: 6.2px;
+            font-size: 7px;
             font-weight: 800;
+            letter-spacing: 0.2px;
             color: #0f172a !important;
             opacity: 1 !important;
         }
@@ -715,7 +716,7 @@
                                     @endforeach
                                 </div>
                                 <div class="card-footer">
-                                    FB : Ministère Prophétique de la Foi • Tél Église : 675028538
+                                    FB : Ministère Prophétique de la Foi
                                 </div>
                                 </div>
                             @endif

@@ -21,11 +21,7 @@ class WhatsAppService
             ."« {$text} »\n\n"
             ."Que le Seigneur vous bénisse abondamment !";
 
-        return match (config('services.whatsapp.driver')) {
-            'twilio' => $this->sendViaTwilio($member->phone, $message),
-            'business' => $this->sendViaBusinessApi($member->phone, $message),
-            default => $this->logMessage($member->phone, $message),
-        };
+        return $this->dispatchMessage($member->phone, $message);
     }
 
     public function sendAttendanceVerse(Member $member, string $reference, string $text, ?string $time = null): bool
@@ -42,11 +38,7 @@ class WhatsAppService
             ."« {$text} »\n\n"
             ."Que le Seigneur vous bénisse abondamment !";
 
-        return match (config('services.whatsapp.driver')) {
-            'twilio' => $this->sendViaTwilio($member->phone, $message),
-            'business' => $this->sendViaBusinessApi($member->phone, $message),
-            default => $this->logMessage($member->phone, $message),
-        };
+        return $this->dispatchMessage($member->phone, $message);
     }
 
     /**
@@ -63,7 +55,13 @@ class WhatsAppService
             ."{$text}\n\n"
             .'Que Dieu vous bénisse.';
 
+        return $this->dispatchMessage($phone, $message);
+    }
+
+    protected function dispatchMessage(string $phone, string $message): bool
+    {
         return match (config('services.whatsapp.driver')) {
+            'infobip' => $this->sendViaInfobip($phone, $message),
             'twilio' => $this->sendViaTwilio($phone, $message),
             'business' => $this->sendViaBusinessApi($phone, $message),
             default => $this->logMessage($phone, $message),
@@ -78,6 +76,70 @@ class WhatsAppService
             ."{$reference}\n"
             ."{$text}\n\n"
             .'Que Dieu vous bénisse.';
+    }
+
+    protected function sendViaInfobip(string $phone, string $message): bool
+    {
+        $baseUrl = config('services.whatsapp.infobip_base_url');
+        $apiKey = config('services.whatsapp.infobip_api_key');
+        $from = config('services.whatsapp.infobip_sender');
+
+        if (! $baseUrl || ! $apiKey || ! $from) {
+            Log::warning('Infobip WhatsApp: Configuration incomplète. Veuillez définir INFOBIP_BASE_URL, INFOBIP_API_KEY et INFOBIP_WHATSAPP_SENDER dans votre fichier .env. Le message est consigné dans les logs.', [
+                'has_base_url' => ! empty($baseUrl),
+                'has_api_key' => ! empty($apiKey),
+                'has_sender' => ! empty($from),
+            ]);
+
+            return $this->logMessage($phone, $message);
+        }
+
+        $baseUrl = rtrim($baseUrl, '/');
+        if (! str_starts_with($baseUrl, 'http://') && ! str_starts_with($baseUrl, 'https://')) {
+            $baseUrl = 'https://' . $baseUrl;
+        }
+
+        $endpoint = "{$baseUrl}/whatsapp/1/message/text";
+        $recipient = $this->formatPhone($phone);
+        $cleanFrom = preg_replace('/\D/', '', $from);
+
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'App ' . $apiKey,
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+            ])->timeout(15)->post($endpoint, [
+                'from' => $cleanFrom,
+                'to' => $recipient,
+                'content' => [
+                    'text' => $message,
+                ],
+            ]);
+
+            if ($response->successful()) {
+                Log::info('Infobip WhatsApp envoyé avec succès', [
+                    'to' => $recipient,
+                    'status' => $response->status(),
+                    'data' => $response->json(),
+                ]);
+
+                return true;
+            }
+
+            Log::error('Infobip WhatsApp Erreur API', [
+                'status' => $response->status(),
+                'to' => $recipient,
+                'response' => $response->body(),
+            ]);
+
+            return false;
+        } catch (\Throwable $e) {
+            Log::error('Infobip WhatsApp Exception: ' . $e->getMessage(), [
+                'to' => $recipient,
+            ]);
+
+            return false;
+        }
     }
 
     protected function sendViaTwilio(string $phone, string $message): bool

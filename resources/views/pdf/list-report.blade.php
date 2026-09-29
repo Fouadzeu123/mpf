@@ -87,6 +87,18 @@
             text-transform: uppercase;
             color: #0f172a;
         }
+        .code-badge {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 7.5px;
+            font-weight: 700;
+            color: #1e3a8a;
+            background-color: #eff6ff;
+            border: 0.5px solid #bfdbfe;
+            border-radius: 2px;
+            padding: 1px 3px;
+            margin-right: 4px;
+        }
         .phone-cell {
             font-family: monospace;
             font-size: 8.5px;
@@ -139,33 +151,39 @@
         <tbody>
             @forelse($items as $item)
                 @php
+                    $memberCode = '';
                     $fullName = '—';
                     $phone = '—';
                     $department = '—';
                     $arrivalTime = '—';
 
                     if ($type === 'attendances') {
+                        $memberCode = $item->member?->member_code ?: '';
                         $fullName = $item->member?->full_name ?: '—';
                         $phone = $item->member?->phone ?: '—';
                         $department = $item->member?->department ?: '—';
                         $arrivalTime = $item->scanned_at ? $item->scanned_at->format('H:i') . ($item->scanned_at->isToday() ? '' : ' (' . $item->scanned_at->format('d/m/Y') . ')') : '—';
                     } elseif ($type === 'communion') {
+                        $memberCode = $item->member?->member_code ?: '';
                         $fullName = $item->member?->full_name ?: '—';
                         $phone = $item->member?->phone ?: '—';
                         $department = $item->member?->department ?: '—';
                         $arrivalTime = $item->created_at ? $item->created_at->format('H:i') . ($item->created_at->isToday() ? '' : ' (' . $item->created_at->format('d/m/Y') . ')') : '—';
                     } elseif ($type === 'absents_cultes') {
+                        $memberCode = $item->member_code ?: '';
                         $fullName = $item->full_name ?: '—';
                         $phone = $item->phone ?: '—';
                         $department = $item->department ?: '—';
                         $arrivalTime = 'Absent';
                     } elseif ($type === 'not_prepared_communion') {
+                        $memberCode = $item->member_code ?: '';
                         $fullName = $item->full_name ?: '—';
                         $phone = $item->phone ?: '—';
                         $department = $item->department ?: '—';
                         $arrivalTime = 'Non préparé';
                     } else {
                         // members list
+                        $memberCode = $item->member_code ?: '';
                         $fullName = $item->full_name ?: '—';
                         $phone = $item->phone ?: '—';
                         $department = $item->department ?: '—';
@@ -173,7 +191,12 @@
                     }
                 @endphp
                 <tr>
-                    <td class="name-cell">{{ $fullName }}</td>
+                    <td class="name-cell">
+                        @if(!empty($memberCode))
+                            <span class="code-badge">{{ $memberCode }}</span>
+                        @endif
+                        {{ $fullName }}
+                    </td>
                     <td class="phone-cell">{{ $phone }}</td>
                     <td>{{ $department }}</td>
                     <td class="time-cell">{{ $arrivalTime }}</td>

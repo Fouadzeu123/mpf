@@ -22,7 +22,7 @@ class PrintController extends Controller
     public function index(): Response
     {
         return Inertia::render('print/Index', [
-            'members' => Member::orderBy('last_name')->get(['id', 'first_name', 'last_name', 'member_code', 'photo'])
+            'members' => Member::orderByRaw('LENGTH(member_code) ASC, member_code ASC')->get(['id', 'first_name', 'last_name', 'member_code', 'photo'])
                 ->map(fn ($m) => [
                     'id' => $m->id,
                     'first_name' => $m->first_name,
@@ -41,7 +41,9 @@ class PrintController extends Controller
     {
         $request->validate(['ids' => ['required', 'array'], 'ids.*' => ['integer', 'exists:members,id']]);
 
-        $members = Member::whereIn('id', $request->ids)->get();
+        $members = Member::whereIn('id', $request->ids)
+            ->orderByRaw('LENGTH(member_code) ASC, member_code ASC')
+            ->get();
 
         return $this->pdfService->downloadMembers($members);
     }
@@ -57,7 +59,7 @@ class PrintController extends Controller
 
     public function printMembersList()
     {
-        $members = Member::orderBy('last_name')->orderBy('first_name')->get();
+        $members = Member::orderByRaw('LENGTH(member_code) ASC, member_code ASC')->get();
         $title = "Liste des Membres";
         $dateStr = now()->format('d/m/Y');
 
@@ -78,9 +80,12 @@ class PrintController extends Controller
         $start = $parsed->copy()->startOfMonth();
         $end = $parsed->copy()->endOfMonth();
 
-        $attendances = Attendance::with('member')
-            ->whereBetween('scanned_at', [$start, $end])
-            ->orderBy('scanned_at', 'asc')
+        $attendances = Attendance::select('attendances.*')
+            ->leftJoin('members', 'attendances.member_id', '=', 'members.id')
+            ->with('member')
+            ->whereBetween('attendances.scanned_at', [$start, $end])
+            ->orderByRaw('LENGTH(members.member_code) ASC, members.member_code ASC')
+            ->orderBy('attendances.scanned_at', 'asc')
             ->get();
 
         $title = "Liste des Présences - " . $parsed->translatedFormat('F Y');
@@ -102,19 +107,23 @@ class PrintController extends Controller
         $dateInput = $request->get('date');
         $monthInput = $request->get('month', now()->format('Y-m'));
 
-        $query = CommunionPreparation::with('member');
+        $query = CommunionPreparation::with('member')
+            ->select('communion_preparations.*')
+            ->leftJoin('members', 'communion_preparations.member_id', '=', 'members.id');
 
         if ($dateInput) {
             $parsedDate = Carbon::parse($dateInput);
-            $query->whereDate('created_at', $parsedDate);
+            $query->whereDate('communion_preparations.created_at', $parsedDate);
             $title = "Préparations Sainte Cène du " . $parsedDate->format('d/m/Y');
         } else {
             $parsedMonth = Carbon::parse($monthInput.'-01');
-            $query->whereBetween('created_at', [$parsedMonth->copy()->startOfMonth(), $parsedMonth->copy()->endOfMonth()]);
+            $query->whereBetween('communion_preparations.created_at', [$parsedMonth->copy()->startOfMonth(), $parsedMonth->copy()->endOfMonth()]);
             $title = "Préparations Sainte Cène - " . $parsedMonth->translatedFormat('F Y');
         }
 
-        $preparations = $query->orderBy('created_at', 'asc')->get();
+        $preparations = $query->orderByRaw('LENGTH(members.member_code) ASC, members.member_code ASC')
+            ->orderBy('communion_preparations.created_at', 'asc')
+            ->get();
         $dateStr = now()->format('d/m/Y');
 
         $pdf = Pdf::loadView('pdf.list-report', [
@@ -156,7 +165,7 @@ class PrintController extends Controller
             $title = "Absents au Culte - " . $parsedMonth->translatedFormat('F Y');
         }
 
-        $members = $query->orderBy('last_name')->orderBy('first_name')->get();
+        $members = $query->orderByRaw('LENGTH(members.member_code) ASC, members.member_code ASC')->get();
         $dateStr = now()->format('d/m/Y');
 
         $pdf = Pdf::loadView('pdf.list-report', [
@@ -198,7 +207,7 @@ class PrintController extends Controller
             $title = "Membres sans Préparation Sainte Cène - " . $parsedMonth->translatedFormat('F Y');
         }
 
-        $members = $query->orderBy('last_name')->orderBy('first_name')->get();
+        $members = $query->orderByRaw('LENGTH(members.member_code) ASC, members.member_code ASC')->get();
         $dateStr = now()->format('d/m/Y');
 
         $pdf = Pdf::loadView('pdf.list-report', [

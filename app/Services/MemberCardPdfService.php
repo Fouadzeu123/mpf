@@ -41,17 +41,20 @@ class MemberCardPdfService
             return $str;
         };
 
-        $sortedMembers = collect($members)->sortBy(function (Member $m) use ($priority, $normalize) {
-            $depts = explode(',', $m->department ?? '');
-            $minPriority = 999;
-            foreach ($depts as $dept) {
-                $norm = $normalize($dept);
-                if (isset($priority[$norm])) {
-                    $minPriority = min($minPriority, $priority[$norm]);
+        $sortedMembers = collect($members)->sortBy([
+            function (Member $m) use ($priority, $normalize) {
+                $depts = explode(',', $m->department ?? '');
+                $minPriority = 999;
+                foreach ($depts as $dept) {
+                    $norm = $normalize($dept);
+                    if (isset($priority[$norm])) {
+                        $minPriority = min($minPriority, $priority[$norm]);
+                    }
                 }
-            }
-            return $minPriority;
-        })->values();
+                return $minPriority;
+            },
+            fn (Member $m) => str_pad($m->member_code ?? '', 20, '0', STR_PAD_LEFT),
+        ])->values();
 
         $cards = $this->buildMemberCards($sortedMembers);
 

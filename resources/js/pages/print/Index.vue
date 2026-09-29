@@ -219,7 +219,7 @@ function printMembers() {
                 </div>
                 <div class="mb-3 flex items-center justify-between text-xs text-muted-foreground">
                     <p>
-                        Format fini des cartes : <strong>85 × 55 mm</strong> avec <strong>3 mm de fond perdu</strong> (91 × 61 mm). Disposées à raison de <strong>8 cartes par page A4</strong> (2 colonnes × 4 lignes).
+                        Format fini des cartes : <strong>85 × 55 mm</strong> avec <strong>3 mm de fond perdu</strong> (91 × 61 mm). Disposées à raison de <strong>10 cartes par page A4</strong> (2 colonnes × 5 rangées).
                     </p>
                     <span class="font-medium text-slate-700 dark:text-slate-300">
                         {{ selectedMembers.length }} sélectionné(s) / {{ members.length }} membres

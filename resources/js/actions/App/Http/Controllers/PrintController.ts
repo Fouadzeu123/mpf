@@ -134,7 +134,7 @@ members.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     members.form = membersForm
 /**
 * @see \App\Http\Controllers\PrintController::visitors
- * @see app/Http/Controllers/PrintController.php:49
+ * @see app/Http/Controllers/PrintController.php:51
  * @route '/impression/visiteurs'
  */
 export const visitors = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -149,7 +149,7 @@ visitors.definition = {
 
 /**
 * @see \App\Http\Controllers\PrintController::visitors
- * @see app/Http/Controllers/PrintController.php:49
+ * @see app/Http/Controllers/PrintController.php:51
  * @route '/impression/visiteurs'
  */
 visitors.url = (options?: RouteQueryOptions) => {
@@ -158,7 +158,7 @@ visitors.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PrintController::visitors
- * @see app/Http/Controllers/PrintController.php:49
+ * @see app/Http/Controllers/PrintController.php:51
  * @route '/impression/visiteurs'
  */
 visitors.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -168,7 +168,7 @@ visitors.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\PrintController::visitors
- * @see app/Http/Controllers/PrintController.php:49
+ * @see app/Http/Controllers/PrintController.php:51
  * @route '/impression/visiteurs'
  */
     const visitorsForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -178,7 +178,7 @@ visitors.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\PrintController::visitors
- * @see app/Http/Controllers/PrintController.php:49
+ * @see app/Http/Controllers/PrintController.php:51
  * @route '/impression/visiteurs'
  */
         visitorsForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -189,7 +189,7 @@ visitors.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     visitors.form = visitorsForm
 /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
 export const printMembersList = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -204,7 +204,7 @@ printMembersList.definition = {
 
 /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
 printMembersList.url = (options?: RouteQueryOptions) => {
@@ -213,7 +213,7 @@ printMembersList.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
 printMembersList.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -222,7 +222,7 @@ printMembersList.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => 
 })
 /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
 printMembersList.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -232,7 +232,7 @@ printMembersList.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
 
     /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
     const printMembersListForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -242,7 +242,7 @@ printMembersList.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
 
             /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
         printMembersListForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -251,7 +251,7 @@ printMembersList.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
         })
             /**
 * @see \App\Http\Controllers\PrintController::printMembersList
- * @see app/Http/Controllers/PrintController.php:58
+ * @see app/Http/Controllers/PrintController.php:60
  * @route '/impression/liste-membres'
  */
         printMembersListForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -267,7 +267,7 @@ printMembersList.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
     printMembersList.form = printMembersListForm
 /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
 export const printMonthlyAttendances = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -282,7 +282,7 @@ printMonthlyAttendances.definition = {
 
 /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
 printMonthlyAttendances.url = (options?: RouteQueryOptions) => {
@@ -291,7 +291,7 @@ printMonthlyAttendances.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
 printMonthlyAttendances.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -300,7 +300,7 @@ printMonthlyAttendances.get = (options?: RouteQueryOptions): RouteDefinition<'ge
 })
 /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
 printMonthlyAttendances.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -310,7 +310,7 @@ printMonthlyAttendances.head = (options?: RouteQueryOptions): RouteDefinition<'h
 
     /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
     const printMonthlyAttendancesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -320,7 +320,7 @@ printMonthlyAttendances.head = (options?: RouteQueryOptions): RouteDefinition<'h
 
             /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
         printMonthlyAttendancesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -329,7 +329,7 @@ printMonthlyAttendances.head = (options?: RouteQueryOptions): RouteDefinition<'h
         })
             /**
 * @see \App\Http\Controllers\PrintController::printMonthlyAttendances
- * @see app/Http/Controllers/PrintController.php:74
+ * @see app/Http/Controllers/PrintController.php:76
  * @route '/impression/presences-mois'
  */
         printMonthlyAttendancesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -345,7 +345,7 @@ printMonthlyAttendances.head = (options?: RouteQueryOptions): RouteDefinition<'h
     printMonthlyAttendances.form = printMonthlyAttendancesForm
 /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
 export const printCommunionPrepared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -360,7 +360,7 @@ printCommunionPrepared.definition = {
 
 /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
 printCommunionPrepared.url = (options?: RouteQueryOptions) => {
@@ -369,7 +369,7 @@ printCommunionPrepared.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
 printCommunionPrepared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -378,7 +378,7 @@ printCommunionPrepared.get = (options?: RouteQueryOptions): RouteDefinition<'get
 })
 /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
 printCommunionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -388,7 +388,7 @@ printCommunionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'he
 
     /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
     const printCommunionPreparedForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -398,7 +398,7 @@ printCommunionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'he
 
             /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
         printCommunionPreparedForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -407,7 +407,7 @@ printCommunionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'he
         })
             /**
 * @see \App\Http\Controllers\PrintController::printCommunionPrepared
- * @see app/Http/Controllers/PrintController.php:100
+ * @see app/Http/Controllers/PrintController.php:105
  * @route '/impression/communion-prepares'
  */
         printCommunionPreparedForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -423,7 +423,7 @@ printCommunionPrepared.head = (options?: RouteQueryOptions): RouteDefinition<'he
     printCommunionPrepared.form = printCommunionPreparedForm
 /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
 export const printAbsentsCulte = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -438,7 +438,7 @@ printAbsentsCulte.definition = {
 
 /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
 printAbsentsCulte.url = (options?: RouteQueryOptions) => {
@@ -447,7 +447,7 @@ printAbsentsCulte.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
 printAbsentsCulte.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -456,7 +456,7 @@ printAbsentsCulte.get = (options?: RouteQueryOptions): RouteDefinition<'get'> =>
 })
 /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
 printAbsentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -466,7 +466,7 @@ printAbsentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
 
     /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
     const printAbsentsCulteForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -476,7 +476,7 @@ printAbsentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
 
             /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
         printAbsentsCulteForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -485,7 +485,7 @@ printAbsentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
         })
             /**
 * @see \App\Http\Controllers\PrintController::printAbsentsCulte
- * @see app/Http/Controllers/PrintController.php:130
+ * @see app/Http/Controllers/PrintController.php:139
  * @route '/impression/absents-culte'
  */
         printAbsentsCulteForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -501,7 +501,7 @@ printAbsentsCulte.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
     printAbsentsCulte.form = printAbsentsCulteForm
 /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
 export const printNotPreparedCommunion = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -516,7 +516,7 @@ printNotPreparedCommunion.definition = {
 
 /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
 printNotPreparedCommunion.url = (options?: RouteQueryOptions) => {
@@ -525,7 +525,7 @@ printNotPreparedCommunion.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
 printNotPreparedCommunion.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -534,7 +534,7 @@ printNotPreparedCommunion.get = (options?: RouteQueryOptions): RouteDefinition<'
 })
 /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
 printNotPreparedCommunion.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -544,7 +544,7 @@ printNotPreparedCommunion.head = (options?: RouteQueryOptions): RouteDefinition<
 
     /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
     const printNotPreparedCommunionForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -554,7 +554,7 @@ printNotPreparedCommunion.head = (options?: RouteQueryOptions): RouteDefinition<
 
             /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
         printNotPreparedCommunionForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -563,7 +563,7 @@ printNotPreparedCommunion.head = (options?: RouteQueryOptions): RouteDefinition<
         })
             /**
 * @see \App\Http\Controllers\PrintController::printNotPreparedCommunion
- * @see app/Http/Controllers/PrintController.php:172
+ * @see app/Http/Controllers/PrintController.php:181
  * @route '/impression/communion-non-prepares'
  */
         printNotPreparedCommunionForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

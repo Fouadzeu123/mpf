@@ -104,17 +104,18 @@ class WhatsAppService
         $cleanFrom = preg_replace('/\D/', '', $from);
 
         try {
-            $response = Http::withHeaders([
-                'Authorization' => 'App ' . $apiKey,
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ])->timeout(15)->post($endpoint, [
-                'from' => $cleanFrom,
-                'to' => $recipient,
-                'content' => [
-                    'text' => $message,
-                ],
-            ]);
+            $response = Http::withOptions(['verify' => false])
+                ->withHeaders([
+                    'Authorization' => 'App ' . $apiKey,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ])->timeout(15)->post($endpoint, [
+                    'from' => $cleanFrom,
+                    'to' => $recipient,
+                    'content' => [
+                        'text' => $message,
+                    ],
+                ]);
 
             if ($response->successful()) {
                 Log::info('Infobip WhatsApp envoyé avec succès', [
@@ -138,6 +139,56 @@ class WhatsAppService
                 'to' => $recipient,
             ]);
 
+            return false;
+        }
+    }
+
+    public function sendTemplateViaInfobip(string $phone, string $templateName, array $placeholders = [], string $language = 'en'): bool
+    {
+        $baseUrl = config('services.whatsapp.infobip_base_url');
+        $apiKey = config('services.whatsapp.infobip_api_key');
+        $from = config('services.whatsapp.infobip_sender');
+
+        if (! $baseUrl || ! $apiKey || ! $from) {
+            return false;
+        }
+
+        $baseUrl = rtrim($baseUrl, '/');
+        if (! str_starts_with($baseUrl, 'http://') && ! str_starts_with($baseUrl, 'https://')) {
+            $baseUrl = 'https://' . $baseUrl;
+        }
+
+        $endpoint = "{$baseUrl}/whatsapp/1/message/template";
+        $recipient = $this->formatPhone($phone);
+        $cleanFrom = preg_replace('/\D/', '', $from);
+
+        try {
+            $response = Http::withOptions(['verify' => false])
+                ->withHeaders([
+                    'Authorization' => 'App ' . $apiKey,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ])->timeout(15)->post($endpoint, [
+                    'messages' => [
+                        [
+                            'from' => $cleanFrom,
+                            'to' => $recipient,
+                            'content' => [
+                                'templateName' => $templateName,
+                                'templateData' => [
+                                    'body' => [
+                                        'placeholders' => $placeholders,
+                                    ],
+                                ],
+                                'language' => $language,
+                            ],
+                        ],
+                    ],
+                ]);
+
+            return $response->successful();
+        } catch (\Throwable $e) {
+            Log::error('Infobip WhatsApp Template Exception: ' . $e->getMessage(), ['to' => $recipient]);
             return false;
         }
     }

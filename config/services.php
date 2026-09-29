@@ -28,6 +28,7 @@ return [
         'infobip_base_url' => env('INFOBIP_BASE_URL'),
         'infobip_api_key' => env('INFOBIP_API_KEY'),
         'infobip_sender' => env('INFOBIP_WHATSAPP_SENDER'),
+        'infobip_template' => env('INFOBIP_TEMPLATE_NAME'),
         'twilio_sid' => env('TWILIO_SID'),
         'twilio_token' => env('TWILIO_TOKEN'),
         'twilio_from' => env('TWILIO_WHATSAPP_FROM'),
